@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Small Data Power Planner. Hero shot: A tiny dataset under a magnifying glass is surrounded by uncertainty bands and sample-size gates. Show before and after, 4 workflow blocks, and the proof callout: Prevents small data from sounding bigger than it is.

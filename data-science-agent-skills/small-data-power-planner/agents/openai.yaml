@@ -1,0 +1,10 @@
+interface:
+  display_name: "Small Data Power Planner"
+  short_description: "Avoid overfitting scarce data"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#D97706"
+  default_prompt: "Use $small-data-power-planner to avoid overfitting scarce data for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
