@@ -1,20 +1,40 @@
-# Notebook To Pipeline Surgeon Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Identify notebook sections: config, IO, transforms, modeling, evaluation, visualization, and side effects.
-- [ ] Extract reusable functions and isolate parameters.
-- [ ] Define CLI or config file and deterministic outputs.
-- [ ] Choose simple scripts first; use Dagster, Kedro, Prefect, or Airflow only when orchestration value is clear.
-- [ ] Return a refactor plan with tests and migration steps.
+Convert exploratory notebooks into modular, parameterized scripts or orchestrated pipeline tasks.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- pipeline extraction map
-- module boundaries
-- parameter contract
-- test plan
-- orchestrator recommendation
+- notebook
+- target runtime
+- data locations
+- expected outputs
+- orchestration preference if any
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Identify notebook sections: config, IO, transforms, modeling, evaluation, visualization, and side effects.
+2. Extract reusable functions and isolate parameters.
+3. Define CLI or config file and deterministic outputs.
+4. Choose simple scripts first; use Dagster, Kedro, Prefect, or Airflow only when orchestration value is clear.
+5. Return a refactor plan with tests and migration steps.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -24,16 +44,10 @@
 - external calls in transform functions
 - orchestrator added without need
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
