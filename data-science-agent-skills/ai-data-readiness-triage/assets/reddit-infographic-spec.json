@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "AI Data Readiness Triage",
+  "hero_shot": "A red/yellow/green AI readiness dashboard floats over a structured warehouse with blocked tables called out.",
+  "proof_callout": "Turns AI optimism into a concrete go or fix-first call.",
+  "palette": {
+    "dark": "#1F2933",
+    "accent": "#10B981",
+    "pale": "#ECFDF5"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for AI Data Readiness Triage. Hero shot: A red/yellow/green AI readiness dashboard floats over a structured warehouse with blocked tables called out. Show before and after, 4 workflow blocks, and the proof callout: Turns AI optimism into a concrete go or fix-first call."
+}

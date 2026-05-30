@@ -1,0 +1,10 @@
+interface:
+  display_name: "AI Data Readiness Triage"
+  short_description: "Score whether data is usable for AI work"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#10B981"
+  default_prompt: "Use $ai-data-readiness-triage to score whether data is usable for ai work for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
