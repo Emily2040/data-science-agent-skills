@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Leakage Adversary. Hero shot: A hidden tunnel between train and test data is exposed under a validation score screen. Show before and after, 4 workflow blocks, and the proof callout: Prevents fake accuracy from reaching production.

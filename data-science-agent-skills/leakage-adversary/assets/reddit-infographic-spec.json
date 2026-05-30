@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Leakage Adversary",
+  "hero_shot": "A hidden tunnel between train and test data is exposed under a validation score screen.",
+  "proof_callout": "Prevents fake accuracy from reaching production.",
+  "palette": {
+    "dark": "#1F2937",
+    "accent": "#8B5CF6",
+    "pale": "#F5F3FF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Leakage Adversary. Hero shot: A hidden tunnel between train and test data is exposed under a validation score screen. Show before and after, 4 workflow blocks, and the proof callout: Prevents fake accuracy from reaching production."
+}
