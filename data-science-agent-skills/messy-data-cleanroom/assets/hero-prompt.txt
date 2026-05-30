@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Messy Data Cleanroom. Hero shot: A raw spreadsheet passes through a transparent cleanroom and exits as a versioned, auditable table. Show before and after, 4 workflow blocks, and the proof callout: Makes cleaning reviewable instead of magical.
