@@ -1,20 +1,40 @@
-# Semantic Lineage Mapper Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Extract table, column, file, feature, model, and artifact references.
-- [ ] Group references into sources, transforms, outputs, and decision surfaces.
-- [ ] Mark unknown or manually managed dependencies instead of dropping them.
-- [ ] Identify high-risk nodes: ownerless, PII, stale, reused, or weakly documented.
-- [ ] Return a lineage map, risk register, and confirmation checklist.
+Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- lineage graph outline
-- risk nodes
-- owner questions
-- unknown dependency list
-- audit narrative
+- SQL files
+- notebooks
+- pipeline configs
+- dashboard definitions
+- model feature lists
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Extract table, column, file, feature, model, and artifact references.
+2. Group references into sources, transforms, outputs, and decision surfaces.
+3. Mark unknown or manually managed dependencies instead of dropping them.
+4. Identify high-risk nodes: ownerless, PII, stale, reused, or weakly documented.
+5. Return a lineage map, risk register, and confirmation checklist.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -24,16 +44,10 @@
 - PII source unclear
 - ownerless table
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
