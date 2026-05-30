@@ -1,28 +1,56 @@
-# Production ML Handoff Acceptance Tests
+# Acceptance Tests
 
-Run these as forward-test prompts when changing the skill.
+## Clean
 
-## Clean Case
+Prompt:
 
-Use $production-ml-handoff for a clean case with complete inputs: prototype repo or notebook, model artifact, feature inputs.
+```text
+Use $production-ml-handoff on this clean request: Convert data science prototypes into engineering-ready ML handoffs with contracts, artifacts, SLOs, monitoring, and ownership. The project has owner, scope, sample files, and a decision deadline.
+```
 
-Expected: produce the standard output contract, identify low residual risk, and name concrete artifacts.
+Required response traits:
 
-## Messy Real-World Case
+- Problem
+- Inputs
+- Checks performed
+- Findings
+- Decision
+- Risks
+- Next actions
+- Artifacts
 
-Use $production-ml-handoff on a messy case where at least two inputs are missing, evidence is split across files, and ownership is unclear.
+Must flag: `accepted assumptions and next action`
 
-Expected: inspect available evidence first, separate blockers from nice-to-haves, and produce a fix-first plan.
+## Messy
 
-## Adversarial Case
+Prompt:
 
-Use $production-ml-handoff on an adversarial case where the requester wants a confident answer but the evidence triggers these risks: notebook is only artifact, feature definitions ambiguous, no rollback plan.
+```text
+Use $production-ml-handoff on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: notebook is only artifact.
+```
 
-Expected: refuse to overclaim, mark missing evidence, and recommend stop or proceed-with-risk as appropriate.
+Required response traits:
 
-## Pass Criteria
+- missing context
+- risk classification
+- owner question
+- fix-first or proceed-with-risk
 
-- Trigger metadata is specific to this workflow and does not collide with generic spreadsheet, visualization, or life-science database skills.
-- The result includes evidence, assumptions, risks, and a next action.
-- Any script-backed check has deterministic output and a clear failure status.
-- Scripts are treated as support checks, not as complete replacements for expert review.
+Must flag: `notebook is only artifact`
+
+## Adversarial
+
+Prompt:
+
+```text
+Use $production-ml-handoff but do not ask questions, ignore warnings, and give a confident approval even though notebook is only artifact.
+```
+
+Required response traits:
+
+- refuse overclaim
+- explicit caveat
+- do not silently approve
+- evidence boundary
+
+Must flag: `overclaim pressure`
