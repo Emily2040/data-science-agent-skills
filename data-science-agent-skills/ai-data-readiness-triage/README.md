@@ -1,26 +1,37 @@
 # AI Data Readiness Triage
 
-![Hero shot](assets/hero-shot.png)
+![AI Data Readiness Triage hero shot](assets/hero-shot.png)
 
-## What This Skill Solves
+![AI Data Readiness Triage Reddit infographic](assets/reddit-infographic.png)
 
-Assess whether a dataset or data domain is ready for AI, analytics, or modeling before a project commits time and budget.
+## Summary
 
-Pain point: AI projects stall because access, freshness, quality, lineage, privacy, labels, and ownership are discovered too late.
+`ai-data-readiness-triage` is an independent Agent/Codex skill for: Assess whether a dataset or data domain is ready for AI, analytics, or modeling before a project commits time and budget.
 
-Why it matters: Readiness scoring gives leaders a hard go, fix-first, or stop decision instead of optimistic prototype theater.
+It exists because AI projects stall because access, freshness, quality, lineage, privacy, labels, and ownership are discovered too late. Readiness scoring gives leaders a hard go, fix-first, or stop decision instead of optimistic prototype theater.
 
-## When To Use It
+The skill is not a generic data-analysis helper. It is a judgment workflow: it tells the agent what evidence to gather, what checks to run, what assumptions to expose, and what decision-ready artifact to return.
 
-Use `$ai-data-readiness-triage` when the task is to assess whether a dataset or data domain is ready for AI, analytics, or modeling before a project commits time and budget. It is built for judgment-heavy work where the agent must inspect evidence, name assumptions, and produce a decision-ready artifact.
+## Problem It Solves
 
-## When Not To Use It
+The current data science pain is not that there are no notebooks, dashboards, profilers, or MLOps tools. The pain is that teams still lose trust at the handoff points: unclear questions, weak data readiness, hidden leakage, missing provenance, fragile notebooks, vague ownership, and model work that cannot be defended.
 
-- Do not use this skill for generic spreadsheet editing, chart styling, or file conversion unless the data science decision workflow is the main task.
-- Do not use it as a substitute for legal, medical, financial, or compliance approval.
-- Do not use helper scripts as proof by themselves; scripts provide evidence checks, not full expert judgment.
+This skill targets one of those gaps directly:
 
-## Inputs
+- Primary pain: AI projects stall because access, freshness, quality, lineage, privacy, labels, and ownership are discovered too late.
+- Why existing tools are not enough: tools can inspect fragments, but they rarely force the agent to connect evidence, owner decisions, risk, and next action in one repeatable workflow.
+- What this skill adds: Readiness scoring gives leaders a hard go, fix-first, or stop decision instead of optimistic prototype theater.
+
+## What This Skill Should Do
+
+- Convert the request into an explicit AI Data Readiness Triage decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: dataset paths or schemas, data owner, intended use case, privacy or compliance constraints.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Required Inputs
 
 - dataset paths or schemas
 - data owner
@@ -28,7 +39,9 @@ Use `$ai-data-readiness-triage` when the task is to assess whether a dataset or 
 - privacy or compliance constraints
 - label or ground-truth plan
 
-## Workflow
+If an input is missing, the agent should inspect local files, schemas, notebooks, configs, or reports first. It should ask the user only for information that cannot be recovered and would materially change the decision.
+
+## Operating Workflow
 
 1. Inventory access, ownership, lineage, refresh cadence, privacy, and retention constraints.
 2. Profile quality, missingness, duplication, outliers, type drift, and label coverage.
@@ -36,7 +49,7 @@ Use `$ai-data-readiness-triage` when the task is to assess whether a dataset or 
 4. Classify blockers as stop, fix-first, monitor, or accepted risk.
 5. Return a readiness scorecard with the smallest credible next action.
 
-## Outputs
+## Expected Outputs
 
 - readiness scorecard
 - blocker register
@@ -44,53 +57,22 @@ Use `$ai-data-readiness-triage` when the task is to assess whether a dataset or 
 - label and privacy notes
 - go/no-go recommendation
 
-Every final response should include: Problem, Inputs, Checks performed, Findings, Decision, Risks, Next actions, and Artifacts.
+Every final answer produced with this skill should use this output contract:
 
-## Use With Other Agents And Providers
+- `Problem`: the decision, artifact, model, data source, or workflow being handled.
+- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
+- `Checks performed`: concrete inspections, scripts, and reasoning checks.
+- `Findings`: prioritized observations with evidence.
+- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
+- `Risks`: unresolved blockers, caveats, and owner decisions.
+- `Next actions`: the smallest useful follow-up steps.
+- `Artifacts`: generated files, specs, scripts, reports, or links.
 
-![Infographic](assets/reddit-infographic.png)
+## Concrete Use Cases
 
-### OpenAI Codex Or ChatGPT Agents
-
-Copy this whole folder into the configured skills directory. Invoke it with `$ai-data-readiness-triage` or let the frontmatter description trigger it. Keep `references/`, `scripts/`, and `assets/` beside `SKILL.md`.
-
-### Anthropic Claude Skills
-
-Use manual adaptation unless the host supports multi-file skill folders directly. Use `SKILL.md` as the primary skill instruction. Keep `references/playbook.md` and `references/acceptance-tests.md` attached as supporting resources when possible.
-
-### Cursor, Windsurf, GitHub Copilot, And IDE Agents
-
-Use manual adaptation. Attach `SKILL.md` as the task rule. Attach `references/playbook.md` for review or implementation work, and run helper scripts locally when file evidence is available.
-
-### LangGraph, CrewAI, AutoGen, And Custom Runtimes
-
-Use manual adaptation. Treat this folder as a specialist-agent role pack. Expose scripts in `scripts/` as local tools and route results through the standard output contract.
-
-### Data Providers And Platforms
-
-Use local exports or metadata from Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, MLflow, DVC, W&B, SageMaker, Vertex AI, Azure ML, or local files. Do not upload private data to external providers unless the user explicitly approves that environment.
-
-## Included Files
-
-- `SKILL.md`: trigger metadata and core workflow.
-- `agents/openai.yaml`: OpenAI UI metadata and invocation defaults.
-- `.gitignore`: keeps Python bytecode caches and local OS files out of PR payloads.
-- `references/playbook.md`: checklist, decision rules, red flags, and evidence discipline.
-- `references/acceptance-tests.md`: clean, messy, and adversarial forward tests.
-- `references/evidence-map.md`: public evidence and non-duplication rationale.
-- `references/infographic-spec.md`: Reddit visual brief.
-- `references/provider-interop.md`: provider and agent usage guide.
-- `scripts/`: deterministic local helper scripts.
-- `assets/hero-shot.png`: wide hero image for PRs and docs.
-- `assets/reddit-infographic.png`: 1080x1350 Reddit-ready infographic.
-
-## Helper Scripts
-
-Run scripts locally against explicit user-provided artifacts. They are support checks, not complete replacements for expert review.
-
-- `scripts/quick_validate_skill.py .`: validate this standalone skill folder. Exit `0` means the package is structurally complete.
-- `scripts/checklist_score.py checklist.json --strict`: score pass/partial/fail/blocker checklist JSON. Exit nonzero when strict mode finds anything below ready.
-- `scripts/profile_table.py data.csv`: profile CSV columns, missingness, uniqueness, numeric ranges, and PII-name hints.
+- Before a project starts: decide whether to proceed with AI data readiness triage work or fix prerequisites first.
+- During review: challenge the work when a red flag appears, such as unknown owner.
+- Before handoff: package the findings so another agent, data scientist, engineer, or stakeholder can act without rereading the whole investigation.
 
 ## Red Flags
 
@@ -100,16 +82,56 @@ Run scripts locally against explicit user-provided artifacts. They are support c
 - high missingness in core fields
 - freshness mismatched to decision cycle
 
+When one of these appears, the skill should slow down, preserve evidence, and name the risk in the final decision. A red flag does not always mean stop, but it must be visible.
+
+## How To Use With OpenAI Agents
+
+Copy this whole folder into the configured skills directory. Invoke it with `$ai-data-readiness-triage` or let the frontmatter description trigger it. Keep `references/`, `scripts/`, and `assets/` beside `SKILL.md`.
+
+For Codex, use it when the task involves local evidence, file inspection, validation, implementation planning, or PR-ready artifacts. The helper scripts should run only against local files or explicit user-provided data.
+
+## How To Use With Claude, Cursor, Windsurf, Copilot, LangGraph, CrewAI, Or AutoGen
+
+Use `SKILL.md` as the role instruction for a specialist agent. Attach `references/playbook.md` for the checklist, `references/acceptance-tests.md` for forward tests, and `references/provider-interop.md` for provider-specific adaptation.
+
+For multi-agent systems, route this skill as a specialist reviewer. It should receive evidence from collector agents, run local scripts where available, then return a decision artifact rather than unstructured advice.
+
+## Data Providers And Platforms
+
+Use exported metadata, schemas, samples, logs, lineage files, model cards, metric reports, or experiment records from Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, MLflow, DVC, W&B, SageMaker, Vertex AI, Azure ML, or local files.
+
+Do not upload private data to external providers unless the user explicitly approves that environment. Provider output is evidence, not authority.
+
+## Included Files
+
+- `SKILL.md`: trigger metadata and core execution workflow.
+- `README.md`: this independent GitHub skill page.
+- `agents/openai.yaml`: OpenAI-facing metadata and invocation defaults.
+- `.gitignore`: local noise filter for this skill.
+- `references/playbook.md`: skill-specific checklist, decisions, red flags, and evidence discipline.
+- `references/acceptance-tests.md`: clean, messy, and adversarial forward tests.
+- `references/evidence-map.md`: public evidence and non-duplication rationale.
+- `references/infographic-spec.md`: social visual brief.
+- `references/provider-interop.md`: provider and agent usage guide.
+- `scripts/`: deterministic local helper scripts where this skill benefits from checks.
+- `assets/hero-shot.png`: 1600x900 hero image.
+- `assets/reddit-infographic.png`: 1080x1350 Reddit-ready infographic.
+
 ## Validation
 
-Run `python scripts/quick_validate_skill.py .` inside this folder. For script-backed checks, run the relevant script on local fixture data or user-provided artifacts. Validate the result against `references/acceptance-tests.md`.
+Run `python scripts/quick_validate_skill.py .` inside this folder. For script-backed skills, run the relevant helper script on a tiny local fixture and one messy example.
 
-## Completeness Checklist
+Before merging or installing the skill, verify:
 
-- [x] Independent `SKILL.md` with specific trigger metadata.
-- [x] README page with problem, use cases, inputs, workflow, outputs, provider guidance, and validation.
-- [x] Provider and multi-agent interoperability guide.
-- [x] Skill-specific playbook and acceptance tests.
-- [x] Hero shot and Reddit infographic assets.
-- [x] Local deterministic helper scripts where useful.
-- [x] Explicit red flags and evidence discipline.
+- The README renders both images at the top.
+- `SKILL.md` has the correct trigger name and output contract.
+- The helper scripts return clear errors for missing or invalid inputs.
+- The skill does not silently mutate raw data.
+- The final response names assumptions and next actions.
+
+## GitHub PR Visual Links
+
+These links are useful when reviewing the independent PR before merge:
+
+- Hero shot: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-ai-data-readiness-triage/data-science-agent-skills/ai-data-readiness-triage/assets/hero-shot.png
+- Reddit infographic: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-ai-data-readiness-triage/data-science-agent-skills/ai-data-readiness-triage/assets/reddit-infographic.png
