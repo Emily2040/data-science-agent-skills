@@ -13,6 +13,33 @@ Current pain point: Production workflows inherit notebook state, copy-pasted cel
 
 Why this skill exists: A surgical refactor preserves analytical intent while separating parameters, pure transforms, IO, tests, and orchestration.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Notebook To Pipeline Surgeon decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: notebook, target runtime, data locations, expected outputs.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- global mutable state
+- manual cell ordering
+- plot-only outputs used downstream
+- external calls in transform functions
+- orchestrator added without need
+
 ## Required Inputs
 
 - notebook
