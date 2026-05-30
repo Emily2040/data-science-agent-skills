@@ -1,20 +1,41 @@
-# Causal Assumption Scout Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Rewrite the claim as prediction, association, or causal effect.
-- [ ] Define treatment, outcome, population, time window, and estimand.
-- [ ] Draft a DAG-level assumption map and confounder inventory.
-- [ ] Recommend experiment, quasi-experiment, matching, weighting, regression, or do-not-claim-causality.
-- [ ] Return language that is safe for stakeholders and a sensitivity plan.
+Clarify when a data science request needs causal reasoning, what assumptions are required, and what evidence is missing.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- causal claim rewrite
-- assumption map
-- confounder checklist
-- method recommendation
-- safe-language memo
+- proposed claim
+- treatment or intervention
+- outcome
+- population
+- available covariates
+- study design
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Rewrite the claim as prediction, association, or causal effect.
+2. Define treatment, outcome, population, time window, and estimand.
+3. Draft a DAG-level assumption map and confounder inventory.
+4. Recommend experiment, quasi-experiment, matching, weighting, regression, or do-not-claim-causality.
+5. Return language that is safe for stakeholders and a sensitivity plan.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -24,16 +45,10 @@
 - unmeasured confounders
 - effect framed after seeing results
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
