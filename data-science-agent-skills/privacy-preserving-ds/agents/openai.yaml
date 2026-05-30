@@ -1,0 +1,10 @@
+interface:
+  display_name: "Privacy Preserving Data Science"
+  short_description: "Choose safe analysis patterns for sensitive data"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#2F80ED"
+  default_prompt: "Use $privacy-preserving-ds to choose safe analysis patterns for sensitive data for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
