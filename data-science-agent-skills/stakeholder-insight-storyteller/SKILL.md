@@ -13,6 +13,33 @@ Current pain point: Good analysis fails when stakeholders receive charts without
 
 Why this skill exists: Insight storytelling is not decoration; it is the bridge from evidence to responsible action.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Stakeholder Insight Storyteller decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: analysis results, stakeholder audience, decision needed, uncertainties.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- chart has no action
+- claim exceeds design
+- too many caveats with no priority
+- audience not named
+- uncertainty hidden
+
 ## Required Inputs
 
 - analysis results
