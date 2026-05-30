@@ -1,0 +1,76 @@
+{
+  "schema_version": "2026-05-world-class-ds-skill",
+  "name": "evaluation-reality-check",
+  "display_name": "Evaluation Reality Check",
+  "description": "Design evaluation strategies that match task type, deployment setting, time, groups, and decision risk.",
+  "primary_pain": "Offline evaluation often overstates real-world performance because splits, metrics, and benchmarks do not match deployment.",
+  "decision_contract": [
+    "go",
+    "fix-first",
+    "stop",
+    "proceed-with-risk",
+    "needs-owner-review"
+  ],
+  "required_sections": [
+    "Problem",
+    "Inputs",
+    "Checks performed",
+    "Findings",
+    "Decision",
+    "Risks",
+    "Next actions",
+    "Artifacts"
+  ],
+  "supported_agents": [
+    "OpenAI Codex",
+    "ChatGPT Agents",
+    "Anthropic Claude",
+    "Claude Code",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Cursor",
+    "Windsurf",
+    "Goose",
+    "OpenCode",
+    "OpenHands",
+    "Gravity",
+    "LangGraph",
+    "CrewAI",
+    "AutoGen",
+    "LlamaIndex",
+    "Semantic Kernel",
+    "local LLM agents"
+  ],
+  "required_files": [
+    "SKILL.md",
+    "README.md",
+    "MANIFEST.json",
+    "agents/openai.yaml",
+    "references/playbook.md",
+    "references/acceptance-tests.md",
+    "references/provider-interop.md",
+    "references/agent-portability.md",
+    "references/quality-rubric.md",
+    "references/benchmark-plan.md",
+    "tests/test_skill_contract.py",
+    "assets/hero-shot.png",
+    "assets/reddit-infographic.png"
+  ],
+  "image_contract": {
+    "hero-shot.png": {
+      "width": 1600,
+      "height": 900,
+      "purpose": "GitHub README and PR hero"
+    },
+    "reddit-infographic.png": {
+      "width": 1080,
+      "height": 1350,
+      "purpose": "Reddit and social preview"
+    }
+  },
+  "fixtures": [
+    "clean",
+    "messy",
+    "adversarial"
+  ]
+}
