@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Data Question Framing",
+  "hero_shot": "A blurred stakeholder request resolves into a clean decision canvas with target, unit, metric, and owner locked in.",
+  "proof_callout": "Stops wrong-target analysis before data work starts.",
+  "palette": {
+    "dark": "#102A43",
+    "accent": "#2F80ED",
+    "pale": "#F0F7FF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Data Question Framing. Hero shot: A blurred stakeholder request resolves into a clean decision canvas with target, unit, metric, and owner locked in. Show before and after, 4 workflow blocks, and the proof callout: Stops wrong-target analysis before data work starts."
+}
