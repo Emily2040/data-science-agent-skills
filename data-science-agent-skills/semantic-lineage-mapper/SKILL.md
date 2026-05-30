@@ -13,6 +13,33 @@ Current pain point: Teams cannot explain where a metric, feature, or model input
 
 Why this skill exists: Lineage mapping combines static extraction with semantic owner questions so blind spots are visible instead of assumed away.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Semantic Lineage Mapper decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: SQL files, notebooks, pipeline configs, dashboard definitions.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- dashboard-only metric logic
+- manual spreadsheet hop
+- feature generated outside pipeline
+- PII source unclear
+- ownerless table
+
 ## Required Inputs
 
 - SQL files
