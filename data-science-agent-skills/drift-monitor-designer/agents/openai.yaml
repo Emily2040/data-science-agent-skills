@@ -1,0 +1,10 @@
+interface:
+  display_name: "Drift Monitor Designer"
+  short_description: "Design data, concept, and performance drift monitors"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#EF4444"
+  default_prompt: "Use $drift-monitor-designer to design data, concept, and performance drift monitors for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
