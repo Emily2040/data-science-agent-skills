@@ -1,0 +1,10 @@
+interface:
+  display_name: "Causal Assumption Scout"
+  short_description: "Stop predictive work from pretending causality"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#14B8A6"
+  default_prompt: "Use $causal-assumption-scout to stop predictive work from pretending causality for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
