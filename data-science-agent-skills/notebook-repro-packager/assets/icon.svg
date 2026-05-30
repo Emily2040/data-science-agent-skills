@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" rx="64" fill="#1F2933"/>
+  <rect x="44" y="56" width="312" height="224" rx="28" fill="#ECFDF5" opacity="0.96"/>
+  <path d="M84 242 L140 178 L198 214 L260 126 L316 166" fill="none" stroke="#10B981" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="140" cy="178" r="14" fill="#1F2933"/>
+  <circle cx="260" cy="126" r="14" fill="#1F2933"/>
+  <text x="200" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#ECFDF5">NRP</text>
+</svg>
