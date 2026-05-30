@@ -13,6 +13,33 @@ Current pain point: Teams either overbuild feature stores too early or underbuil
 
 Why this skill exists: Feature-store readiness should be based on reuse, freshness, online serving, lineage, ownership, and skew risk.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Feature Store Readiness decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: feature list, training data flow, serving flow, latency needs.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- same feature computed differently online
+- freshness unknown
+- no point-in-time join
+- feature owner unclear
+- feature store proposed without reuse
+
 ## Required Inputs
 
 - feature list
