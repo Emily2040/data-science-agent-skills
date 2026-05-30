@@ -1,0 +1,10 @@
+interface:
+  display_name: "Data Science Incident RCA"
+  short_description: "Diagnose broken models and dashboards"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#14B8A6"
+  default_prompt: "Use $data-science-incident-rca to diagnose broken models and dashboards for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true

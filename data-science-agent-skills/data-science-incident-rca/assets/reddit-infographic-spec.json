@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Data Science Incident RCA",
+  "hero_shot": "An incident timeline converges from symptoms to root cause and prevention controls.",
+  "proof_callout": "Turns outages into reusable prevention.",
+  "palette": {
+    "dark": "#0F172A",
+    "accent": "#14B8A6",
+    "pale": "#F0FDFA"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Data Science Incident RCA. Hero shot: An incident timeline converges from symptoms to root cause and prevention controls. Show before and after, 4 workflow blocks, and the proof callout: Turns outages into reusable prevention."
+}
