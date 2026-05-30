@@ -1,0 +1,10 @@
+interface:
+  display_name: "Metric Design Review Board"
+  short_description: "Align metrics with real decisions"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#8B5CF6"
+  default_prompt: "Use $metric-design-review-board to align metrics with real decisions for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
