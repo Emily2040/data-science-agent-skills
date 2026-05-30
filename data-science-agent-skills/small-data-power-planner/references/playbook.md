@@ -1,20 +1,41 @@
-# Small Data Power Planner Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Identify the decision and minimum useful effect size.
-- [ ] Estimate signal limits, imbalance, uncertainty, and variance risks.
-- [ ] Recommend descriptive, Bayesian, resampling, regularized, or data-collection paths.
-- [ ] Define validation limits and language for uncertainty.
-- [ ] Return a do-model, simplify, or collect-more recommendation.
+Help teams decide what can be learned responsibly from small, imbalanced, expensive, or scarce datasets.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- power and uncertainty note
-- baseline plan
-- validation limits
-- collection recommendation
-- safe communication text
+- sample size
+- outcome rate
+- candidate features
+- effect size of interest
+- cost of errors
+- collection options
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Identify the decision and minimum useful effect size.
+2. Estimate signal limits, imbalance, uncertainty, and variance risks.
+3. Recommend descriptive, Bayesian, resampling, regularized, or data-collection paths.
+4. Define validation limits and language for uncertainty.
+5. Return a do-model, simplify, or collect-more recommendation.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -24,16 +45,10 @@
 - unreported uncertainty
 - high-stakes decision from tiny sample
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
