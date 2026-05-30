@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Feature Store Readiness. Hero shot: Feature shelves show freshness labels, owners, and online/offline parity checks. Show before and after, 4 workflow blocks, and the proof callout: Prevents both feature-store bloat and feature chaos.

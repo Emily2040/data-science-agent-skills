@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Feature Store Readiness",
+  "hero_shot": "Feature shelves show freshness labels, owners, and online/offline parity checks.",
+  "proof_callout": "Prevents both feature-store bloat and feature chaos.",
+  "palette": {
+    "dark": "#1F2937",
+    "accent": "#8B5CF6",
+    "pale": "#F5F3FF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Feature Store Readiness. Hero shot: Feature shelves show freshness labels, owners, and online/offline parity checks. Show before and after, 4 workflow blocks, and the proof callout: Prevents both feature-store bloat and feature chaos."
+}
