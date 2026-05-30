@@ -1,0 +1,10 @@
+interface:
+  display_name: "Notebook To Pipeline Surgeon"
+  short_description: "Refactor notebooks into maintainable pipelines"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#F59E0B"
+  default_prompt: "Use $notebook-to-pipeline-surgeon to refactor notebooks into maintainable pipelines for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
