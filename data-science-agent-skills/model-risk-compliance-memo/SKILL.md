@@ -1,6 +1,6 @@
 ---
 name: model-risk-compliance-memo
-description: Create concise model risk and compliance memos for review, audit, launch, or executive approval. Use when Codex needs to handle data science workflows involving create governance-ready model risk memos, including requirements discovery, artifact review, risk analysis, implementation planning, or audit-ready reporting.
+description: Create concise model risk and compliance memos for review, audit, launch, or executive approval. Use when an agent needs a judgment-heavy data science workflow for create governance-ready model risk memos, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
 ---
 
 # Model Risk Compliance Memo
@@ -13,32 +13,25 @@ Current pain point: Data science teams often lack a crisp artifact that explains
 
 Why this skill exists: A standard memo turns model risk from scattered notes into an approval-ready record.
 
+## Operating Rules
+
+- Start by restating the decision this skill is supporting.
+- Inspect local artifacts first before asking for context.
+- Treat scripts as evidence collectors, not as substitutes for judgment.
+- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
+- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
+- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
+- Use the output contract exactly unless the user asks for a different format.
+- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
 
 ## What This Skill Must Do
 
-- Convert the request into an explicit Model Risk Compliance Memo decision rather than a loose analysis task.
-- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
-- Run the skill workflow against local artifacts when available: model purpose, data sources, users affected, evaluation evidence.
-- Separate mechanical checks from judgment calls so another reviewer can audit the result.
-- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
-- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
-
-## Detailed Execution Rules
-
-- Start by restating the decision this skill is meant to support.
-- Inspect local artifacts before asking the user for missing context.
-- Treat script output as evidence, not as the full answer.
-- Preserve raw evidence and avoid silent mutation.
-- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
-- Produce an artifact that another agent or human can review without hidden context.
-
-## Red Flags
-
-- affected users undefined
-- no rollback owner
-- fairness not evaluated where relevant
-- privacy basis unclear
-- monitoring absent
+- Transform a vague request into an explicit Model Risk Compliance Memo decision with named owner, evidence, assumptions, and action threshold.
+- Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
+- Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
+- Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
+- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
+- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
 
 ## Required Inputs
 
@@ -59,30 +52,43 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Document controls, monitoring, rollback, and approval conditions.
 5. Return a memo with open blockers and required signoffs.
 
+## Red Flags
+
+- affected users undefined
+- no rollback owner
+- fairness not evaluated where relevant
+- privacy basis unclear
+- monitoring absent
+
+When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+
 ## Resources
 
-- Read `references/playbook.md` for the skill-specific checklist, decision rules, and failure modes.
-- Read `references/acceptance-tests.md` when validating or forward-testing the skill.
-- Read `references/infographic-spec.md` when creating the Reddit visual or social post.
-- Use scripts in `scripts/` only on local files or explicit user-provided artifacts. Do not upload private data to external services.
+- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
+- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
+- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
+- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
+- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
+
+Use only the specific reference file needed for the task; keep context small.
 
 ## Output Contract
 
 Return these sections unless the user requests another format:
 
-- `Problem`: the decision, artifact, or workflow being handled.
-- `Inputs`: files, data, assumptions, and missing context used.
+- `Problem`: the decision, artifact, model, data source, or workflow being handled.
+- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
 - `Checks performed`: concrete inspections, scripts, and reasoning checks.
 - `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, or proceed-with-risk recommendation.
+- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
 - `Risks`: unresolved blockers, caveats, and owner decisions.
 - `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, or scripts.
+- `Artifacts`: generated files, specs, reports, scripts, or links.
 
 ## Final Checks
 
-- Do not overclaim beyond available evidence.
-- Mark assumptions explicitly instead of hiding them in prose.
-- Prefer simple, auditable recommendations over impressive but fragile tooling.
-- Preserve raw data and original artifacts unless the user explicitly asks for mutation.
-- Keep the final answer short enough for a decision owner to act on.
+- Did the response answer the actual decision, not just analyze data?
+- Did it preserve evidence and avoid silent mutation?
+- Did it name unknowns and owner decisions?
+- Did it include at least one concrete next action?
+- Did it avoid overclaiming causality, readiness, compliance, or production safety?
