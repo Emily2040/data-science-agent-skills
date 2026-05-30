@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Experiment Provenance Ledger",
+  "hero_shot": "An immutable ledger follows every experiment fork from data and code to model and decision.",
+  "proof_callout": "Makes result history inspectable.",
+  "palette": {
+    "dark": "#172554",
+    "accent": "#38BDF8",
+    "pale": "#ECFEFF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Experiment Provenance Ledger. Hero shot: An immutable ledger follows every experiment fork from data and code to model and decision. Show before and after, 4 workflow blocks, and the proof callout: Makes result history inspectable."
+}
