@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Missingness Mechanism Investigator",
+  "hero_shot": "A data matrix has missing cells labeled by mechanism, with imputation paths branching from each label.",
+  "proof_callout": "Turns blanks into explicit assumptions.",
+  "palette": {
+    "dark": "#102A43",
+    "accent": "#2F80ED",
+    "pale": "#F0F7FF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Missingness Mechanism Investigator. Hero shot: A data matrix has missing cells labeled by mechanism, with imputation paths branching from each label. Show before and after, 4 workflow blocks, and the proof callout: Turns blanks into explicit assumptions."
+}
