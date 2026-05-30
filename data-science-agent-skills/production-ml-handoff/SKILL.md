@@ -13,6 +13,33 @@ Current pain point: Engineering teams receive notebooks and model files without 
 
 Why this skill exists: A handoff package prevents prototype ambiguity from becoming production fragility.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Production ML Handoff decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: prototype repo or notebook, model artifact, feature inputs, serving pattern.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- notebook is only artifact
+- feature definitions ambiguous
+- no rollback plan
+- latency unknown
+- owner unclear after launch
+
 ## Required Inputs
 
 - prototype repo or notebook
