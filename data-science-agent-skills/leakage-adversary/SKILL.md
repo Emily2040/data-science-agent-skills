@@ -13,6 +13,33 @@ Current pain point: Models look excellent offline and fail in production because
 
 Why this skill exists: Leakage must be attacked like a failure mode; ordinary metric review usually detects it too late.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Leakage Adversary decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: training data, target definition, split logic, feature list.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- feature timestamp after target
+- same user in train and test
+- global preprocessing before split
+- leaky aggregate
+- near-perfect simple model
+
 ## Required Inputs
 
 - training data
