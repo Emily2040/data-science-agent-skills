@@ -1,20 +1,39 @@
-# Messy Data Cleanroom Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Profile missingness, duplicates, outliers, types, formats, units, and conflicting records.
-- [ ] Separate factual corrections, normalization, exclusions, imputations, and unresolved anomalies.
-- [ ] For each proposed transformation, record rationale, affected rows, risk, and reversal method.
-- [ ] Prefer derived clean columns or versioned outputs over overwriting raw evidence.
-- [ ] Return a cleaning ledger and transformed-data acceptance criteria.
+Design transparent, reversible cleaning plans for messy datasets without silently mutating evidence.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- cleaning ledger
-- transformation plan
-- row impact summary
-- reversal plan
-- review questions
+- raw dataset
+- data dictionary if available
+- analysis goal
+- allowed transformation constraints
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Profile missingness, duplicates, outliers, types, formats, units, and conflicting records.
+2. Separate factual corrections, normalization, exclusions, imputations, and unresolved anomalies.
+3. For each proposed transformation, record rationale, affected rows, risk, and reversal method.
+4. Prefer derived clean columns or versioned outputs over overwriting raw evidence.
+5. Return a cleaning ledger and transformed-data acceptance criteria.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -23,16 +42,10 @@
 - unit conversion not documented
 - outlier removal tied to desired result
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
