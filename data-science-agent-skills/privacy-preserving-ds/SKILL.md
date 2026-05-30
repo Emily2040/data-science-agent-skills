@@ -13,6 +13,33 @@ Current pain point: Teams copy sensitive data into notebooks and tools without a
 
 Why this skill exists: Privacy-preserving analysis is a design choice, not a cleanup step after exposure.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Privacy Preserving Data Science decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: data schema or sample, sensitive fields, analysis goal, approved environment.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- raw PII in notebook output
+- unapproved cloud copy
+- identifier kept for convenience
+- synthetic data claimed risk-free
+- exports not reviewed
+
 ## Required Inputs
 
 - data schema or sample
