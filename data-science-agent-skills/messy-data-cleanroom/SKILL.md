@@ -13,6 +13,32 @@ Current pain point: Cleaning decisions get buried in notebooks, making results i
 
 Why this skill exists: A cleanroom workflow treats every transformation as a logged proposal with reason, risk, and reversal path.
 
+
+## What This Skill Must Do
+
+- Convert the request into an explicit Messy Data Cleanroom decision rather than a loose analysis task.
+- List the evidence used, the evidence missing, and the assumptions that are driving the recommendation.
+- Run the skill workflow against local artifacts when available: raw dataset, data dictionary if available, analysis goal, allowed transformation constraints.
+- Separate mechanical checks from judgment calls so another reviewer can audit the result.
+- Return a decision-ready artifact with risks, owner questions, and the smallest next action.
+- Refuse to hide uncertainty. Mark unknown, not applicable, and needs human owner review as separate states.
+
+## Detailed Execution Rules
+
+- Start by restating the decision this skill is meant to support.
+- Inspect local artifacts before asking the user for missing context.
+- Treat script output as evidence, not as the full answer.
+- Preserve raw evidence and avoid silent mutation.
+- Classify each blocker as stop, fix-first, monitor, accepted risk, or owner decision.
+- Produce an artifact that another agent or human can review without hidden context.
+
+## Red Flags
+
+- overwriting raw data
+- dropping rows without impact analysis
+- unit conversion not documented
+- outlier removal tied to desired result
+
 ## Required Inputs
 
 - raw dataset
