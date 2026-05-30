@@ -1,20 +1,40 @@
-# Missingness Mechanism Investigator Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Profile missingness by column, row, group, time, and target relationship.
-- [ ] Classify likely mechanisms as MCAR, MAR, MNAR, structural missing, or unknown.
-- [ ] Identify whether missingness itself should be a feature, exclusion reason, or bias warning.
-- [ ] Recommend complete-case, imputation, indicator, model-based, or sensitivity strategy.
-- [ ] Return a missingness report with assumptions and impact on claims.
+Diagnose missing-data mechanisms and design imputation, exclusion, or sensitivity plans.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- missingness heat map summary
-- mechanism labels
-- imputation plan
-- sensitivity plan
-- claim limitations
+- dataset
+- analysis goal
+- column meanings
+- collection process
+- known reasons for missingness
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Profile missingness by column, row, group, time, and target relationship.
+2. Classify likely mechanisms as MCAR, MAR, MNAR, structural missing, or unknown.
+3. Identify whether missingness itself should be a feature, exclusion reason, or bias warning.
+4. Recommend complete-case, imputation, indicator, model-based, or sensitivity strategy.
+5. Return a missingness report with assumptions and impact on claims.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -24,16 +44,10 @@
 - dropped rows change population
 - no collection-process explanation
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
