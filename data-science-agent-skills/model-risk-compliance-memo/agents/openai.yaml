@@ -1,0 +1,10 @@
+interface:
+  display_name: "Model Risk Compliance Memo"
+  short_description: "Create governance-ready model risk memos"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#D97706"
+  default_prompt: "Use $model-risk-compliance-memo to create governance-ready model risk memos for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true

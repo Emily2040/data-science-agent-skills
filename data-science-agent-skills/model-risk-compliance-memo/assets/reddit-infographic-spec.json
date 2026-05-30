@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Model Risk Compliance Memo",
+  "hero_shot": "A model card is stamped approved with conditions beside a risk register.",
+  "proof_callout": "Makes launch risk review faster and clearer.",
+  "palette": {
+    "dark": "#3A2E00",
+    "accent": "#D97706",
+    "pale": "#FFF7ED"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Model Risk Compliance Memo. Hero shot: A model card is stamped approved with conditions beside a risk register. Show before and after, 4 workflow blocks, and the proof callout: Makes launch risk review faster and clearer."
+}
