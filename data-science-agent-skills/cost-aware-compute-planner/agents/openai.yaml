@@ -1,0 +1,10 @@
+interface:
+  display_name: "Cost Aware Compute Planner"
+  short_description: "Plan GPU, cloud, and sampling costs"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#F59E0B"
+  default_prompt: "Use $cost-aware-compute-planner to plan gpu, cloud, and sampling costs for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
