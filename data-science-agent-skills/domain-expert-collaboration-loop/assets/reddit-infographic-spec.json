@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Domain Expert Collaboration Loop",
+  "hero_shot": "A domain expert and AI agent annotate the same evidence board with assumptions and signoff markers.",
+  "proof_callout": "Keeps agent-assisted data science grounded in reality.",
+  "palette": {
+    "dark": "#102A43",
+    "accent": "#2F80ED",
+    "pale": "#F0F7FF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Domain Expert Collaboration Loop. Hero shot: A domain expert and AI agent annotate the same evidence board with assumptions and signoff markers. Show before and after, 4 workflow blocks, and the proof callout: Keeps agent-assisted data science grounded in reality."
+}

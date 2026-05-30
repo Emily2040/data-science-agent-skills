@@ -1,0 +1,10 @@
+interface:
+  display_name: "Domain Expert Collaboration Loop"
+  short_description: "Structure SME review for agent-assisted DS"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#2F80ED"
+  default_prompt: "Use $domain-expert-collaboration-loop to structure sme review for agent-assisted ds for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
