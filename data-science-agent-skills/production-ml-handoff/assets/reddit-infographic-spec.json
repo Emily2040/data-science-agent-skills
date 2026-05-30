@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Production ML Handoff",
+  "hero_shot": "A prototype crosses through gates into production with API, artifact, SLO, and rollback checks.",
+  "proof_callout": "Makes DS-to-engineering handoff concrete.",
+  "palette": {
+    "dark": "#172554",
+    "accent": "#38BDF8",
+    "pale": "#ECFEFF"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Production ML Handoff. Hero shot: A prototype crosses through gates into production with API, artifact, SLO, and rollback checks. Show before and after, 4 workflow blocks, and the proof callout: Makes DS-to-engineering handoff concrete."
+}

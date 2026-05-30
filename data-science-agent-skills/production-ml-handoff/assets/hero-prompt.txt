@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Production ML Handoff. Hero shot: A prototype crosses through gates into production with API, artifact, SLO, and rollback checks. Show before and after, 4 workflow blocks, and the proof callout: Makes DS-to-engineering handoff concrete.
