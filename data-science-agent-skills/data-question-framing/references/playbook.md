@@ -1,20 +1,39 @@
-# Data Question Framing Playbook
+# Playbook
 
-## Core Checklist
+## Decision This Skill Supports
 
-- [ ] Extract the decision, action, and user or entity affected.
-- [ ] Define the analysis unit, target, time horizon, and comparison baseline.
-- [ ] Separate prediction, causal, descriptive, and operational questions.
-- [ ] Choose success, guardrail, and decision metrics before any modeling plan.
-- [ ] Return a decision canvas with assumptions and unresolved questions.
+Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements.
 
-## Expected Deliverables
+## Evidence Checklist
 
-- decision canvas
-- metric tree
-- assumption log
-- scope boundaries
-- next evidence needed
+- raw stakeholder request
+- available decision or business context
+- known data sources or constraints
+- deadline and decision owner
+
+Also inspect any relevant schemas, notebooks, SQL, pipelines, configs, reports, model cards, experiment logs, tickets, dashboards, or incident notes.
+
+## Execution Checklist
+
+1. Extract the decision, action, and user or entity affected.
+2. Define the analysis unit, target, time horizon, and comparison baseline.
+3. Separate prediction, causal, descriptive, and operational questions.
+4. Choose success, guardrail, and decision metrics before any modeling plan.
+5. Return a decision canvas with assumptions and unresolved questions.
+
+## Decision Ladder
+
+- `go`: evidence is sufficient and red flags are absent or accepted by the owner.
+- `fix-first`: a concrete blocker can be remediated before continuing.
+- `stop`: the work would be misleading, unsafe, unlawful, or untestable.
+- `proceed-with-risk`: the owner accepts named risks and monitoring is specified.
+- `needs-owner-review`: the agent cannot decide without a human owner.
+
+## Evidence Table Template
+
+| Finding | Evidence | Confidence | Owner action |
+| --- | --- | --- | --- |
+| Fill this row | File, query, metric, or observation | high/medium/low | go/fix/stop/review |
 
 ## Red Flags
 
@@ -23,16 +42,10 @@
 - metric can improve while user outcome worsens
 - causal claim hidden inside prediction wording
 
-## Decision Rules
+## Senior Review Questions
 
-- `go`: critical evidence is available, risks are owned, and the next action is reversible or monitored.
-- `fix-first`: the work is valuable but at least one blocker must be remediated before modeling, launch, or stakeholder use.
-- `stop`: the request is misframed, unsafe, untestable, or materially misleading with available evidence.
-- `proceed-with-risk`: the user accepts named risks and the report includes monitoring or rollback conditions.
-
-## Evidence Discipline
-
-- Tie every recommendation to a file, metric, stakeholder claim, or explicit assumption.
-- Separate mechanically observed facts from expert judgment.
-- Use uncertainty language when the evidence is partial.
-- Record unresolved owner questions rather than filling gaps with confident guesses.
+- What would make this recommendation wrong?
+- What evidence is missing but decision-critical?
+- What has to be true at decision time, not just at analysis time?
+- Which artifact lets another reviewer reproduce the check?
+- Which stakeholder owns the risk?
