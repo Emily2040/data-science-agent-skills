@@ -1,0 +1,10 @@
+interface:
+  display_name: "Data Question Framing"
+  short_description: "Turn vague asks into measurable DS problems"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#2F80ED"
+  default_prompt: "Use $data-question-framing to turn vague asks into measurable ds problems for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
