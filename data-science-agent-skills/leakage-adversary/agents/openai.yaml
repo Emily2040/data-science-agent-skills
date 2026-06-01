@@ -1,0 +1,10 @@
+interface:
+  display_name: "Leakage Adversary"
+  short_description: "Attack ML pipelines for leakage"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#8B5CF6"
+  default_prompt: "Use $leakage-adversary to attack ml pipelines for leakage for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
