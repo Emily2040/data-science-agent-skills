@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Missingness Mechanism Investigator. Hero shot: A data matrix has missing cells labeled by mechanism, with imputation paths branching from each label. Show before and after, 4 workflow blocks, and the proof callout: Turns blanks into explicit assumptions.
