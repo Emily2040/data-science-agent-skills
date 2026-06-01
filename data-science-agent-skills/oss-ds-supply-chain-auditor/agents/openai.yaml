@@ -1,0 +1,10 @@
+interface:
+  display_name: "OSS Data Science Supply Chain Auditor"
+  short_description: "Audit DS dependencies, models, data, and licenses"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#10B981"
+  default_prompt: "Use $oss-ds-supply-chain-auditor to audit ds dependencies, models, data, and licenses for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for OSS Data Science Supply Chain Auditor. Hero shot: A dependency graph shows packages, datasets, and models with vulnerable links highlighted. Show before and after, 4 workflow blocks, and the proof callout: Extends security review to DS-specific artifacts.
