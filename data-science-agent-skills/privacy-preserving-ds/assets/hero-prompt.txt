@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Privacy Preserving Data Science. Hero shot: Sensitive data sits inside a locked analysis workspace with only approved aggregates leaving. Show before and after, 4 workflow blocks, and the proof callout: Keeps analysis useful without unnecessary exposure.
