@@ -1,0 +1,10 @@
+interface:
+  display_name: "Experiment Provenance Ledger"
+  short_description: "Capture code, data, env, and decision history"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#38BDF8"
+  default_prompt: "Use $experiment-provenance-ledger to capture code, data, env, and decision history for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
