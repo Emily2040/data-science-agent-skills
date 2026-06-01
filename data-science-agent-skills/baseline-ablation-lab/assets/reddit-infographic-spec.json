@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Baseline Ablation Lab",
+  "hero_shot": "A flashy model is challenged by simple baselines on a lab bench of controlled ablations.",
+  "proof_callout": "Stops expensive complexity from hiding weak value.",
+  "palette": {
+    "dark": "#111827",
+    "accent": "#EF4444",
+    "pale": "#FEF2F2"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Baseline Ablation Lab. Hero shot: A flashy model is challenged by simple baselines on a lab bench of controlled ablations. Show before and after, 4 workflow blocks, and the proof callout: Stops expensive complexity from hiding weak value."
+}

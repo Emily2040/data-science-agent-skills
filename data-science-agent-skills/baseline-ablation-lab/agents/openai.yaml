@@ -1,0 +1,10 @@
+interface:
+  display_name: "Baseline Ablation Lab"
+  short_description: "Force honest baselines and ablations"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#EF4444"
+  default_prompt: "Use $baseline-ablation-lab to force honest baselines and ablations for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
