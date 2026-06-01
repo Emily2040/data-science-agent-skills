@@ -1,0 +1,10 @@
+interface:
+  display_name: "Feature Store Readiness"
+  short_description: "Decide when a feature store is worth it"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#8B5CF6"
+  default_prompt: "Use $feature-store-readiness to decide when a feature store is worth it for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
