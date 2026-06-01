@@ -1,0 +1,10 @@
+interface:
+  display_name: "Notebook Repro Packager"
+  short_description: "Make notebooks runnable elsewhere"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#10B981"
+  default_prompt: "Use $notebook-repro-packager to make notebooks runnable elsewhere for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true

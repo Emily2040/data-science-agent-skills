@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Notebook Repro Packager",
+  "hero_shot": "A chaotic notebook folds into a sealed reproducibility box labeled data, env, seed, and run.",
+  "proof_callout": "Makes a notebook survivable outside its creator's machine.",
+  "palette": {
+    "dark": "#1F2933",
+    "accent": "#10B981",
+    "pale": "#ECFDF5"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Notebook Repro Packager. Hero shot: A chaotic notebook folds into a sealed reproducibility box labeled data, env, seed, and run. Show before and after, 4 workflow blocks, and the proof callout: Makes a notebook survivable outside its creator's machine."
+}

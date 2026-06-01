@@ -1,0 +1,1 @@
+Create a mobile-readable 1080x1350 infographic for Notebook Repro Packager. Hero shot: A chaotic notebook folds into a sealed reproducibility box labeled data, env, seed, and run. Show before and after, 4 workflow blocks, and the proof callout: Makes a notebook survivable outside its creator's machine.
