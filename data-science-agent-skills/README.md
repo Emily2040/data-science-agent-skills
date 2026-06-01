@@ -1,6 +1,12 @@
 # Independent Data Science Skills
 
+![Data Science Agent Skill Map](../assets/repo-skill-map-infographic.png)
+
 This directory contains 25 standalone data-science agent skills. Each folder is independently usable: open the folder, read its `README.md`, and copy the whole folder into the target agent's skill directory.
+
+Every skill folder includes `SKILL.md`, `README.md`, `MANIFEST.json`, `references/`, `scripts/`, `tests/`, `assets/hero-shot.png`, and `assets/reddit-infographic.png`.
+
+## Skill Index
 
 | Skill | Use it when you need to... |
 |---|---|
@@ -30,4 +36,8 @@ This directory contains 25 standalone data-science agent skills. Each folder is 
 | [small-data-power-planner](small-data-power-planner/) | Avoid overfitting and false certainty with scarce data. |
 | [stakeholder-insight-storyteller](stakeholder-insight-storyteller/) | Turn analysis into decision-grade narrative. |
 
-Each folder includes `SKILL.md`, `README.md`, `MANIFEST.json`, `references/`, `scripts/`, `tests/`, and visual assets.
+## Portable Contract
+
+Each skill is written to work with Codex, ChatGPT Agents, Claude, Gemini, Copilot-style agents, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, OpenHands, Goose, OpenCode, and local LLM agents.
+
+The shared output contract is: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
