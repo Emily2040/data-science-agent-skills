@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Notebook To Pipeline Surgeon",
+  "hero_shot": "Notebook pages are separated into clean pipeline stages with parameters and tests attached.",
+  "proof_callout": "Converts exploratory work into repeatable production shape.",
+  "palette": {
+    "dark": "#1E293B",
+    "accent": "#F59E0B",
+    "pale": "#FFFBEB"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Notebook To Pipeline Surgeon. Hero shot: Notebook pages are separated into clean pipeline stages with parameters and tests attached. Show before and after, 4 workflow blocks, and the proof callout: Converts exploratory work into repeatable production shape."
+}
