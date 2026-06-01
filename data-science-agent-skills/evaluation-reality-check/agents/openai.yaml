@@ -1,0 +1,10 @@
+interface:
+  display_name: "Evaluation Reality Check"
+  short_description: "Design trustworthy model evaluation"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#14B8A6"
+  default_prompt: "Use $evaluation-reality-check to design trustworthy model evaluation for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true
