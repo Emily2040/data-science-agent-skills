@@ -1,0 +1,10 @@
+interface:
+  display_name: "Messy Data Cleanroom"
+  short_description: "Design reversible data cleaning plans"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/reddit-infographic.png"
+  brand_color: "#EF4444"
+  default_prompt: "Use $messy-data-cleanroom to design reversible data cleaning plans for this data science workflow."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Messy Data Cleanroom",
+  "hero_shot": "A raw spreadsheet passes through a transparent cleanroom and exits as a versioned, auditable table.",
+  "proof_callout": "Makes cleaning reviewable instead of magical.",
+  "palette": {
+    "dark": "#111827",
+    "accent": "#EF4444",
+    "pale": "#FEF2F2"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Messy Data Cleanroom. Hero shot: A raw spreadsheet passes through a transparent cleanroom and exits as a versioned, auditable table. Show before and after, 4 workflow blocks, and the proof callout: Makes cleaning reviewable instead of magical."
+}
