@@ -1,0 +1,16 @@
+{
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "format": "png"
+  },
+  "title": "Cost Aware Compute Planner",
+  "hero_shot": "A compute cluster has a live cost meter and staged experiment gates.",
+  "proof_callout": "Turns compute spend into intentional evidence gathering.",
+  "palette": {
+    "dark": "#1E293B",
+    "accent": "#F59E0B",
+    "pale": "#FFFBEB"
+  },
+  "reddit_prompt": "Create a mobile-readable 1080x1350 infographic for Cost Aware Compute Planner. Hero shot: A compute cluster has a live cost meter and staged experiment gates. Show before and after, 4 workflow blocks, and the proof callout: Turns compute spend into intentional evidence gathering."
+}
