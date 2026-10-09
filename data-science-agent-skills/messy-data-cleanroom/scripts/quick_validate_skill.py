@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a standalone skill folder for portable use."""
+"""Validate portable skill structure without third-party dependencies."""
 from __future__ import annotations
 
 import argparse
@@ -10,35 +10,29 @@ from pathlib import Path
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate a standalone skill folder.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
-    parser.add_argument("--strict", action="store_true", help="Run full portability contract tests.")
-    parser.add_argument("--json", action="store_true", help="Emit JSON status.")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("skill_dir", nargs="?", default=str(Path(__file__).resolve().parents[1]))
+    parser.add_argument("--strict", action="store_true")
     args = parser.parse_args()
 
     root = Path(args.skill_dir).resolve()
+    errors: list[str] = []
+    for required in ["SKILL.md", "README.md", "MANIFEST.json", "agents/openai.yaml"]:
+        if not (root / required).exists():
+            errors.append(f"missing required file: {required}")
+
     contract = root / "tests" / "test_skill_contract.py"
-    errors = []
-    for rel in ["SKILL.md", "README.md", "MANIFEST.json", "references/playbook.md", "references/acceptance-tests.md", "references/provider-interop.md", "agents/openai.yaml", "assets/hero-shot.png", "assets/reddit-infographic.png"]:
-        if not (root / rel).exists():
-            errors.append(f"missing {rel}")
+    if args.strict:
+        if not contract.exists():
+            errors.append("missing required strict contract test: tests/test_skill_contract.py")
+        else:
+            proc = subprocess.run([sys.executable, str(contract), str(root)], capture_output=True, text=True)
+            if proc.returncode != 0:
+                errors.append(proc.stdout.strip() or proc.stderr.strip() or "contract test failed")
 
-    if args.strict and contract.exists():
-        proc = subprocess.run([sys.executable, str(contract), str(root)], text=True, capture_output=True)
-        if proc.returncode != 0:
-            errors.extend(line.replace("ERROR: ", "") for line in proc.stdout.splitlines() if line.strip())
-            if proc.stderr.strip():
-                errors.append(proc.stderr.strip())
-
-    ok = not errors
-    if args.json:
-        print(json.dumps({"ok": ok, "skill": root.name, "errors": errors}, indent=2))
-    elif ok:
-        print("standalone-skill-ok")
-    else:
-        for error in errors:
-            print(f"ERROR: {error}")
-    return 0 if ok else 1
+    status = "ok" if not errors else "failed"
+    print(json.dumps({"skill": root.name, "status": status, "errors": errors}, indent=2))
+    return 0 if not errors else 1
 
 
 if __name__ == "__main__":

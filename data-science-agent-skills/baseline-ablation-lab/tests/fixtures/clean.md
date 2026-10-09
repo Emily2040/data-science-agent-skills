@@ -1,16 +1,15 @@
-# Baseline Ablation Lab clean Fixture
+# Clean Fixture: `baseline-ablation-lab`
 
-Use $baseline-ablation-lab on this clean request: Design honest baselines and ablations before complex models are accepted. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $baseline-ablation-lab on this clean request: Design honest baselines and ablations before complex models are accepted. The project provides task type, dataset summary, candidate model, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/ablation_delta_audit.py path/to/comparison.json
+```
+
+Expected decision: `go` (with documented assumptions and next action).

@@ -1,10 +1,4 @@
 interface:
   display_name: "Small Data Power Planner"
   short_description: "Avoid overfitting scarce data"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#D97706"
-  default_prompt: "Use $small-data-power-planner to avoid overfitting scarce data for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $small-data-power-planner to help teams decide what can be learned responsibly from small, imbalanced, expensive, or scarce datasets Inspect local artifacts and run scripts/power_sample_size.py first."

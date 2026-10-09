@@ -1,16 +1,15 @@
-# Stakeholder Insight Storyteller clean Fixture
+# Clean Fixture: `stakeholder-insight-storyteller`
 
-Use $stakeholder-insight-storyteller on this clean request: Convert analysis into stakeholder-ready insight narratives that state decisions, evidence, uncertainty, and recommended action without overclaiming. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $stakeholder-insight-storyteller on this clean request: Convert analysis into stakeholder-ready insight narratives that state decisions, evidence, uncertainty, and recommended action without overclaiming. The project provides analysis results, stakeholder audience, decision needed, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/memo_claim_evidence_check.py path/to/executive_memo.json
+```
+
+Expected decision: `go` (with documented assumptions and next action).

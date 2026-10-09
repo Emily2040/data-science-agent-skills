@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "dataset-contract-forensics",
   "display_name": "Dataset Contract Forensics",
-  "description": "Infer practical data contracts, schema expectations, and validation tests from messy real datasets.",
+  "description": "Infer explicit data contracts, primary-key uniqueness rules, value ranges, and freshness SLAs from messy CSV, TSV, or warehouse extracts. Use when turning undocumented upstream tables into enforceable schema and validation tests.",
   "primary_pain": "Data breaks downstream because implicit assumptions about schema, meaning, ranges, uniqueness, and freshness are never written down.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/profile_table.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Dataset Contract Forensics",
+      "short": "Infer and verify schema, grain, uniqueness, freshness, and null contracts",
+      "pain": "Upstream schema changes, duplicate keys, and timezone shifts silently corrupt downstream features and dashboards.",
+      "trigger": "Audit this table extract for primary-key uniqueness, schema drift, and dataset contract violations."
+    },
+    "zh-CN": {
+      "title": "数据契约取证与核验",
+      "short": "逆向推导并校验表结构、主键粒度、唯一性、时效与空值契约",
+      "pain": "上游口径变更、主键重复、枚举新增或时区偏移在无告警情况下悄然污染下游特征与报表。",
+      "trigger": "对这张数据表做契约取证，检查主键唯一性、粒度漂移与字段约束。"
+    },
+    "ja": {
+      "title": "データセット契約フォレンジック",
+      "short": "スキーマ・粒度・一意性・鮮度・欠損ルールを推論し契約違反を検出",
+      "pain": "上流のスキーマ変更や主キー重複、タイムゾーンのズレがサイレントに下流特徴量やダッシュボードを破壊する。",
+      "trigger": "このテーブル抽出データの主キー一意性、粒度、スキーマ契約違反を監査してください。"
+    },
+    "ko": {
+      "title": "데이터셋 계약 포렌식",
+      "short": "스키마·집계 단위(Grain)·고유성·최신성·결측 계약을 추론 및 검증",
+      "pain": "업스트림 스키마 변경, 키 중복, 타임존 불일치가 조용히 다운스트림 피처와 대시보드를 오염시킴.",
+      "trigger": "이 테이블 추출본의 기본키 고유성, 데이터 그레인, 스키마 계약 위반 여부를 포렌식해 줘."
+    }
+  }
 }

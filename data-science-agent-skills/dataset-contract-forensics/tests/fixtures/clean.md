@@ -1,16 +1,15 @@
-# Dataset Contract Forensics clean Fixture
+# Clean Fixture: `dataset-contract-forensics`
 
-Use $dataset-contract-forensics on this clean request: Infer practical data contracts, schema expectations, and validation tests from messy real datasets. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $dataset-contract-forensics on this clean request: Infer practical data contracts, schema expectations, and validation tests from messy real datasets. The project provides CSV, Parquet, JSONL, SQL schema, or sample extracts, downstream use case, known business rules, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/profile_table.py path/to/extract.csv --max-rows 10000
+```
+
+Expected decision: `go` (with documented assumptions and next action).

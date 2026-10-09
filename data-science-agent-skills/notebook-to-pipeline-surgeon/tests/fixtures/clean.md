@@ -1,16 +1,15 @@
-# Notebook To Pipeline Surgeon clean Fixture
+# Clean Fixture: `notebook-to-pipeline-surgeon`
 
-Use $notebook-to-pipeline-surgeon on this clean request: Convert exploratory notebooks into modular, parameterized scripts or orchestrated pipeline tasks. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $notebook-to-pipeline-surgeon on this clean request: Convert exploratory notebooks into modular, parameterized scripts or orchestrated pipeline tasks. The project provides notebook, target runtime, data locations, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/notebook_repro_audit.py path/to/notebook.ipynb
+```
+
+Expected decision: `go` (with documented assumptions and next action).

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "feature-store-readiness",
   "display_name": "Feature Store Readiness",
-  "description": "Decide whether a feature store is needed and design features to avoid training-serving skew, staleness, and reuse confusion.",
+  "description": "Evaluate whether an ML workflow needs a feature store and audit online-versus-offline feature parity. Use when checking point-in-time join correctness, serving latency SLAs, backfill cost, and entity-level value skew across training and serving.",
   "primary_pain": "Teams either overbuild feature stores too early or underbuild shared feature governance until skew breaks models.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/online_offline_skew_check.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Feature Store Readiness",
+      "short": "Audit online-offline feature parity, point-in-time joins, and serving TTL freshness",
+      "pain": "Batch training SQL and real-time serving code compute the same feature differently, causing silent training-serving skew.",
+      "trigger": "Check offline training and online serving feature extracts for entity-level parity and skew."
+    },
+    "zh-CN": {
+      "title": "特征平台就绪度与在线离线一致性",
+      "short": "审计离线训练与在线服务特征的逐实体一致性（Train-Serve Skew）、时间点关联与 TTL 时效",
+      "pain": "离线批处理 SQL 与线上实时服务代码对同一特征的计算口径或窗口存在细微差异，造成隐蔽的线上预测偏移。",
+      "trigger": "比对离线训练特征与在线服务特征抽样表，排查训练-服务不一致性（Skew）与时效滞后。"
+    },
+    "ja": {
+      "title": "特徴量ストア準備度＆オンライン／オフライン整合性",
+      "short": "学習用バッチ特徴量と推論用オンライン特徴量の一致性（Train-Serve Skew）・時点結合・TTLを監査",
+      "pain": "オフラインSQLとオンライン推論コードで特徴量の計算ロジックが微妙に異なり、本番推論時に精度が劣化する。",
+      "trigger": "オフライン学習用とオンライン推論用の特徴量CSVを突合し、エンティティ単位のスキューを検査してください。"
+    },
+    "ko": {
+      "title": "피처 스토어 준비도 및 온라인·오프라인 정합성",
+      "short": "오프라인 학습 피처와 온라인 서빙 피처 간 정합성(Train-Serve Skew), 시점 정합 조인, TTL을 감사",
+      "pain": "배치 학습 SQL과 실시간 서빙 코드의 피처 계산 로직이 미묘하게 달라 운영 환경에서 조용한 예측 왜곡이 발생함.",
+      "trigger": "오프라인 학습 피처와 온라인 서빙 피처 추출본을 비교해 엔티티 단위 스큐(Skew)를 점검해 줘."
+    }
+  }
 }

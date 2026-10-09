@@ -1,12 +1,15 @@
-# Metric Design Review Board messy Fixture
+# Messy Fixture: `metric-design-review-board`
 
-Use $metric-design-review-board on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: metric not tied to action.
+Prompt:
 
-Expected response traits:
+```text
+Use $metric-design-review-board on a messy project where decision context, candidate metrics are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: metric not tied to action.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: metric not tied to action
+```bash
+python scripts/metric_guardrail_check.py path/to/metric_spec.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `metric not tied to action` in `Findings` and `Risks`).

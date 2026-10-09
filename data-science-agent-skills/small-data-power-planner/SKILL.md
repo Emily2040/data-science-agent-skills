@@ -1,6 +1,6 @@
 ---
 name: small-data-power-planner
-description: Help teams decide what can be learned responsibly from small, imbalanced, expensive, or scarce datasets. Use when an agent needs a judgment-heavy data science workflow for avoid overfitting scarce data, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Calculate minimum detectable effect (MDE), sample-size requirements, and events-per-variable ratios for small or rare-event datasets. Use when preventing underpowered experiments and overfitted models on scarce data.
 ---
 
 # Small Data Power Planner
@@ -9,20 +9,20 @@ description: Help teams decide what can be learned responsibly from small, imbal
 
 Help teams decide what can be learned responsibly from small, imbalanced, expensive, or scarce datasets.
 
-Current pain point: Small datasets are forced through high-capacity methods, producing unstable conclusions and overconfident narratives.
+Primary failure mode prevented: small datasets are forced through high-capacity methods, producing unstable conclusions and overconfident narratives.
 
-Why this skill exists: Power, uncertainty, resampling, priors, and simpler baselines must be planned before modeling scarce data.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`sample size, outcome rate, candidate features, effect size of interest`) must be audited for red flags such as `more features than observations`, `rare outcome with random split`, `single holdout set only`, `unreported uncertainty`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/power_sample_size.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`more features than observations`, `rare outcome with random split`, `single holdout set only`, `unreported uncertainty`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,19 +30,16 @@ Why this skill exists: Power, uncertainty, resampling, priors, and simpler basel
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `power and uncertainty note`, `baseline plan`, `validation limits`, `collection recommendation`, `safe communication text`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- sample size
-- outcome rate
-- candidate features
-- effect size of interest
-- cost of errors
-- collection options
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/power_sample_size.py --n-per-arm 120 --baseline-std 1.0 --features 6 --events 90
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -52,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Define validation limits and language for uncertainty.
 5. Return a do-model, simplify, or collect-more recommendation.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- more features than observations
-- rare outcome with random split
-- single holdout set only
-- unreported uncertainty
-- high-stakes decision from tiny sample
+- **English**: Small Data Power Planner — Calculate minimum detectable effect (MDE), sample power, and low-N overfitting bounds.
+- **简体中文**: 小样本统计功效与容量规划 — 计算最小可检测效应（MDE）、统计功效与小样本过拟合边界（参见 `references/multilingual-guide.md`）。
+- **日本語**: 小標本検出力・MDEプランナー — 最小検出可能効果（MDE）・統計的検出力・少数サンプルでの過学習境界を算出（`references/multilingual-guide.md` を参照）。
+- **한국어**: 소표본 검정력·MDE 플래너 — 최소감지효과(MDE), 통계적 검정력, 소표본 과적합 경계(EPV)를 산출 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

@@ -1,16 +1,15 @@
-# Drift Monitor Designer clean Fixture
+# Clean Fixture: `drift-monitor-designer`
 
-Use $drift-monitor-designer on this clean request: Design drift monitoring for production models and data products across data, concept, performance, and operational signals. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $drift-monitor-designer on this clean request: Design drift monitoring for production models and data products across data, concept, performance, and operational signals. The project provides model purpose, features, prediction logs, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/drift_probe.py path/to/baseline.csv path/to/current.csv
+```
+
+Expected decision: `go` (with documented assumptions and next action).

@@ -1,6 +1,6 @@
 ---
 name: oss-ds-supply-chain-auditor
-description: Audit open-source packages, notebooks, model weights, datasets, licenses, and provenance used in data science work. Use when an agent needs a judgment-heavy data science workflow for audit ds dependencies, models, data, and licenses, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Audit data science dependency manifests, pre-trained model weights, datasets, and licenses for security and reproducibility risks. Use when scanning requirements.txt, pyproject.toml, or environment files for unpinned packages and direct URL installs.
 ---
 
 # OSS Data Science Supply Chain Auditor
@@ -9,20 +9,20 @@ description: Audit open-source packages, notebooks, model weights, datasets, lic
 
 Audit open-source packages, notebooks, model weights, datasets, licenses, and provenance used in data science work.
 
-Current pain point: Data science supply chains include packages, model files, datasets, and notebooks that standard app audits often miss.
+Primary failure mode prevented: data science supply chains include packages, model files, datasets, and notebooks that standard app audits often miss.
 
-Why this skill exists: A DS-specific audit catches model/data provenance and notebook execution risks alongside dependency risk.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`repo path, environment files, notebooks, model artifact paths`) must be audited for red flags such as `pip install from unpinned URL`, `unknown model weights`, `dataset license absent`, `notebook output leaks secrets`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/dependency_surface.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`pip install from unpinned URL`, `unknown model weights`, `dataset license absent`, `notebook output leaks secrets`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,19 +30,16 @@ Why this skill exists: A DS-specific audit catches model/data provenance and not
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `DS dependency inventory`, `model and dataset provenance table`, `license risk list`, `notebook risk findings`, `remediation plan`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- repo path
-- environment files
-- notebooks
-- model artifact paths
-- dataset sources
-- license expectations
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/dependency_surface.py .
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -52,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Create a DS SBOM-style summary with risk levels and remediation priorities.
 5. Return a supply-chain risk report and minimum cleanup plan.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- pip install from unpinned URL
-- unknown model weights
-- dataset license absent
-- notebook output leaks secrets
-- native binary dependency unreviewed
+- **English**: OSS DS Supply Chain Auditor — Audit Python/DS dependency manifests for unpinned packages, URL installs, and pickle risks.
+- **简体中文**: 开源数据科学供应链审计 — 审计 Python 与数据科学依赖清单中的未锁定版本、裸 URL 安装及不安全反序列化风险（参见 `references/multilingual-guide.md`）。
+- **日本語**: OSSデータサイエンス・サプライチェーン監査 — 依存定義ファイルの未固定バージョン・直接URL参照・危険なpickle読み込みを監査（`references/multilingual-guide.md` を参照）。
+- **한국어**: 오픈소스 DS 공급망 감사기 — Python·DS 의존성 매니페스트의 버전 미고정, 직접 URL 설치, 안전하지 않은 피클(Pickle) 로드를 감사 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

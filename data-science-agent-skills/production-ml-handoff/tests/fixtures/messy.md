@@ -1,12 +1,15 @@
-# Production ML Handoff messy Fixture
+# Messy Fixture: `production-ml-handoff`
 
-Use $production-ml-handoff on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: notebook is only artifact.
+Prompt:
 
-Expected response traits:
+```text
+Use $production-ml-handoff on a messy project where prototype repo or notebook, model artifact are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: notebook is only artifact.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: notebook is only artifact
+```bash
+python scripts/handoff_readiness_audit.py path/to/handoff_bundle.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `notebook is only artifact` in `Findings` and `Risks`).

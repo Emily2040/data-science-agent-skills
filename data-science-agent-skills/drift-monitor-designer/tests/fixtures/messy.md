@@ -1,12 +1,15 @@
-# Drift Monitor Designer messy Fixture
+# Messy Fixture: `drift-monitor-designer`
 
-Use $drift-monitor-designer on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: alerts with no owner.
+Prompt:
 
-Expected response traits:
+```text
+Use $drift-monitor-designer on a messy project where model purpose, features are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: alerts with no owner.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: alerts with no owner
+```bash
+python scripts/drift_probe.py path/to/baseline.csv path/to/current.csv
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `alerts with no owner` in `Findings` and `Risks`).

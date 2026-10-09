@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "missingness-mechanism-investigator",
   "display_name": "Missingness Mechanism Investigator",
-  "description": "Diagnose missing-data mechanisms and design imputation, exclusion, or sensitivity plans.",
+  "description": "Diagnose whether missing data is MCAR, MAR, MNAR, or structurally absent before applying imputation or row deletion. Use when profiling column missingness rates, cross-tabulating missingness against outcomes, and choosing safe handling rules.",
   "primary_pain": "Missing values are filled or dropped mechanically, creating bias and false confidence.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/profile_table.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Missingness Mechanism Investigator",
+      "short": "Diagnose MCAR, MAR, and MNAR missingness and block naive imputation traps",
+      "pain": "Mean-imputing or dropping missing rows when absence itself carries clinical, financial, or behavioral signal biases the model.",
+      "trigger": "Diagnose whether missing values in our core features are MCAR, MAR, or MNAR before imputing."
+    },
+    "zh-CN": {
+      "title": "缺失机制诊断（MCAR / MAR / MNAR）",
+      "short": "诊断完全随机、随机与非随机缺失机制，防范盲目均值插补或删行偏倚",
+      "pain": "当字段缺失本身隐含业务或风险信号（MNAR）时，简单删行或均值填充会引入严重选择偏倚。",
+      "trigger": "在插补缺失值之前，诊断核心特征属于 MCAR、MAR 还是 MNAR，并给出稳健处理方案。"
+    },
+    "ja": {
+      "title": "欠測メカニズム調査（MCAR / MAR / MNAR）",
+      "short": "欠測がMCAR・MAR・MNARのいずれかを診断し、安易な平均値補完や行削除によるバイアスを防止",
+      "pain": "欠測そのものに業務上の意味（MNAR）があるにもかかわらず、単純な行削除や平均値補完を行ってモデルを歪める。",
+      "trigger": "欠損値補完を行う前に、主要カラムの欠測メカニズム（MCAR/MAR/MNAR）を診断してください。"
+    },
+    "ko": {
+      "title": "결측 메커니즘 조사기 (MCAR / MAR / MNAR)",
+      "short": "결측치의 MCAR·MAR·MNAR 메커니즘을 진단하고 단순 평균 대체·행 삭제 편향을 방지",
+      "pain": "결측 자체에 비즈니스·행동 신호(MNAR)가 담겨 있는데도 단순 평균 대체나 행 삭제를 수행해 모델을 왜곡함.",
+      "trigger": "결측치를 대체하기 전에 핵심 변수의 결측 메커니즘이 MCAR, MAR, MNAR 중 무엇인지 진단해 줘."
+    }
+  }
 }

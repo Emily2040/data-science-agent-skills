@@ -1,12 +1,15 @@
-# Evaluation Reality Check messy Fixture
+# Messy Fixture: `evaluation-reality-check`
 
-Use $evaluation-reality-check on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: random split for temporal deployment.
+Prompt:
 
-Expected response traits:
+```text
+Use $evaluation-reality-check on a messy project where task type, data generation process are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: random split for temporal deployment.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: random split for temporal deployment
+```bash
+python scripts/slice_error_auditor.py path/to/predictions.csv --max-slice-gap 0.10
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `random split for temporal deployment` in `Findings` and `Risks`).

@@ -1,12 +1,15 @@
-# Model Risk Compliance Memo messy Fixture
+# Messy Fixture: `model-risk-compliance-memo`
 
-Use $model-risk-compliance-memo on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: affected users undefined.
+Prompt:
 
-Expected response traits:
+```text
+Use $model-risk-compliance-memo on a messy project where model purpose, data sources are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: affected users undefined.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: affected users undefined
+```bash
+python scripts/risk_tier_gate.py path/to/risk_memo.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `affected users undefined` in `Findings` and `Risks`).

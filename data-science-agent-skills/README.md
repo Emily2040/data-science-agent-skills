@@ -1,43 +1,31 @@
-# Independent Data Science Skills
+# Data Science Agent Skills — Inner Catalog Index
 
-![Data Science Agent Skill Map](../assets/repo-skill-map-infographic.png)
+**Language / 语言 / 言語 / 언어**: [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
-This directory contains 25 standalone data-science agent skills. Each folder is independently usable: open the folder, read its `README.md`, and copy the whole folder into the target agent's skill directory.
-
-Every skill folder includes `SKILL.md`, `README.md`, `MANIFEST.json`, `references/`, `scripts/`, `tests/`, `assets/hero-shot.png`, and `assets/reddit-infographic.png`.
-
-## Skill Index
-
-| Skill | Use it when you need to... |
-|---|---|
-| [ai-data-readiness-triage](ai-data-readiness-triage/) | Decide whether data is ready for AI or analytics. |
-| [baseline-ablation-lab](baseline-ablation-lab/) | Prove model lift against honest baselines and ablations. |
-| [causal-assumption-scout](causal-assumption-scout/) | Prevent causal overclaims and document assumptions. |
-| [cost-aware-compute-planner](cost-aware-compute-planner/) | Plan cloud, GPU, sample, and stop-rule cost controls. |
-| [data-question-framing](data-question-framing/) | Turn vague stakeholder asks into measurable DS problems. |
-| [data-science-incident-rca](data-science-incident-rca/) | Diagnose broken data, model, dashboard, or pipeline incidents. |
-| [dataset-contract-forensics](dataset-contract-forensics/) | Infer practical contracts and tests from messy datasets. |
-| [domain-expert-collaboration-loop](domain-expert-collaboration-loop/) | Structure SME review, assumptions, and signoff. |
-| [drift-monitor-designer](drift-monitor-designer/) | Design drift metrics, thresholds, and alert playbooks. |
-| [evaluation-reality-check](evaluation-reality-check/) | Build trustworthy evaluation across DS task types. |
-| [experiment-provenance-ledger](experiment-provenance-ledger/) | Preserve code, data, environment, metrics, and decisions. |
-| [feature-store-readiness](feature-store-readiness/) | Decide whether a feature store is needed and safe. |
-| [leakage-adversary](leakage-adversary/) | Attack ML pipelines for leakage and contaminated splits. |
-| [messy-data-cleanroom](messy-data-cleanroom/) | Produce reversible, auditable cleaning plans. |
-| [metric-design-review-board](metric-design-review-board/) | Align metrics with business decisions, costs, and guardrails. |
-| [missingness-mechanism-investigator](missingness-mechanism-investigator/) | Diagnose missingness mechanisms before imputation. |
-| [model-risk-compliance-memo](model-risk-compliance-memo/) | Create governance-ready model risk artifacts. |
-| [notebook-repro-packager](notebook-repro-packager/) | Make notebooks runnable elsewhere. |
-| [notebook-to-pipeline-surgeon](notebook-to-pipeline-surgeon/) | Refactor notebooks into scripts or pipeline tasks. |
-| [oss-ds-supply-chain-auditor](oss-ds-supply-chain-auditor/) | Audit packages, notebooks, weights, datasets, and licenses. |
-| [privacy-preserving-ds](privacy-preserving-ds/) | Minimize sensitive-data exposure during analysis. |
-| [production-ml-handoff](production-ml-handoff/) | Hand prototypes to engineering with contracts and monitoring. |
-| [semantic-lineage-mapper](semantic-lineage-mapper/) | Reconstruct meaning and dependencies across the data stack. |
-| [small-data-power-planner](small-data-power-planner/) | Avoid overfitting and false certainty with scarce data. |
-| [stakeholder-insight-storyteller](stakeholder-insight-storyteller/) | Turn analysis into decision-grade narrative. |
-
-## Portable Contract
-
-Each skill is written to work with Codex, ChatGPT Agents, Claude, Gemini, Copilot-style agents, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, OpenHands, Goose, OpenCode, and local LLM agents.
-
-The shared output contract is: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
+| Stage | Skill | Summary | Script |
+| --- | --- | --- | --- |
+| Stage 1: Framing & Triage | [Data Question Framing (`data-question-framing`)](data-question-framing/) | Turn vague business or research asks into measurable DS problem statements | `scripts/decision_canvas_validator.py` |
+| Stage 1: Framing & Triage | [AI Data Readiness Triage (`ai-data-readiness-triage`)](ai-data-readiness-triage/) | Score whether datasets are ready for AI, analytics, or modeling | `scripts/profile_table.py` |
+| Stage 1: Framing & Triage | [Dataset Contract Forensics (`dataset-contract-forensics`)](dataset-contract-forensics/) | Infer and verify schema, grain, uniqueness, freshness, and null contracts | `scripts/profile_table.py` |
+| Stage 1: Framing & Triage | [Semantic Lineage Mapper (`semantic-lineage-mapper`)](semantic-lineage-mapper/) | Trace table, column, and metric definitions across SQL, notebooks, and pipelines | `scripts/extract_lineage_tokens.py` |
+| Stage 1: Framing & Triage | [Messy Data Cleanroom (`messy-data-cleanroom`)](messy-data-cleanroom/) | Design reversible, auditable cleaning and quarantine rules without mutating raw data | `scripts/profile_table.py` |
+| Stage 2: Validity & Leakage | [Leakage Adversary (`leakage-adversary`)](leakage-adversary/) | Red-team ML datasets and pipelines for target, temporal, group, and preprocessing leakage | `scripts/split_leakage_probe.py` |
+| Stage 2: Validity & Leakage | [Causal Assumption Scout (`causal-assumption-scout`)](causal-assumption-scout/) | Audit causal claims for confounding, collider bias, post-treatment controls, and identification | `scripts/confounder_backdoor_check.py` |
+| Stage 2: Validity & Leakage | [Small Data Power Planner (`small-data-power-planner`)](small-data-power-planner/) | Calculate minimum detectable effect (MDE), sample power, and low-N overfitting bounds | `scripts/power_sample_size.py` |
+| Stage 2: Validity & Leakage | [Missingness Mechanism Investigator (`missingness-mechanism-investigator`)](missingness-mechanism-investigator/) | Diagnose MCAR, MAR, and MNAR missingness and block naive imputation traps | `scripts/profile_table.py` |
+| Stage 2: Validity & Leakage | [Baseline Ablation Lab (`baseline-ablation-lab`)](baseline-ablation-lab/) | Require naive/simple baselines and controlled ablations before accepting complex models | `scripts/ablation_delta_audit.py` |
+| Stage 3: Repro & Pipelines | [Notebook Repro Packager (`notebook-repro-packager`)](notebook-repro-packager/) | Audit Jupyter notebooks for out-of-order cells, unseeded RNG, hardcoded paths, and lockfiles | `scripts/notebook_repro_audit.py` |
+| Stage 3: Repro & Pipelines | [Notebook To Pipeline Surgeon (`notebook-to-pipeline-surgeon`)](notebook-to-pipeline-surgeon/) | Refactor exploratory notebooks into modular, testable, idempotent pipeline stages | `scripts/notebook_repro_audit.py` |
+| Stage 3: Repro & Pipelines | [Experiment Provenance Ledger (`experiment-provenance-ledger`)](experiment-provenance-ledger/) | Record SHA-256 dataset hashes, git commit state, seeds, and hyperparameters per run | `scripts/capture_provenance.py` |
+| Stage 3: Repro & Pipelines | [OSS DS Supply Chain Auditor (`oss-ds-supply-chain-auditor`)](oss-ds-supply-chain-auditor/) | Audit Python/DS dependency manifests for unpinned packages, URL installs, and pickle risks | `scripts/dependency_surface.py` |
+| Stage 3: Repro & Pipelines | [Cost Aware Compute Planner (`cost-aware-compute-planner`)](cost-aware-compute-planner/) | Estimate retry-adjusted GPU/cloud spend and enforce 10% pilot gates before full runs | `scripts/compute_budget_estimator.py` |
+| Stage 4: Eval & Governance | [Metric Design Review Board (`metric-design-review-board`)](metric-design-review-board/) | Stress-test primary metrics, denominators, time windows, and anti-gaming guardrails | `scripts/metric_guardrail_check.py` |
+| Stage 4: Eval & Governance | [Evaluation Reality Check (`evaluation-reality-check`)](evaluation-reality-check/) | Audit subgroup slice errors, probability calibration, and offline-to-business translation | `scripts/slice_error_auditor.py` |
+| Stage 4: Eval & Governance | [Model Risk Compliance Memo (`model-risk-compliance-memo`)](model-risk-compliance-memo/) | Document blast radius, human-in-the-loop override, fallback policy, and governance gates | `scripts/risk_tier_gate.py` |
+| Stage 4: Eval & Governance | [Privacy Preserving DS (`privacy-preserving-ds`)](privacy-preserving-ds/) | Audit direct PII, quasi-identifiers, k-anonymity risks, and retention boundaries | `scripts/profile_table.py` |
+| Stage 4: Eval & Governance | [Domain Expert Collaboration Loop (`domain-expert-collaboration-loop`)](domain-expert-collaboration-loop/) | Measure inter-annotator agreement (Cohen's kappa) and resolve SME label taxonomy disputes | `scripts/sme_label_agreement.py` |
+| Stage 5: Ops & Storytelling | [Production ML Handoff (`production-ml-handoff`)](production-ml-handoff/) | Verify model SHA-256, input/output contracts, p99 latency SLA, fallback, and rollback readiness | `scripts/handoff_readiness_audit.py` |
+| Stage 5: Ops & Storytelling | [Feature Store Readiness (`feature-store-readiness`)](feature-store-readiness/) | Audit online-offline feature parity, point-in-time joins, and serving TTL freshness | `scripts/online_offline_skew_check.py` |
+| Stage 5: Ops & Storytelling | [Drift Monitor Designer (`drift-monitor-designer`)](drift-monitor-designer/) | Detect mean shifts, variance explosions, constant-column breaks, NaNs, and missing-rate spikes | `scripts/drift_probe.py` |
+| Stage 5: Ops & Storytelling | [Data Science Incident RCA (`data-science-incident-rca`)](data-science-incident-rca/) | Correlate broken dashboards or model drops across ingestion, schema, feature, model, and metric layers | `scripts/incident_timeline_correlator.py` |
+| Stage 5: Ops & Storytelling | [Stakeholder Insight Storyteller (`stakeholder-insight-storyteller`)](stakeholder-insight-storyteller/) | Turn validated technical evidence into an executive decision memo with uncertainty and caveats | `scripts/memo_claim_evidence_check.py` |

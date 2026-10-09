@@ -1,12 +1,15 @@
-# Missingness Mechanism Investigator messy Fixture
+# Messy Fixture: `missingness-mechanism-investigator`
 
-Use $missingness-mechanism-investigator on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: target-dependent missingness.
+Prompt:
 
-Expected response traits:
+```text
+Use $missingness-mechanism-investigator on a messy project where dataset, analysis goal are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: target-dependent missingness.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: target-dependent missingness
+```bash
+python scripts/profile_table.py path/to/dataset.csv --max-rows 10000
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `target-dependent missingness` in `Findings` and `Risks`).

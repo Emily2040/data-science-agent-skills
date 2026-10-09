@@ -1,6 +1,6 @@
 ---
 name: leakage-adversary
-description: Actively search ML datasets and pipelines for target, temporal, group, split, join, and preprocessing leakage. Use when an agent needs a judgment-heavy data science workflow for attack ml pipelines for leakage, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Hunt for target, temporal, entity-group, preprocessing, and join leakage across train, validation, and test splits. Use when probing datasets and pipelines for split key overlap, post-outcome features, or suspiciously high validation scores.
 ---
 
 # Leakage Adversary
@@ -9,20 +9,20 @@ description: Actively search ML datasets and pipelines for target, temporal, gro
 
 Actively search ML datasets and pipelines for target, temporal, group, split, join, and preprocessing leakage.
 
-Current pain point: Models look excellent offline and fail in production because future or target information leaked into training.
+Primary failure mode prevented: models look excellent offline and fail in production because future or target information leaked into training.
 
-Why this skill exists: Leakage must be attacked like a failure mode; ordinary metric review usually detects it too late.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`training data, target definition, split logic, feature list`) must be audited for red flags such as `feature timestamp after target`, `same user in train and test`, `global preprocessing before split`, `leaky aggregate`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/split_leakage_probe.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`feature timestamp after target`, `same user in train and test`, `global preprocessing before split`, `leaky aggregate`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,18 +30,16 @@ Why this skill exists: Leakage must be attacked like a failure mode; ordinary me
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `leakage attack report`, `feature risk table`, `split risk table`, `safe evaluation recommendation`, `blocker list`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- training data
-- target definition
-- split logic
-- feature list
-- pipeline code or notebook
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/split_leakage_probe.py path/to/train.csv path/to/eval.csv --key entity_id --target label
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -51,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Review suspiciously strong features and validation performance jumps.
 5. Return leakage findings with severity, evidence, and safer split or feature alternatives.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- feature timestamp after target
-- same user in train and test
-- global preprocessing before split
-- leaky aggregate
-- near-perfect simple model
+- **English**: Leakage Adversary — Red-team ML datasets and pipelines for target, temporal, group, and preprocessing leakage.
+- **简体中文**: 数据泄漏红队审计 — 对机器学习数据集与特征管道开展标签泄漏、时间穿越与实体重叠红队排查（参见 `references/multilingual-guide.md`）。
+- **日本語**: リーケージ・アドバーサリ（データ漏洩レッドチーム） — 目的変数・時系列・グループ・前処理のデータリーケージを敵対的視点で徹底検証（`references/multilingual-guide.md` を参照）。
+- **한국어**: 데이터 누수(Leakage) 레드팀 — 타깃·시계열·그룹·전처리 데이터 누수를 적대적(Red-team) 관점에서 탐지 및 차단 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

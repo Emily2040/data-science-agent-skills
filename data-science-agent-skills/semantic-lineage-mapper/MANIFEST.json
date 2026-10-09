@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "semantic-lineage-mapper",
   "display_name": "Semantic Lineage Mapper",
-  "description": "Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs.",
+  "description": "Reconstruct end-to-end table, file, column, and metric lineage across SQL queries, Python scripts, notebooks, and BI configs. Use when tracing upstream sources and downstream blast radius before refactoring pipelines or deprecating fields.",
   "primary_pain": "Teams cannot explain where a metric, feature, or model input came from after it breaks or is challenged.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/extract_lineage_tokens.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Semantic Lineage Mapper",
+      "short": "Trace table, column, and metric definitions across SQL, notebooks, and pipelines",
+      "pain": "Identically named metrics and columns carry incompatible business logic across warehouse layers and dashboards.",
+      "trigger": "Map the upstream SQL and Python lineage for these columns and flag semantic definition drift."
+    },
+    "zh-CN": {
+      "title": "语义血缘与口径映射",
+      "short": "跨 SQL、Notebook 与数据管道追踪表、字段与指标的真实语义口径",
+      "pain": "同名指标或字段在数仓不同分层、训练脚本与 BI 报表中采用了相互冲突的过滤或聚合逻辑。",
+      "trigger": "追踪这些字段在 SQL 和 Python 脚本中的血缘链路，排查同名异义口径冲突。"
+    },
+    "ja": {
+      "title": "セマンティック系譜マッパー",
+      "short": "SQL・Notebook・パイプラインを横断してテーブル・列・指標の意味論的系譜を追跡",
+      "pain": "同じ名前の指標やカラムが、DWH層・学習スクリプト・BIダッシュボード間で異なる集計ロジックを持っている。",
+      "trigger": "SQLとPythonコードから対象カラムの系譜を抽出し、定義の食い違いを特定してください。"
+    },
+    "ko": {
+      "title": "시맨틱 리니지 매퍼",
+      "short": "SQL, 노트북, 파이프라인 전반에서 테이블·컬럼·지표의 의미론적 계보 추적",
+      "pain": "동일한 이름의 지표나 컬럼이 데이터 웨어하우스 계층과 대시보드마다 서로 다른 비즈니스 로직으로 계산됨.",
+      "trigger": "SQL과 Python 스크립트에서 이 컬럼들의 데이터 리니지를 추적하고 정의 불일치를 찾아 줘."
+    }
+  }
 }

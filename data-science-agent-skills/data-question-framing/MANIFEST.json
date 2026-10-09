@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "data-question-framing",
   "display_name": "Data Question Framing",
-  "description": "Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements.",
+  "description": "Translate ambiguous business, product, policy, or research asks into measurable data science decision canvases. Use when locking down the decision owner, action threshold, analysis unit, target definition, time horizon, and guardrail metrics.",
   "primary_pain": "Teams waste cycles modeling the wrong target, optimizing vanity metrics, or answering questions that no owner can act on.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/decision_canvas_validator.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Data Question Framing",
+      "short": "Turn vague business or research asks into measurable DS problem statements",
+      "pain": "Teams start querying or modeling before locking the decision owner, target, unit of analysis, or action threshold.",
+      "trigger": "Frame this vague business request into a measurable data science decision canvas."
+    },
+    "zh-CN": {
+      "title": "数据问题界定与拆解",
+      "short": "将模糊的业务或科研诉求转化为可量化的数据科学问题定义",
+      "pain": "团队在尚未明确决策责任人、分析粒度、目标口径与行动阈值之前就盲目取数或建模。",
+      "trigger": "帮我把这项模糊的业务需求拆解为可执行的决策画布与指标树。"
+    },
+    "ja": {
+      "title": "データ課題フレーミング",
+      "short": "曖昧なビジネス・研究要望を測定可能なDS課題定義へ構造化",
+      "pain": "意思決定オーナー・分析単位・目的変数・アクション閾値を定義しないまま集計やモデリングに着手してしまう。",
+      "trigger": "この曖昧な要望を意思決定キャンバスと測定可能な指標ツリーに落とし込んでください。"
+    },
+    "ko": {
+      "title": "데이터 문제 정의 및 프레이밍",
+      "short": "모호한 비즈니스·연구 요청을 측정 가능한 데이터 사이언스 문제로 구조화",
+      "pain": "의사결정권자, 분석 단위, 타깃 정의, 행동 임계값을 확정하지 않은 채 쿼리나 모델링부터 시작함.",
+      "trigger": "이 모호한 비즈니스 요청을 측정 가능한 의사결정 캔버스와 지표 트리로 정의해 줘."
+    }
+  }
 }

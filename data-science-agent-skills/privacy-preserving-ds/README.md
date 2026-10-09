@@ -1,34 +1,30 @@
 # Privacy Preserving Data Science
 
-![Privacy Preserving Data Science hero shot](assets/hero-shot.png)
+![Privacy Preserving Data Science Hero Shot](assets/hero-shot.png)
 
-![Privacy Preserving Data Science Reddit infographic](assets/reddit-infographic.png)
+![Privacy Preserving Data Science Infographic](assets/reddit-infographic.png)
 
 ## Executive Summary
 
-`privacy-preserving-ds` is a portable, independent data-science agent skill for: Guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods.
+**Privacy Preserving Data Science** is a portable, provider-neutral data science agent skill designed to guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods.
 
-It solves a real operating problem: Teams copy sensitive data into notebooks and tools without a minimization or privacy strategy. Privacy-preserving analysis is a design choice, not a cleanup step after exposure.
+> **Core pain solved:** Teams copy sensitive data into notebooks and tools without a minimization or privacy strategy.
 
-The design target is the level expected by senior data scientists, staff ML engineers, and governance reviewers: explicit evidence, reproducible checks, decision-grade output, clear owner questions, and enough structure for another agent to run the same workflow without hidden context.
+> **Proof callout:** Keeps analysis useful without unnecessary exposure.
 
 ## Research-Informed Design Standard
 
-This skill was redesigned against patterns from high-quality public data-science and agent-skill repositories:
+This skill follows reproducible data science and portable agent-skill standards:
 
-- Cookiecutter Data Science: predictable folders, immutable raw evidence, project docs, tests, and dependency discipline.
-- Kedro: modular, reproducible, maintainable pipeline thinking.
-- MLflow: lifecycle tracking, evaluations, registry/deployment awareness, and broad integration posture.
-- Anthropic-style skills: portable folder with `SKILL.md`, scripts, references, and resources.
-- Reproducible-research guidance: documentation, dependency management, version control, testing, collaboration, and transparency.
+- **Cookiecutter Data Science**: immutable raw data, clear artifact layout, and repeatable command entrypoints.
+- **Kedro**: explicit input/output data contracts and modular workflow boundaries.
+- **MLflow**: traceable parameters, metrics, provenance hashes, and governance-ready evaluation records.
+- **Anthropic & Open Agent Skills**: concise `SKILL.md` frontmatter, progressive disclosure via `references/`, and deterministic local scripts in `scripts/`.
+- **CfRR Reproducible Research**: deterministic verification, explicit uncertainty, and zero hidden state.
 
 ## Problem It Solves
 
-Guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods.
-
-- Primary pain: Teams copy sensitive data into notebooks and tools without a minimization or privacy strategy.
-- Why generic tools are not enough: generic notebooks, profilers, dashboards, and MLOps tools inspect pieces of the problem; this skill forces the agent to connect evidence, assumptions, owner decisions, risk, and next action.
-- What the skill adds: Privacy-preserving analysis is a design choice, not a cleanup step after exposure.
+Teams copy sensitive data into notebooks and tools without a minimization or privacy strategy. Without a structured gate, teams routinely discover `raw PII in notebook output` or `unapproved cloud copy` only after engineering effort or executive credibility has already been spent.
 
 ## What This Skill Should Do
 
@@ -47,8 +43,6 @@ Guide data science work on sensitive data using minimization, local-first analys
 - approved environment
 - sharing constraints
 
-If an input is missing, the agent should inspect local files, schemas, notebooks, SQL, configs, reports, tickets, model artifacts, or metadata first. It should ask the user only when missing context would materially change the decision.
-
 ## Operating Workflow
 
 1. Identify direct identifiers, quasi-identifiers, sensitive attributes, and linkage risks.
@@ -65,23 +59,14 @@ If an input is missing, the agent should inspect local files, schemas, notebooks
 - export rules
 - residual-risk note
 
-Every final answer should include:
-
-- `Problem`
-- `Inputs`
-- `Checks performed`
-- `Findings`
-- `Decision`
-- `Risks`
-- `Next actions`
-- `Artifacts`
+All outputs are delivered inside the eight-section decision contract: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
 
 ## Concrete Use Cases
 
-- Project intake: decide whether to proceed, fix prerequisites, or stop before time is wasted.
-- Review gate: challenge a result when evidence is weak, assumptions are hidden, or a red flag appears.
-- Handoff: create an artifact an engineer, analyst, governance reviewer, or another agent can continue from.
-- Incident prevention: catch the workflow failure before it becomes a bad model, broken dashboard, or misleading executive claim.
+- **Pre-commit readiness gate**: Run `scripts/profile_table.py` on `data schema or sample` to produce a `PII and sensitivity inventory` before approving engineering scope.
+- **Adversarial review**: Challenge a proposed `go` recommendation when `raw PII in notebook output` or `unapproved cloud copy` is suspected in `sensitive fields`.
+- **Cross-team handoff**: Generate `minimization plan` and `residual-risk note` so ML engineers, governance reviewers, or downstream agents can act without re-running discovery.
+- **Regression audit**: Score completed review checklists with `scripts/checklist_score.py --strict` inside CI to prevent unverified artifacts from shipping.
 
 ## Red Flags
 
@@ -91,52 +76,51 @@ Every final answer should include:
 - synthetic data claimed risk-free
 - exports not reviewed
 
-When one appears, the agent must surface it, classify its severity, and tie it to a next action or owner decision.
-
 ## Agent And Provider Portability
 
-This skill is designed for OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Agent Runtimes**: OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Data & ML Providers**: Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, Airflow, Prefect, MLflow, DVC, Weights & Biases, SageMaker, Vertex AI, Azure ML, Great Expectations, Pandera, Evidently, Kedro, and local CSV/Parquet/JSON files.
 
-Use `SKILL.md` as the primary instruction. Use `references/agent-portability.md` for provider-specific adaptation and `MANIFEST.json` for machine-readable package expectations.
-
-## Data Platforms
-
-Use exported metadata, schemas, samples, logs, lineage files, model cards, metric reports, experiment records, or incident notes from Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, MLflow, DVC, W&B, SageMaker, Vertex AI, Azure ML, local files, or equivalent systems.
-
-Provider output is evidence, not authority. Do not upload private data to external services unless the user explicitly approves that environment.
+See [references/agent-portability.md](references/agent-portability.md) and [references/provider-interop.md](references/provider-interop.md) for host-specific integration instructions.
 
 ## Included Files
 
-- `SKILL.md`: trigger metadata and core execution workflow.
-- `README.md`: this independent GitHub skill page.
-- `MANIFEST.json`: machine-readable contract for portability checks.
-- `AGENTS.md`: local agent instructions for editing or validating this skill folder.
-- `agents/openai.yaml`: OpenAI-facing metadata and invocation defaults.
-- `references/playbook.md`: operational checklist and failure modes.
-- `references/acceptance-tests.md`: clean, messy, and adversarial forward tests.
-- `references/provider-interop.md`: provider and data-platform guidance.
-- `references/agent-portability.md`: Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, and multi-agent adaptation.
-- `references/quality-rubric.md`: senior-review scoring rubric.
-- `references/benchmark-plan.md`: expanded test plan.
-- `references/research-grounding.md`: source-informed design rationale.
-- `tests/test_skill_contract.py`: portable stdlib contract tests.
-- `tests/fixtures/`: clean, messy, and adversarial prompt fixtures.
-- `scripts/`: deterministic helper scripts where useful.
-- `assets/hero-shot.png`: 1600x900 hero image.
-- `assets/reddit-infographic.png`: 1080x1350 Reddit-ready infographic.
+- `SKILL.md`
+- `README.md`
+- `MANIFEST.json`
+- `AGENTS.md`
+- `agents/openai.yaml`
+- `scripts/profile_table.py`
+- `scripts/checklist_score.py`
+- `scripts/quick_validate_skill.py`
+- `references/multilingual-guide.md`: Native English, Simplified Chinese (简体中文), Japanese (日本語), and Korean (한국어) execution guide.
+- `references/playbook.md`
+- `references/acceptance-tests.md`
+- `references/provider-interop.md`
+- `references/agent-portability.md`
+- `references/quality-rubric.md`
+- `references/benchmark-plan.md`
+- `references/research-grounding.md`
+- `references/evidence-map.md`
+- `references/infographic-spec.md`
+- `tests/test_skill_contract.py`
+- `tests/fixtures/clean.md`
+- `tests/fixtures/messy.md`
+- `tests/fixtures/adversarial.md`
+- `assets/hero-shot.png`
+- `assets/reddit-infographic.png`
 
 ## Validation
 
-Run these from inside the skill folder:
+Run the deterministic smoke and contract suite from inside this skill directory:
 
 ```bash
+python scripts/profile_table.py path/to/sensitive_extract.csv --max-rows 10000
 python scripts/quick_validate_skill.py . --strict
 python tests/test_skill_contract.py .
 ```
 
-Then run at least one clean, messy, and adversarial forward test from `tests/fixtures/`.
+## Visual Assets
 
-## GitHub PR Visual Links
-
-- Hero shot: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-privacy-preserving-ds/data-science-agent-skills/privacy-preserving-ds/assets/hero-shot.png
-- Reddit infographic: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-privacy-preserving-ds/data-science-agent-skills/privacy-preserving-ds/assets/reddit-infographic.png
+- Hero shot (`1600x900`): [assets/hero-shot.png](assets/hero-shot.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/privacy-preserving-ds/assets/hero-shot.png`)
+- Reddit infographic (`1080x1350`): [assets/reddit-infographic.png](assets/reddit-infographic.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/privacy-preserving-ds/assets/reddit-infographic.png`)

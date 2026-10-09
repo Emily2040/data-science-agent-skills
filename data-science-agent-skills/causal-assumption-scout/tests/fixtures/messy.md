@@ -1,12 +1,15 @@
-# Causal Assumption Scout messy Fixture
+# Messy Fixture: `causal-assumption-scout`
 
-Use $causal-assumption-scout on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: no intervention.
+Prompt:
 
-Expected response traits:
+```text
+Use $causal-assumption-scout on a messy project where proposed claim, treatment or intervention are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: no intervention.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: no intervention
+```bash
+python scripts/confounder_backdoor_check.py path/to/causal_spec.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `no intervention` in `Findings` and `Risks`).

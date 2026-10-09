@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "metric-design-review-board",
   "display_name": "Metric Design Review Board",
-  "description": "Review whether a chosen data science metric actually supports the decision, user outcome, risk, and cost tradeoff.",
+  "description": "Stress-test primary, guardrail, and diagnostic metrics for denominator shifts, Goodhart gaming vectors, and decision alignment. Use when defining experiment or product KPIs so optimization cannot silently degrade user experience or unit economics.",
   "primary_pain": "Projects optimize metrics that look scientific but misalign with business impact or safety.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/metric_guardrail_check.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Metric Design Review Board",
+      "short": "Stress-test primary metrics, denominators, time windows, and anti-gaming guardrails",
+      "pain": "Optimizing a single ratio or click metric without guardrails invites Goodhart's law gaming and harms user experience.",
+      "trigger": "Run a metric design review on our primary KPI and propose anti-gaming guardrail metrics."
+    },
+    "zh-CN": {
+      "title": "指标设计评审委员会",
+      "short": "对核心北极星指标的分母口径、时间窗口、护栏指标与古德哈特（Goodhart）作弊路径开展压力测试",
+      "pain": "单一比例指标或点击率指标缺乏护栏约束，导致算法或业务通过改变分母、牺牲长效留存来刷高短期指标。",
+      "trigger": "评审这套实验与业务指标体系，核查分母漂移风险、时间窗口与反作弊护栏指标。"
+    },
+    "ja": {
+      "title": "指標設計レビューボード",
+      "short": "主要KPIの分母定義・集計期間・ガードレール指標・Goodhartの法則によるハック耐性を審査",
+      "pain": "ガードレール指標なしに単一の比率や短期指標を最適化し、分母の歪みやユーザー体験の悪化を招く。",
+      "trigger": "主要KPIとガードレール指標の設計を審査し、指標ハック（ゲーミング）の抜け道を洗い出してください。"
+    },
+    "ko": {
+      "title": "지표 설계 리뷰 보드",
+      "short": "핵심 KPI의 분모 정의, 집계 윈도우, 가드레일 지표, 굿하트 법칙(게이밍) 취약점을 심사",
+      "pain": "가드레일 없이 단일 비율이나 단기 클릭 지표만 최적화하다가 분모 왜곡과 장기 사용자 경험 훼손을 초래함.",
+      "trigger": "핵심 성과지표(KPI)의 분모·윈도우 정의를 검토하고 지표 게이밍을 막을 가드레일 지표를 설계해 줘."
+    }
+  }
 }

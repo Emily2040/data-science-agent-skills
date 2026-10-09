@@ -1,12 +1,15 @@
-# Feature Store Readiness messy Fixture
+# Messy Fixture: `feature-store-readiness`
 
-Use $feature-store-readiness on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: same feature computed differently online.
+Prompt:
 
-Expected response traits:
+```text
+Use $feature-store-readiness on a messy project where feature list, training data flow are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: same feature computed differently online.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: same feature computed differently online
+```bash
+python scripts/online_offline_skew_check.py path/to/offline.csv path/to/online.csv --key entity_id
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `same feature computed differently online` in `Findings` and `Risks`).

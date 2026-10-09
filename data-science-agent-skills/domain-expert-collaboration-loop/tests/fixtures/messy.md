@@ -1,12 +1,15 @@
-# Domain Expert Collaboration Loop messy Fixture
+# Messy Fixture: `domain-expert-collaboration-loop`
 
-Use $domain-expert-collaboration-loop on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: SME asked to rubber-stamp.
+Prompt:
 
-Expected response traits:
+```text
+Use $domain-expert-collaboration-loop on a messy project where analysis or model plan, domain experts are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: SME asked to rubber-stamp.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: SME asked to rubber-stamp
+```bash
+python scripts/sme_label_agreement.py path/to/sme_labels.csv --rater-a sme_a --rater-b sme_b
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `SME asked to rubber-stamp` in `Findings` and `Risks`).

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "experiment-provenance-ledger",
   "display_name": "Experiment Provenance Ledger",
-  "description": "Preserve experiment provenance across code, data, environment, parameters, metrics, artifacts, and human decisions.",
+  "description": "Capture cryptographic dataset hashes, git commit state, environment manifests, random seeds, and decision history for ML experiments. Use when building an auditable provenance ledger so model results can be reproduced or traced back to exact inputs.",
   "primary_pain": "Teams cannot explain which model, data, code, or parameters produced a result after the fact.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/capture_provenance.py",
+    "scripts/checklist_score.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Experiment Provenance Ledger",
+      "short": "Record SHA-256 dataset hashes, git commit state, seeds, and hyperparameters per run",
+      "pain": "Teams cannot reproduce last week's best model because data extracts, git working trees, and configs were never hashed.",
+      "trigger": "Capture a cryptographic provenance ledger for this experiment's data files, code state, and seed."
+    },
+    "zh-CN": {
+      "title": "实验血缘与溯源账本",
+      "short": "记录每次实验的数据集 SHA-256 摘要、Git 提交状态、脏工作区标记、随机种子与超参",
+      "pain": "最优实验结果无法复现，因为训练时未锁定数据快照哈希、代码工作区存在未提交改动或超参散落在手工记录中。",
+      "trigger": "为本次实验的数据文件、配置文件、Git 提交状态与随机种子生成加密溯源账本。"
+    },
+    "ja": {
+      "title": "実験プロヴェナンス台帳（来歴管理）",
+      "short": "データセットのSHA-256ハッシュ・Gitコミット状態・乱数シード・設定を実行ごとに記録",
+      "pain": "学習データやコードの未コミット変更、ハイパーパラメータの記録漏れにより、最良モデルの再現や監査対応ができなくなる。",
+      "trigger": "この実験のデータファイル・設定・Git状態・乱数シードの暗号学的プロヴェナンス台帳を生成してください。"
+    },
+    "ko": {
+      "title": "실험 프로비넌스(출처) 원장",
+      "short": "실험별 데이터셋 SHA-256 해시, Git 커밋·더티 상태, 난수 시드, 하이퍼파라미터를 기록",
+      "pain": "학습 데이터 스냅샷 해시와 Git 작업 트리 상태, 설정값을 기록하지 않아 최고 성능 모델을 재현하거나 감사할 수 없음.",
+      "trigger": "이번 실험에 사용된 데이터 파일, 설정, Git 상태, 시드에 대한 프로비넌스 원장을 생성해 줘."
+    }
+  }
 }

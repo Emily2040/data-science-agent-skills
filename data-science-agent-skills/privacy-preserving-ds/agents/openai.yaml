@@ -1,10 +1,4 @@
 interface:
   display_name: "Privacy Preserving Data Science"
   short_description: "Choose safe analysis patterns for sensitive data"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#2F80ED"
-  default_prompt: "Use $privacy-preserving-ds to choose safe analysis patterns for sensitive data for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $privacy-preserving-ds to guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods Inspect local artifacts and run scripts/profile_table.py first."

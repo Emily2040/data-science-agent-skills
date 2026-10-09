@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "leakage-adversary",
   "display_name": "Leakage Adversary",
-  "description": "Actively search ML datasets and pipelines for target, temporal, group, split, join, and preprocessing leakage.",
+  "description": "Hunt for target, temporal, entity-group, preprocessing, and join leakage across train, validation, and test splits. Use when probing datasets and pipelines for split key overlap, post-outcome features, or suspiciously high validation scores.",
   "primary_pain": "Models look excellent offline and fail in production because future or target information leaked into training.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/quick_validate_skill.py",
+    "scripts/split_leakage_probe.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Leakage Adversary",
+      "short": "Red-team ML datasets and pipelines for target, temporal, group, and preprocessing leakage",
+      "pain": "Models post near-perfect offline validation scores and collapse in production because future or outcome information leaked.",
+      "trigger": "Red-team this train/validation split and feature set for entity overlap and temporal target leakage."
+    },
+    "zh-CN": {
+      "title": "数据泄漏红队审计",
+      "short": "对机器学习数据集与特征管道开展标签泄漏、时间穿越与实体重叠红队排查",
+      "pain": "模型离线验证指标虚高，上线后却断崖式下跌，根源在于未来信息、全局统计量或同一实体跨集泄漏。",
+      "trigger": "对训练集与验证集做泄漏红队审计，排查实体交叉、时间穿越和目标泄漏特征。"
+    },
+    "ja": {
+      "title": "リーケージ・アドバーサリ（データ漏洩レッドチーム）",
+      "short": "目的変数・時系列・グループ・前処理のデータリーケージを敵対的視点で徹底検証",
+      "pain": "未来情報やターゲット由来の特徴量が学習に混入し、オフライン精度だけが高く本番で破綻する。",
+      "trigger": "学習・検証分割と特徴量パイプラインに対して、エンティティ重複や時系列リークの監査を実行してください。"
+    },
+    "ko": {
+      "title": "데이터 누수(Leakage) 레드팀",
+      "short": "타깃·시계열·그룹·전처리 데이터 누수를 적대적(Red-team) 관점에서 탐지 및 차단",
+      "pain": "미래 시점 정보나 타깃 파생 변수가 학습에 유입되어 오프라인 검증 성능만 높고 운영 환경에서 폭락함.",
+      "trigger": "학습·검증 데이터 분할과 피처 파이프라인에서 개체 중복 및 시계열 타깃 누수를 점검해 줘."
+    }
+  }
 }

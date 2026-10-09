@@ -1,12 +1,15 @@
-# Experiment Provenance Ledger messy Fixture
+# Messy Fixture: `experiment-provenance-ledger`
 
-Use $experiment-provenance-ledger on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: unversioned dataset.
+Prompt:
 
-Expected response traits:
+```text
+Use $experiment-provenance-ledger on a messy project where repo path, dataset identifiers are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: unversioned dataset.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: unversioned dataset
+```bash
+python scripts/capture_provenance.py path/to/train.csv path/to/config.yaml --seed 42
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `unversioned dataset` in `Findings` and `Risks`).

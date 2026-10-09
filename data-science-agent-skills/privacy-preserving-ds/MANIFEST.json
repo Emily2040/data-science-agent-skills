@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "privacy-preserving-ds",
   "display_name": "Privacy Preserving Data Science",
-  "description": "Guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods.",
+  "description": "Assess PII exposure, re-identification risk, and quasi-identifier linkage in analytics and ML datasets. Use when designing redaction, aggregation, k-anonymity, differential privacy, or clean-room controls before sharing or modeling sensitive data.",
   "primary_pain": "Teams copy sensitive data into notebooks and tools without a minimization or privacy strategy.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/profile_table.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Privacy Preserving DS",
+      "short": "Audit direct PII, quasi-identifiers, k-anonymity risks, and retention boundaries",
+      "pain": "Removing names or emails while keeping narrow zip-age-timestamp combinations leaves records re-identifiable.",
+      "trigger": "Audit this dataset and analytics workflow for PII exposure and quasi-identifier re-identification risk."
+    },
+    "zh-CN": {
+      "title": "隐私保护数据科学审计",
+      "short": "审计直接个人身份信息（PII）、准标识符重识别风险、最小化原则与数据留存边界",
+      "pain": "仅删去姓名与手机号，却保留了高精度的地理位置、时间戳与稀有属性组合，导致用户仍可被轻易重识别。",
+      "trigger": "对数据集开展隐私合规审计，排查直接 PII 字段、准标识符重识别风险与脱敏策略。"
+    },
+    "ja": {
+      "title": "プライバシー保護データサイエンス",
+      "short": "直接PII・準識別子による再識別リスク・データ最小化・保持期限ルールを監査",
+      "pain": "氏名やメールを削除しただけで、郵便番号・年齢・タイムスタンプの組み合わせから個人が再識別されるリスクが残る。",
+      "trigger": "このデータセットの直接PIIと準識別子による再識別リスクを監査し、匿名化・最小化対策を設計してください。"
+    },
+    "ko": {
+      "title": "프라이버시 보호 데이터 사이언스",
+      "short": "직접 개인정보(PII), 준식별자(Quasi-identifier) 재식별 위험, 최소 수집 및 보존 기한을 감사",
+      "pain": "이름·이메일만 제거하고 우편번호·연령·타임스탬프 조합을 그대로 두어 개인 재식별 위험이 남음.",
+      "trigger": "이 데이터셋과 분석 파이프라인에서 직접 PII 노출과 준식별자 재식별 리스크를 감사해 줘."
+    }
+  }
 }

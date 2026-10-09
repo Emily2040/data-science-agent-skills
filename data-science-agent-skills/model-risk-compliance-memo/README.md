@@ -1,34 +1,30 @@
 # Model Risk Compliance Memo
 
-![Model Risk Compliance Memo hero shot](assets/hero-shot.png)
+![Model Risk Compliance Memo Hero Shot](assets/hero-shot.png)
 
-![Model Risk Compliance Memo Reddit infographic](assets/reddit-infographic.png)
+![Model Risk Compliance Memo Infographic](assets/reddit-infographic.png)
 
 ## Executive Summary
 
-`model-risk-compliance-memo` is a portable, independent data-science agent skill for: Create concise model risk and compliance memos for review, audit, launch, or executive approval.
+**Model Risk Compliance Memo** is a portable, provider-neutral data science agent skill designed to create concise model risk and compliance memos for review, audit, launch, or executive approval.
 
-It solves a real operating problem: Data science teams often lack a crisp artifact that explains model purpose, risk, evidence, limits, and controls. A standard memo turns model risk from scattered notes into an approval-ready record.
+> **Core pain solved:** Data science teams often lack a crisp artifact that explains model purpose, risk, evidence, limits, and controls.
 
-The design target is the level expected by senior data scientists, staff ML engineers, and governance reviewers: explicit evidence, reproducible checks, decision-grade output, clear owner questions, and enough structure for another agent to run the same workflow without hidden context.
+> **Proof callout:** Makes launch risk review faster and clearer.
 
 ## Research-Informed Design Standard
 
-This skill was redesigned against patterns from high-quality public data-science and agent-skill repositories:
+This skill follows reproducible data science and portable agent-skill standards:
 
-- Cookiecutter Data Science: predictable folders, immutable raw evidence, project docs, tests, and dependency discipline.
-- Kedro: modular, reproducible, maintainable pipeline thinking.
-- MLflow: lifecycle tracking, evaluations, registry/deployment awareness, and broad integration posture.
-- Anthropic-style skills: portable folder with `SKILL.md`, scripts, references, and resources.
-- Reproducible-research guidance: documentation, dependency management, version control, testing, collaboration, and transparency.
+- **Cookiecutter Data Science**: immutable raw data, clear artifact layout, and repeatable command entrypoints.
+- **Kedro**: explicit input/output data contracts and modular workflow boundaries.
+- **MLflow**: traceable parameters, metrics, provenance hashes, and governance-ready evaluation records.
+- **Anthropic & Open Agent Skills**: concise `SKILL.md` frontmatter, progressive disclosure via `references/`, and deterministic local scripts in `scripts/`.
+- **CfRR Reproducible Research**: deterministic verification, explicit uncertainty, and zero hidden state.
 
 ## Problem It Solves
 
-Create concise model risk and compliance memos for review, audit, launch, or executive approval.
-
-- Primary pain: Data science teams often lack a crisp artifact that explains model purpose, risk, evidence, limits, and controls.
-- Why generic tools are not enough: generic notebooks, profilers, dashboards, and MLOps tools inspect pieces of the problem; this skill forces the agent to connect evidence, assumptions, owner decisions, risk, and next action.
-- What the skill adds: A standard memo turns model risk from scattered notes into an approval-ready record.
+Data science teams often lack a crisp artifact that explains model purpose, risk, evidence, limits, and controls. Without a structured gate, teams routinely discover `affected users undefined` or `no rollback owner` only after engineering effort or executive credibility has already been spent.
 
 ## What This Skill Should Do
 
@@ -48,8 +44,6 @@ Create concise model risk and compliance memos for review, audit, launch, or exe
 - privacy and fairness concerns
 - monitoring plan
 
-If an input is missing, the agent should inspect local files, schemas, notebooks, SQL, configs, reports, tickets, model artifacts, or metadata first. It should ask the user only when missing context would materially change the decision.
-
 ## Operating Workflow
 
 1. Define model purpose, non-goals, user impact, and decision authority.
@@ -66,23 +60,14 @@ If an input is missing, the agent should inspect local files, schemas, notebooks
 - approval conditions
 - signoff checklist
 
-Every final answer should include:
-
-- `Problem`
-- `Inputs`
-- `Checks performed`
-- `Findings`
-- `Decision`
-- `Risks`
-- `Next actions`
-- `Artifacts`
+All outputs are delivered inside the eight-section decision contract: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
 
 ## Concrete Use Cases
 
-- Project intake: decide whether to proceed, fix prerequisites, or stop before time is wasted.
-- Review gate: challenge a result when evidence is weak, assumptions are hidden, or a red flag appears.
-- Handoff: create an artifact an engineer, analyst, governance reviewer, or another agent can continue from.
-- Incident prevention: catch the workflow failure before it becomes a bad model, broken dashboard, or misleading executive claim.
+- **Pre-commit readiness gate**: Run `scripts/risk_tier_gate.py` on `model purpose` to produce a `model risk memo` before approving engineering scope.
+- **Adversarial review**: Challenge a proposed `go` recommendation when `affected users undefined` or `no rollback owner` is suspected in `data sources`.
+- **Cross-team handoff**: Generate `risk register` and `signoff checklist` so ML engineers, governance reviewers, or downstream agents can act without re-running discovery.
+- **Regression audit**: Score completed review checklists with `scripts/checklist_score.py --strict` inside CI to prevent unverified artifacts from shipping.
 
 ## Red Flags
 
@@ -92,52 +77,51 @@ Every final answer should include:
 - privacy basis unclear
 - monitoring absent
 
-When one appears, the agent must surface it, classify its severity, and tie it to a next action or owner decision.
-
 ## Agent And Provider Portability
 
-This skill is designed for OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Agent Runtimes**: OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Data & ML Providers**: Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, Airflow, Prefect, MLflow, DVC, Weights & Biases, SageMaker, Vertex AI, Azure ML, Great Expectations, Pandera, Evidently, Kedro, and local CSV/Parquet/JSON files.
 
-Use `SKILL.md` as the primary instruction. Use `references/agent-portability.md` for provider-specific adaptation and `MANIFEST.json` for machine-readable package expectations.
-
-## Data Platforms
-
-Use exported metadata, schemas, samples, logs, lineage files, model cards, metric reports, experiment records, or incident notes from Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, MLflow, DVC, W&B, SageMaker, Vertex AI, Azure ML, local files, or equivalent systems.
-
-Provider output is evidence, not authority. Do not upload private data to external services unless the user explicitly approves that environment.
+See [references/agent-portability.md](references/agent-portability.md) and [references/provider-interop.md](references/provider-interop.md) for host-specific integration instructions.
 
 ## Included Files
 
-- `SKILL.md`: trigger metadata and core execution workflow.
-- `README.md`: this independent GitHub skill page.
-- `MANIFEST.json`: machine-readable contract for portability checks.
-- `AGENTS.md`: local agent instructions for editing or validating this skill folder.
-- `agents/openai.yaml`: OpenAI-facing metadata and invocation defaults.
-- `references/playbook.md`: operational checklist and failure modes.
-- `references/acceptance-tests.md`: clean, messy, and adversarial forward tests.
-- `references/provider-interop.md`: provider and data-platform guidance.
-- `references/agent-portability.md`: Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, and multi-agent adaptation.
-- `references/quality-rubric.md`: senior-review scoring rubric.
-- `references/benchmark-plan.md`: expanded test plan.
-- `references/research-grounding.md`: source-informed design rationale.
-- `tests/test_skill_contract.py`: portable stdlib contract tests.
-- `tests/fixtures/`: clean, messy, and adversarial prompt fixtures.
-- `scripts/`: deterministic helper scripts where useful.
-- `assets/hero-shot.png`: 1600x900 hero image.
-- `assets/reddit-infographic.png`: 1080x1350 Reddit-ready infographic.
+- `SKILL.md`
+- `README.md`
+- `MANIFEST.json`
+- `AGENTS.md`
+- `agents/openai.yaml`
+- `scripts/risk_tier_gate.py`
+- `scripts/checklist_score.py`
+- `scripts/quick_validate_skill.py`
+- `references/multilingual-guide.md`: Native English, Simplified Chinese (简体中文), Japanese (日本語), and Korean (한국어) execution guide.
+- `references/playbook.md`
+- `references/acceptance-tests.md`
+- `references/provider-interop.md`
+- `references/agent-portability.md`
+- `references/quality-rubric.md`
+- `references/benchmark-plan.md`
+- `references/research-grounding.md`
+- `references/evidence-map.md`
+- `references/infographic-spec.md`
+- `tests/test_skill_contract.py`
+- `tests/fixtures/clean.md`
+- `tests/fixtures/messy.md`
+- `tests/fixtures/adversarial.md`
+- `assets/hero-shot.png`
+- `assets/reddit-infographic.png`
 
 ## Validation
 
-Run these from inside the skill folder:
+Run the deterministic smoke and contract suite from inside this skill directory:
 
 ```bash
+python scripts/risk_tier_gate.py path/to/risk_memo.json
 python scripts/quick_validate_skill.py . --strict
 python tests/test_skill_contract.py .
 ```
 
-Then run at least one clean, messy, and adversarial forward test from `tests/fixtures/`.
+## Visual Assets
 
-## GitHub PR Visual Links
-
-- Hero shot: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-model-risk-compliance-memo/data-science-agent-skills/model-risk-compliance-memo/assets/hero-shot.png
-- Reddit infographic: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-model-risk-compliance-memo/data-science-agent-skills/model-risk-compliance-memo/assets/reddit-infographic.png
+- Hero shot (`1600x900`): [assets/hero-shot.png](assets/hero-shot.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/model-risk-compliance-memo/assets/hero-shot.png`)
+- Reddit infographic (`1080x1350`): [assets/reddit-infographic.png](assets/reddit-infographic.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/model-risk-compliance-memo/assets/reddit-infographic.png`)

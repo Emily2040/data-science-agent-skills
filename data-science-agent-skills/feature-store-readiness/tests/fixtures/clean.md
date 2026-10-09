@@ -1,16 +1,15 @@
-# Feature Store Readiness clean Fixture
+# Clean Fixture: `feature-store-readiness`
 
-Use $feature-store-readiness on this clean request: Decide whether a feature store is needed and design features to avoid training-serving skew, staleness, and reuse confusion. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $feature-store-readiness on this clean request: Decide whether a feature store is needed and design features to avoid training-serving skew, staleness, and reuse confusion. The project provides feature list, training data flow, serving flow, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/online_offline_skew_check.py path/to/offline.csv path/to/online.csv --key entity_id
+```
+
+Expected decision: `go` (with documented assumptions and next action).

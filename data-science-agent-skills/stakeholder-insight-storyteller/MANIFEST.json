@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "stakeholder-insight-storyteller",
   "display_name": "Stakeholder Insight Storyteller",
-  "description": "Convert analysis into stakeholder-ready insight narratives that state decisions, evidence, uncertainty, and recommended action without overclaiming.",
+  "description": "Translate technical data science findings into decision-grade executive memos with explicit asks, uncertainty intervals, and visible caveats. Use when converting notebooks, ablation tables, or experiment readouts into stakeholder recommendations.",
   "primary_pain": "Good analysis fails when stakeholders receive charts without a decision, caveats without priority, or claims beyond evidence.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/memo_claim_evidence_check.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,38 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Stakeholder Insight Storyteller",
+      "short": "Turn validated technical evidence into an executive decision memo with uncertainty and caveats",
+      "pain": "Decision makers either receive a 40-chart dump with no clear ask or a slick narrative that hides uncertainty and observational limits.",
+      "pain_short": "Chart dumps without a decision ask, or slick narratives that hide uncertainty.",
+      "trigger": "Audit and structure this executive memo so the decision ask, uncertainty bounds, and caveats are explicit."
+    },
+    "zh-CN": {
+      "title": "业务干系人洞察叙事与决策备忘录",
+      "short": "将经核验的技术证据转化为结论先行、含置信区间与前提边界的高管决策备忘录",
+      "pain": "向业务决策层堆砌几十张技术图表却无明确决策诉求，或者为了故事流畅而隐瞒不确定性区间与非因果前提。",
+      "trigger": "审查并重构这份高管汇报备忘录，确保决策诉求、置信区间、局限性与证据链清晰对齐。"
+    },
+    "ja": {
+      "title": "ステークホルダー・インサイト・ストーリーテラー",
+      "short": "検証済みエビデンスを、意思決定の問い・不確実性区間・前提条件を明示したエグゼクティブメモへ変換",
+      "pain": "グラフを大量に並べるだけで意思決定の選択肢がなかったり、逆に分かりやすさを優先して不確実性や前提条件を隠してしまう。",
+      "trigger": "このエグゼクティブ向け提案メモを監査し、意思決定の選択肢・信頼区間・制約条件が明確になるよう構成してください。"
+    },
+    "ko": {
+      "title": "이해관계자 인사이트 스토리텔러",
+      "short": "검증된 분석 근거를 의사결정 요청, 불확실성 구간, 한계점이 명시된 임원용 의사결정 메모로 구조화",
+      "pain": "의사결정 요청 없이 차트만 나열하거나, 매끄러운 서사를 위해 신뢰구간과 관찰 데이터의 한계를 숨김.",
+      "trigger": "이 임원 보고용 메모에 의사결정 요청, 불확실성 범위, 전제 조건이 명확히 담기도록 감사하고 재구성해 줘."
+    }
+  }
 }

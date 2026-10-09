@@ -1,6 +1,6 @@
 ---
 name: experiment-provenance-ledger
-description: Preserve experiment provenance across code, data, environment, parameters, metrics, artifacts, and human decisions. Use when an agent needs a judgment-heavy data science workflow for capture code, data, env, and decision history, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Capture cryptographic dataset hashes, git commit state, environment manifests, random seeds, and decision history for ML experiments. Use when building an auditable provenance ledger so model results can be reproduced or traced back to exact inputs.
 ---
 
 # Experiment Provenance Ledger
@@ -9,20 +9,20 @@ description: Preserve experiment provenance across code, data, environment, para
 
 Preserve experiment provenance across code, data, environment, parameters, metrics, artifacts, and human decisions.
 
-Current pain point: Teams cannot explain which model, data, code, or parameters produced a result after the fact.
+Primary failure mode prevented: teams cannot explain which model, data, code, or parameters produced a result after the fact.
 
-Why this skill exists: A provenance ledger creates an immutable audit trail independent of any single tracking tool.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`repo path, dataset identifiers, environment files, training command`) must be audited for red flags such as `unversioned dataset`, `dirty code used for final metric`, `missing seed`, `manual artifact rename`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/capture_provenance.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`unversioned dataset`, `dirty code used for final metric`, `missing seed`, `manual artifact rename`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,20 +30,16 @@ Why this skill exists: A provenance ledger creates an immutable audit trail inde
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `provenance ledger`, `artifact manifest`, `decision log`, `tool mapping`, `audit gaps`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- repo path
-- dataset identifiers
-- environment files
-- training command
-- metrics
-- artifact paths
-- decision notes
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/capture_provenance.py path/to/train.csv path/to/config.yaml --seed 42
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -53,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Map entries to MLflow, DVC, W&B, or plain JSON depending on the stack.
 5. Return a ledger and missing-provenance risk list.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- unversioned dataset
-- dirty code used for final metric
-- missing seed
-- manual artifact rename
-- model chosen without logged rationale
+- **English**: Experiment Provenance Ledger — Record SHA-256 dataset hashes, git commit state, seeds, and hyperparameters per run.
+- **简体中文**: 实验血缘与溯源账本 — 记录每次实验的数据集 SHA-256 摘要、Git 提交状态、脏工作区标记、随机种子与超参（参见 `references/multilingual-guide.md`）。
+- **日本語**: 実験プロヴェナンス台帳（来歴管理） — データセットのSHA-256ハッシュ・Gitコミット状態・乱数シード・設定を実行ごとに記録（`references/multilingual-guide.md` を参照）。
+- **한국어**: 실험 프로비넌스(출처) 원장 — 실험별 데이터셋 SHA-256 해시, Git 커밋·더티 상태, 난수 시드, 하이퍼파라미터를 기록 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

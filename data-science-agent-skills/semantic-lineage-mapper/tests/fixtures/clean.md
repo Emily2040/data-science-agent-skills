@@ -1,16 +1,15 @@
-# Semantic Lineage Mapper clean Fixture
+# Clean Fixture: `semantic-lineage-mapper`
 
-Use $semantic-lineage-mapper on this clean request: Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $semantic-lineage-mapper on this clean request: Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs. The project provides SQL files, notebooks, pipeline configs, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/extract_lineage_tokens.py sql/ pipelines/ notebooks/
+```
+
+Expected decision: `go` (with documented assumptions and next action).

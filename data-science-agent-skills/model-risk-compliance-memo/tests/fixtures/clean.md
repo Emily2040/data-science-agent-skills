@@ -1,16 +1,15 @@
-# Model Risk Compliance Memo clean Fixture
+# Clean Fixture: `model-risk-compliance-memo`
 
-Use $model-risk-compliance-memo on this clean request: Create concise model risk and compliance memos for review, audit, launch, or executive approval. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $model-risk-compliance-memo on this clean request: Create concise model risk and compliance memos for review, audit, launch, or executive approval. The project provides model purpose, data sources, users affected, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/risk_tier_gate.py path/to/risk_memo.json
+```
+
+Expected decision: `go` (with documented assumptions and next action).

@@ -1,12 +1,15 @@
-# Notebook To Pipeline Surgeon messy Fixture
+# Messy Fixture: `notebook-to-pipeline-surgeon`
 
-Use $notebook-to-pipeline-surgeon on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: global mutable state.
+Prompt:
 
-Expected response traits:
+```text
+Use $notebook-to-pipeline-surgeon on a messy project where notebook, target runtime are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: global mutable state.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: global mutable state
+```bash
+python scripts/notebook_repro_audit.py path/to/notebook.ipynb
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `global mutable state` in `Findings` and `Risks`).

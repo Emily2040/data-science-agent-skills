@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "notebook-to-pipeline-surgeon",
   "display_name": "Notebook To Pipeline Surgeon",
-  "description": "Convert exploratory notebooks into modular, parameterized scripts or orchestrated pipeline tasks.",
+  "description": "Refactor exploratory Jupyter notebooks into modular, testable Python pipeline stages with explicit input/output contracts. Use when extracting data loading, feature engineering, training, and evaluation out of stateful notebook cells.",
   "primary_pain": "Production workflows inherit notebook state, copy-pasted cells, and manual execution steps.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/notebook_repro_audit.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Notebook To Pipeline Surgeon",
+      "short": "Refactor exploratory notebooks into modular, testable, idempotent pipeline stages",
+      "pain": "Scheduling raw exploratory notebooks in production causes brittle failures, untestable side effects, and silent overwrites.",
+      "trigger": "Refactor this exploratory notebook into modular, idempotent pipeline stages with unit tests."
+    },
+    "zh-CN": {
+      "title": "Notebook 转生产管道重构师",
+      "short": "将探索性 Notebook 拆解重构为模块化、幂等、可单测的生产数据与训练管道",
+      "pain": "直接把包含探索性图表、硬编码配置与副作用的整本 Notebook 挂上生产调度，导致故障频发且无法回滚。",
+      "trigger": "将这份探索性 Notebook 重构为职责清晰、幂等且带契约测试的生产流水线模块。"
+    },
+    "ja": {
+      "title": "Notebook・トゥ・パイプライン・サージョン",
+      "short": "探索的Notebookをモジュール化・べき等・テスト可能な本番パイプラインへ外科的に再構築",
+      "pain": "探索用Notebookをそのまま定期バッチに乗せることで、副作用や途中失敗時のデータ破損、テスト不能な負債が生じる。",
+      "trigger": "この探索的Notebookを、べき等性と単体テストを備えたモジュール型パイプラインへ設計し直してください。"
+    },
+    "ko": {
+      "title": "노트북-파이프라인 리팩터링 서전",
+      "short": "탐색적 노트북을 모듈화·멱등성·단위 테스트를 갖춘 프로덕션 파이프라인으로 전환",
+      "pain": "탐색용 노트북을 그대로 운영 스케줄러에 올려 부작용, 부분 실패 시 데이터 오염, 테스트 불가능한 기술 부채가 발생함.",
+      "trigger": "이 탐색적 노트북을 멱등성과 계약 테스트를 갖춘 모듈형 프로덕션 파이프라인으로 리팩터링해 줘."
+    }
+  }
 }

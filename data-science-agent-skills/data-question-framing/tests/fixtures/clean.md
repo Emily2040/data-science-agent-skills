@@ -1,16 +1,15 @@
-# Data Question Framing clean Fixture
+# Clean Fixture: `data-question-framing`
 
-Use $data-question-framing on this clean request: Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $data-question-framing on this clean request: Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements. The project provides raw stakeholder request, available decision or business context, known data sources or constraints, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/decision_canvas_validator.py path/to/decision_canvas.json
+```
+
+Expected decision: `go` (with documented assumptions and next action).

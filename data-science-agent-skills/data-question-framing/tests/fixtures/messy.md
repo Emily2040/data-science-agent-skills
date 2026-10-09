@@ -1,12 +1,15 @@
-# Data Question Framing messy Fixture
+# Messy Fixture: `data-question-framing`
 
-Use $data-question-framing on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: no decision owner.
+Prompt:
 
-Expected response traits:
+```text
+Use $data-question-framing on a messy project where raw stakeholder request, available decision or business context are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: no decision owner.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: no decision owner
+```bash
+python scripts/decision_canvas_validator.py path/to/decision_canvas.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `no decision owner` in `Findings` and `Risks`).

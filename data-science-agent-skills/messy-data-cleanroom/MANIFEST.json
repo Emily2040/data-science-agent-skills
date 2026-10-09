@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "messy-data-cleanroom",
   "display_name": "Messy Data Cleanroom",
-  "description": "Design transparent, reversible cleaning plans for messy datasets without silently mutating evidence.",
+  "description": "Design reversible, auditable data-cleaning pipelines that quarantine corrupt records without mutating raw source extracts. Use when standardizing schemas, deduplicating entities, and logging row-level exclusion impact.",
   "primary_pain": "Cleaning decisions get buried in notebooks, making results impossible to audit or reproduce.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/profile_table.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Messy Data Cleanroom",
+      "short": "Design reversible, auditable cleaning and quarantine rules without mutating raw data",
+      "pain": "Ad-hoc notebook drops and silent coercions erase edge-case signals and make data cleaning impossible to reproduce.",
+      "trigger": "Design a reversible cleanroom pipeline with quarantine tables and row-count reconciliation."
+    },
+    "zh-CN": {
+      "title": "脏数据净室治理",
+      "short": "在不篡改原始数据的前提下设计可逆、可审计的清洗与隔离规则",
+      "pain": "脚本中随手丢弃异常行或静默强制转型，抹杀了关键边缘信号并导致清洗过程无法复现。",
+      "trigger": "为这批脏数据设计可逆的净室清洗规则、异常隔离表与行数勾稽校验。"
+    },
+    "ja": {
+      "title": "メッシーデータ・クリーンルーム",
+      "short": "生データを破壊せず、可逆かつ監査可能なクレンジング・隔離ルールを設計",
+      "pain": "場当たり的なレコード削除や暗黙の型変換により、重要な異常シグナルが消え、前処理の再現性が失われる。",
+      "trigger": "生データを保持したまま、隔離テーブルと件数突合を備えた可逆なクレンジング手順を設計してください。"
+    },
+    "ko": {
+      "title": "메시 데이터 클린룸",
+      "short": "원본 데이터를 훼손하지 않고 가역적·감사가능한 정제 및 격리(Quarantine) 규칙 설계",
+      "pain": "임의의 행 삭제나 암묵적 형변환으로 인해 중요한 이상 징후가 사라지고 전처리 재현성이 깨짐.",
+      "trigger": "원본 데이터를 보존하면서 격리 테이블과 행 수 대사(Reconciliation)를 포함한 정제 파이프라인을 설계해 줘."
+    }
+  }
 }

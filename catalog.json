@@ -1,0 +1,1338 @@
+{
+  "schema_version": "2026-10-multilingual",
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "skill_count": 25,
+  "skills": [
+    {
+      "name": "ai-data-readiness-triage",
+      "display_name": "AI Data Readiness Triage",
+      "short_description": "Score whether data is usable for AI work",
+      "stage": "Stage 1: Framing & Triage",
+      "path": "data-science-agent-skills/ai-data-readiness-triage",
+      "skill_md": "data-science-agent-skills/ai-data-readiness-triage/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/ai-data-readiness-triage/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "AI Data Readiness Triage",
+          "short": "Score whether datasets are ready for AI, analytics, or modeling",
+          "pain": "AI projects stall mid-flight because missing labels, stale tables, PII exposure, and unknown ownership surface too late.",
+          "trigger": "Triage whether our tables and labels are ready for AI modeling before we commit engineering budget."
+        },
+        "zh-CN": {
+          "title": "AI 数据就绪度评估",
+          "short": "在投入研发预算前评估数据集是否具备 AI、分析或建模条件",
+          "pain": "项目启动后才发现数据权属不清、标签缺失、核心字段高缺失率、更新时效滞后或存在 PII 合规隐患。",
+          "trigger": "在立项建模前，评估这批数据表的质量、标签覆盖率与合规就绪度。"
+        },
+        "ja": {
+          "title": "AIデータ準備度トリアージ",
+          "short": "AI・分析・モデリング着手前にデータの利用可能性と品質を判定",
+          "pain": "開発予算を投じた後になって、データオーナー不明・教師ラベル不足・欠損過多・PIIリスク・鮮度不足が発覚する。",
+          "trigger": "モデリングに着手する前に、このデータセットの品質・ラベル・ガバナンス準備度を評価してください。"
+        },
+        "ko": {
+          "title": "AI 데이터 준비도 트리아지",
+          "short": "예산과 엔지니어링 투입 전 AI·분석·모델링용 데이터 준비 상태 진단",
+          "pain": "프로젝트 착수 후에야 데이터 오너 불명, 라벨 부재, 핵심 컬럼 결측, 갱신 주기 불일치, 개인정보(PII) 리스크가 드러남.",
+          "trigger": "모델링 예산을 투입하기 전에 이 데이터셋의 품질, 라벨 커버리지, 거버넌스 준비도를 점검해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/ai-data-readiness-triage/scripts/checklist_score.py",
+        "data-science-agent-skills/ai-data-readiness-triage/scripts/profile_table.py",
+        "data-science-agent-skills/ai-data-readiness-triage/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "baseline-ablation-lab",
+      "display_name": "Baseline Ablation Lab",
+      "short_description": "Force honest baselines and ablations",
+      "stage": "Stage 2: Validity & Leakage",
+      "path": "data-science-agent-skills/baseline-ablation-lab",
+      "skill_md": "data-science-agent-skills/baseline-ablation-lab/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/baseline-ablation-lab/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Baseline Ablation Lab",
+          "short": "Require naive/simple baselines and controlled ablations before accepting complex models",
+          "pain": "Teams deploy heavyweight ensembles or deep models without proving lift over simple heuristics across multiple seeds.",
+          "trigger": "Audit whether the candidate model beats simple baselines after accounting for seed variance and latency."
+        },
+        "zh-CN": {
+          "title": "基线对标与消融实验室",
+          "short": "在接纳复杂模型前强制开展简单基线对标、多随机种子复现与特征消融实验",
+          "pain": "未与规则基线或简单线性模型对比、仅凭单一随机种子跑分，就上线高延迟且难以维护的复杂模型。",
+          "trigger": "审计候选模型相对于简单基线的净增益、跨随机种子稳定性、延迟代价与特征消融结果。"
+        },
+        "ja": {
+          "title": "ベースライン＆アブレーション実験室",
+          "short": "複雑なモデルを採用する前に単純ベースラインとの比較・複数シード検証・アブレーションを徹底",
+          "pain": "単純なヒューリスティックや軽量モデルとの比較やシード分散の確認なしに、高コストな複雑モデルを本番投入してしまう。",
+          "trigger": "候補モデルが単純ベースラインを統計的かつレイテンシ制約内で上回っているかアブレーション監査してください。"
+        },
+        "ko": {
+          "title": "베이스라인 및 어블레이션 랩",
+          "short": "복잡한 모델 채택 전 단순 베이스라인 비교, 다중 시드 검증, 피처 어블레이션을 강제",
+          "pain": "단순 규칙이나 경량 모델 대비 실질적 성능 향상과 추론 지연 비용을 검증하지 않고 무거운 모델부터 배포함.",
+          "trigger": "후보 모델이 다중 시드 분산과 추론 지연시간을 감안해도 단순 베이스라인을 유의미하게 앞서는지 감사해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/baseline-ablation-lab/scripts/ablation_delta_audit.py",
+        "data-science-agent-skills/baseline-ablation-lab/scripts/checklist_score.py",
+        "data-science-agent-skills/baseline-ablation-lab/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "causal-assumption-scout",
+      "display_name": "Causal Assumption Scout",
+      "short_description": "Stop predictive work from pretending causality",
+      "stage": "Stage 2: Validity & Leakage",
+      "path": "data-science-agent-skills/causal-assumption-scout",
+      "skill_md": "data-science-agent-skills/causal-assumption-scout/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/causal-assumption-scout/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Causal Assumption Scout",
+          "short": "Audit causal claims for confounding, collider bias, post-treatment controls, and identification",
+          "pain": "Teams present observational correlations or predictive feature importance as causal policy levers.",
+          "trigger": "Audit whether our observational data and covariate set can support this causal impact claim."
+        },
+        "zh-CN": {
+          "title": "因果假设与识别侦察",
+          "short": "审查因果推断诉求中的混杂偏倚、对撞因子、干预后控制变量与可识别性假设",
+          "pain": "直接将观测数据相关性或预测模型特征重要性包装成因果增量结论，误导业务施策。",
+          "trigger": "审查这项因果归因诉求，检查是否存在未观测混杂、对撞偏倚或干预后变量控制。"
+        },
+        "ja": {
+          "title": "因果推論仮定スカウト",
+          "short": "交絡・合流点バイアス・処置後変数の統制・識別可能性を点検し因果主張の妥当性を審査",
+          "pain": "観察データの相関や予測モデルの特徴量重要度を、そのまま施策の因果効果として過剰主張してしまう。",
+          "trigger": "この観察データと共変量セットで因果効果を主張できるか、DAGとバックドア基準から検証してください。"
+        },
+        "ko": {
+          "title": "인과 추론 가정 스카우트",
+          "short": "교란변수·충돌변수(Collider)·처치 후 통제변수 및 식별 가능성을 점검하여 인과 주장 검증",
+          "pain": "관찰 데이터의 단순 상관관계나 예측 모델의 변수 중요도를 정책·캠페인의 인과적 효과로 과대 해석함.",
+          "trigger": "관찰 데이터와 공변량 구성이 이 인과적 효과 주장을 뒷받침할 수 있는지 교란·충돌 편향을 점검해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/causal-assumption-scout/scripts/checklist_score.py",
+        "data-science-agent-skills/causal-assumption-scout/scripts/confounder_backdoor_check.py",
+        "data-science-agent-skills/causal-assumption-scout/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "cost-aware-compute-planner",
+      "display_name": "Cost Aware Compute Planner",
+      "short_description": "Plan GPU, cloud, and sampling costs",
+      "stage": "Stage 3: Repro & Pipelines",
+      "path": "data-science-agent-skills/cost-aware-compute-planner",
+      "skill_md": "data-science-agent-skills/cost-aware-compute-planner/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/cost-aware-compute-planner/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Cost Aware Compute Planner",
+          "short": "Estimate retry-adjusted GPU/cloud spend and enforce 10% pilot gates before full runs",
+          "pain": "Teams burn cloud GPU budgets on full-dataset sweeps before verifying pipeline stability on a 10% pilot sample.",
+          "trigger": "Estimate retry-adjusted compute cost for this training sweep and set staged budget guardrails."
+        },
+        "zh-CN": {
+          "title": "成本感知算力规划师",
+          "short": "测算含重试期望的 GPU/云算力成本，并在全量训练前强制执行 10% 小样本先导门禁",
+          "pain": "在尚未通过小样本验证代码稳定性与收益前，直接启动全量数据与大规模 GPU 超参搜索，导致算力预算迅速烧穿。",
+          "trigger": "测算这批训练任务的期望算力成本（含失败重试），并制定 10% 先导验证与预算熔断规则。"
+        },
+        "ja": {
+          "title": "コスト意識型コンピュートプランナー",
+          "short": "再試行期待値を織り込んだGPU・クラウド費用を見積もり、全量実行前に10%パイロット検証を徹底",
+          "pain": "パイプラインの安定性を小規模サンプルで確認する前にフルデータでGPUクラスタを回し、予算を浪費する。",
+          "trigger": "失敗再試行を考慮した学習コストを見積もり、10%パイロット検証ゲートと予算上限ルールを設計してください。"
+        },
+        "ko": {
+          "title": "비용 인지형 컴퓨팅 플래너",
+          "short": "재시도 기댓값이 반영된 GPU·클라우드 비용을 산출하고 전체 학습 전 10% 파일럿 게이트를 적용",
+          "pain": "10% 소규모 샘플로 파이프라인 안정성을 검증하기도 전에 전체 데이터셋과 대형 GPU 클러스터를 돌려 예산을 소진함.",
+          "trigger": "실패 재시도율을 반영한 총 컴퓨팅 비용을 추정하고 10% 파일럿 게이트와 예산 가드레일을 설정해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/cost-aware-compute-planner/scripts/checklist_score.py",
+        "data-science-agent-skills/cost-aware-compute-planner/scripts/compute_budget_estimator.py",
+        "data-science-agent-skills/cost-aware-compute-planner/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "data-question-framing",
+      "display_name": "Data Question Framing",
+      "short_description": "Turn vague asks into measurable DS problems",
+      "stage": "Stage 1: Framing & Triage",
+      "path": "data-science-agent-skills/data-question-framing",
+      "skill_md": "data-science-agent-skills/data-question-framing/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/data-question-framing/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Data Question Framing",
+          "short": "Turn vague business or research asks into measurable DS problem statements",
+          "pain": "Teams start querying or modeling before locking the decision owner, target, unit of analysis, or action threshold.",
+          "trigger": "Frame this vague business request into a measurable data science decision canvas."
+        },
+        "zh-CN": {
+          "title": "数据问题界定与拆解",
+          "short": "将模糊的业务或科研诉求转化为可量化的数据科学问题定义",
+          "pain": "团队在尚未明确决策责任人、分析粒度、目标口径与行动阈值之前就盲目取数或建模。",
+          "trigger": "帮我把这项模糊的业务需求拆解为可执行的决策画布与指标树。"
+        },
+        "ja": {
+          "title": "データ課題フレーミング",
+          "short": "曖昧なビジネス・研究要望を測定可能なDS課題定義へ構造化",
+          "pain": "意思決定オーナー・分析単位・目的変数・アクション閾値を定義しないまま集計やモデリングに着手してしまう。",
+          "trigger": "この曖昧な要望を意思決定キャンバスと測定可能な指標ツリーに落とし込んでください。"
+        },
+        "ko": {
+          "title": "데이터 문제 정의 및 프레이밍",
+          "short": "모호한 비즈니스·연구 요청을 측정 가능한 데이터 사이언스 문제로 구조화",
+          "pain": "의사결정권자, 분석 단위, 타깃 정의, 행동 임계값을 확정하지 않은 채 쿼리나 모델링부터 시작함.",
+          "trigger": "이 모호한 비즈니스 요청을 측정 가능한 의사결정 캔버스와 지표 트리로 정의해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/data-question-framing/scripts/checklist_score.py",
+        "data-science-agent-skills/data-question-framing/scripts/decision_canvas_validator.py",
+        "data-science-agent-skills/data-question-framing/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "data-science-incident-rca",
+      "display_name": "Data Science Incident RCA",
+      "short_description": "Diagnose broken models and dashboards",
+      "stage": "Stage 5: Ops & Storytelling",
+      "path": "data-science-agent-skills/data-science-incident-rca",
+      "skill_md": "data-science-agent-skills/data-science-incident-rca/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/data-science-incident-rca/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Data Science Incident RCA",
+          "short": "Correlate broken dashboards or model drops across ingestion, schema, feature, model, and metric layers",
+          "pain": "Teams retrain models during an incident when the real root cause is an upstream schema change or deployment config shift.",
+          "trigger": "Correlate this incident timeline against upstream pipeline, schema, feature, and deployment events."
+        },
+        "zh-CN": {
+          "title": "数据科学事故根因分析（RCA）",
+          "short": "跨数据接入、表结构、特征计算、模型版本与指标口径五层关联时间线，定位线上异常根因",
+          "pain": "线上指标或模型预测突降时盲目重训模型，却忽略了故障前刚发生的上游字段变更、时区改动或发布配置漂移。",
+          "trigger": "将本次线上事故时间点与上游数据管道、Schema、特征和发布事件做时间线关联，定位根因。"
+        },
+        "ja": {
+          "title": "データサイエンス・インシデント根本原因分析（RCA）",
+          "short": "データ取込・スキーマ・特徴量・モデル・指標定義の5層でイベント時系列を相関させ原因を特定",
+          "pain": "上流のスキーマ変更やデプロイ設定ミスが原因なのに、現象だけを見てモデルの再学習に時間を浪費してしまう。",
+          "trigger": "インシデント発生時刻と上流パイプライン・スキーマ・デプロイのイベント時系列を突合し、根本原因を特定してください。"
+        },
+        "ko": {
+          "title": "데이터 사이언스 인시던트 근본원인분석(RCA)",
+          "short": "데이터 수집·스키마·피처·모델·지표 5개 계층의 이벤트 타임라인을 상관 분석해 장애 원인 규명",
+          "pain": "실제 원인은 업스트림 스키마 변경이나 배포 설정 오류인데 현상만 보고 모델 재학습에 시간을 허비함.",
+          "trigger": "인시던트 발생 시각과 업스트림 파이프라인·스키마·피처·배포 이벤트 타임라인을 대조해 근본 원인을 찾아 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/data-science-incident-rca/scripts/checklist_score.py",
+        "data-science-agent-skills/data-science-incident-rca/scripts/incident_timeline_correlator.py",
+        "data-science-agent-skills/data-science-incident-rca/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "dataset-contract-forensics",
+      "display_name": "Dataset Contract Forensics",
+      "short_description": "Infer contracts and tests from messy data",
+      "stage": "Stage 1: Framing & Triage",
+      "path": "data-science-agent-skills/dataset-contract-forensics",
+      "skill_md": "data-science-agent-skills/dataset-contract-forensics/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/dataset-contract-forensics/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Dataset Contract Forensics",
+          "short": "Infer and verify schema, grain, uniqueness, freshness, and null contracts",
+          "pain": "Upstream schema changes, duplicate keys, and timezone shifts silently corrupt downstream features and dashboards.",
+          "trigger": "Audit this table extract for primary-key uniqueness, schema drift, and dataset contract violations."
+        },
+        "zh-CN": {
+          "title": "数据契约取证与核验",
+          "short": "逆向推导并校验表结构、主键粒度、唯一性、时效与空值契约",
+          "pain": "上游口径变更、主键重复、枚举新增或时区偏移在无告警情况下悄然污染下游特征与报表。",
+          "trigger": "对这张数据表做契约取证，检查主键唯一性、粒度漂移与字段约束。"
+        },
+        "ja": {
+          "title": "データセット契約フォレンジック",
+          "short": "スキーマ・粒度・一意性・鮮度・欠損ルールを推論し契約違反を検出",
+          "pain": "上流のスキーマ変更や主キー重複、タイムゾーンのズレがサイレントに下流特徴量やダッシュボードを破壊する。",
+          "trigger": "このテーブル抽出データの主キー一意性、粒度、スキーマ契約違反を監査してください。"
+        },
+        "ko": {
+          "title": "데이터셋 계약 포렌식",
+          "short": "스키마·집계 단위(Grain)·고유성·최신성·결측 계약을 추론 및 검증",
+          "pain": "업스트림 스키마 변경, 키 중복, 타임존 불일치가 조용히 다운스트림 피처와 대시보드를 오염시킴.",
+          "trigger": "이 테이블 추출본의 기본키 고유성, 데이터 그레인, 스키마 계약 위반 여부를 포렌식해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/dataset-contract-forensics/scripts/checklist_score.py",
+        "data-science-agent-skills/dataset-contract-forensics/scripts/profile_table.py",
+        "data-science-agent-skills/dataset-contract-forensics/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "domain-expert-collaboration-loop",
+      "display_name": "Domain Expert Collaboration Loop",
+      "short_description": "Structure SME review for agent-assisted DS",
+      "stage": "Stage 4: Eval & Governance",
+      "path": "data-science-agent-skills/domain-expert-collaboration-loop",
+      "skill_md": "data-science-agent-skills/domain-expert-collaboration-loop/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/domain-expert-collaboration-loop/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Domain Expert Collaboration Loop",
+          "short": "Measure inter-annotator agreement (Cohen's kappa) and resolve SME label taxonomy disputes",
+          "pain": "Models train on noisy labels because domain experts interpret edge cases differently without an adjudication rubric.",
+          "trigger": "Calculate SME inter-annotator agreement and design a label adjudication rubric for disputed rows."
+        },
+        "zh-CN": {
+          "title": "领域专家协同与标注仲裁环",
+          "short": "量化领域专家标注一致性（Cohen's Kappa），制定边界样本仲裁准则与标签口径说明",
+          "pain": "多位业务专家对疑难样本的判定标准不一，团队在未做一致性检验（Kappa）的情况下直接拿分歧标签训练模型。",
+          "trigger": "计算专家标注结果的 Cohen's Kappa 一致性系数，并梳理分歧样本的仲裁规则。"
+        },
+        "ja": {
+          "title": "ドメインエキスパート協働ループ",
+          "short": "専門家のアノテーション一致度（Cohenのκ係数）を計測し、境界事例の裁定基準を整備",
+          "pain": "複数のドメイン専門家間で判断基準が揃っていないまま不整合なラベルで学習し、モデルの天井が下がる。",
+          "trigger": "SMEアノテーションの一致率とCohenのκ係数を算出し、判断が割れた事例の裁定ルーブリックを作成してください。"
+        },
+        "ko": {
+          "title": "도메인 전문가(SME) 협업 루프",
+          "short": "전문가 간 라벨 일치도(Cohen's Kappa)를 측정하고 경계 사례에 대한 라벨 조정 루브릭 수립",
+          "pain": "현업 전문가마다 경계 사례 해석 기준이 다른데도 일치도 검증 없이 노이즈가 섞인 라벨로 모델을 학습함.",
+          "trigger": "도메인 전문가 라벨링의 일치율과 Cohen's Kappa를 계산하고 불일치 샘플 조정 기준을 설계해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/domain-expert-collaboration-loop/scripts/checklist_score.py",
+        "data-science-agent-skills/domain-expert-collaboration-loop/scripts/quick_validate_skill.py",
+        "data-science-agent-skills/domain-expert-collaboration-loop/scripts/sme_label_agreement.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "drift-monitor-designer",
+      "display_name": "Drift Monitor Designer",
+      "short_description": "Design data, concept, and performance drift monitors",
+      "stage": "Stage 5: Ops & Storytelling",
+      "path": "data-science-agent-skills/drift-monitor-designer",
+      "skill_md": "data-science-agent-skills/drift-monitor-designer/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/drift-monitor-designer/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Drift Monitor Designer",
+          "short": "Detect mean shifts, variance explosions, constant-column breaks, NaNs, and missing-rate spikes",
+          "pain": "Uncalibrated drift alerts either flood on-call engineers with false alarms or miss variance explosions and NaN corruption.",
+          "trigger": "Compare baseline and current production feature distributions and design actionable drift alerts."
+        },
+        "zh-CN": {
+          "title": "数据与概念漂移监控设计",
+          "short": "检测均值偏移、方差暴增、常量列突变、NaN 污染与缺失率飙升，设计分级告警动作",
+          "pain": "监控只看均值不看方差与缺失率，或者阈值未校准导致告警风暴，掩盖了真正的上游字段损坏与分布漂移。",
+          "trigger": "对比基线与当前线上特征分布，排查均值、方差、常量列与缺失率漂移并设计告警门限。"
+        },
+        "ja": {
+          "title": "ドリフトモニター設計",
+          "short": "平均シフト・分散爆発・定数列の崩壊・NaN混入・欠損率急増を検知し実践的なアラートを設計",
+          "pain": "平均値だけを見て分散爆発やNaN汚染を見逃したり、閾値が未調整でオオカミ少年アラートを連発してしまう。",
+          "trigger": "ベースラインと現在の特徴量分布を比較し、平均・分散・欠損率ドリフトの監視ルールを設計してください。"
+        },
+        "ko": {
+          "title": "드리프트 모니터 디자이너",
+          "short": "평균 이동, 분산 폭증, 상수 컬럼 깨짐, NaN 오염, 결측률 급증을 탐지하고 실행 가능한 알림 설계",
+          "pain": "평균만 보다가 분산 폭증이나 NaN 오염을 놓치거나, 임계값 미조정으로 온콜 알림 피로도만 높임.",
+          "trigger": "베이스라인과 현재 운영 피처 분포를 비교해 평균·분산·결측률 드리프트를 진단하고 알림 기준을 설계해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/drift-monitor-designer/scripts/checklist_score.py",
+        "data-science-agent-skills/drift-monitor-designer/scripts/drift_probe.py",
+        "data-science-agent-skills/drift-monitor-designer/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "evaluation-reality-check",
+      "display_name": "Evaluation Reality Check",
+      "short_description": "Design trustworthy model evaluation",
+      "stage": "Stage 4: Eval & Governance",
+      "path": "data-science-agent-skills/evaluation-reality-check",
+      "skill_md": "data-science-agent-skills/evaluation-reality-check/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/evaluation-reality-check/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Evaluation Reality Check",
+          "short": "Audit subgroup slice errors, probability calibration, and offline-to-business translation",
+          "pain": "Aggregate AUC or accuracy hides severe degradation on critical customer slices, cold-start cohorts, or tail events.",
+          "trigger": "Audit these model predictions for subgroup slice accuracy gaps and probability calibration error."
+        },
+        "zh-CN": {
+          "title": "模型评估真实性核查",
+          "short": "审计分群切片误差（Slice Error）、概率校准度（Brier）与离线指标到业务收益的映射",
+          "pain": "全局平均 AUC 或准确率掩盖了核心客群、冷启动用户或高价值长尾切片上的严重性能塌陷与概率失准。",
+          "trigger": "对模型预测结果开展分群切片误差审计与概率校准检验，评估其真实业务可用性。"
+        },
+        "ja": {
+          "title": "モデル評価リアリティチェック",
+          "short": "サブグループ別のスライス誤差・確率キャリブレーション・ビジネス価値への換算を監査",
+          "pain": "全体の平均AUCや正解率だけでは、重要セグメントやコールドスタート層での重大な精度劣化を見落とす。",
+          "trigger": "予測結果のサブグループ間精度格差とBrierキャリブレーション誤差を監査してください。"
+        },
+        "ko": {
+          "title": "모델 평가 리얼리티 체크",
+          "short": "세부 집단(Slice)별 오차 격차, 확률 보정(Calibration), 오프라인 지표의 비즈니스 전환 타당성 감사",
+          "pain": "전체 평균 AUC나 정확도 뒤에 핵심 고객군, 콜드스타트 집단, 고위험 구간에서의 심각한 성능 저하가 가려짐.",
+          "trigger": "모델 예측값의 서브그룹 슬라이스별 정확도 격차와 확률 보정(Brier 점수) 오차를 감사해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/evaluation-reality-check/scripts/checklist_score.py",
+        "data-science-agent-skills/evaluation-reality-check/scripts/quick_validate_skill.py",
+        "data-science-agent-skills/evaluation-reality-check/scripts/slice_error_auditor.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "experiment-provenance-ledger",
+      "display_name": "Experiment Provenance Ledger",
+      "short_description": "Capture code, data, env, and decision history",
+      "stage": "Stage 3: Repro & Pipelines",
+      "path": "data-science-agent-skills/experiment-provenance-ledger",
+      "skill_md": "data-science-agent-skills/experiment-provenance-ledger/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/experiment-provenance-ledger/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Experiment Provenance Ledger",
+          "short": "Record SHA-256 dataset hashes, git commit state, seeds, and hyperparameters per run",
+          "pain": "Teams cannot reproduce last week's best model because data extracts, git working trees, and configs were never hashed.",
+          "trigger": "Capture a cryptographic provenance ledger for this experiment's data files, code state, and seed."
+        },
+        "zh-CN": {
+          "title": "实验血缘与溯源账本",
+          "short": "记录每次实验的数据集 SHA-256 摘要、Git 提交状态、脏工作区标记、随机种子与超参",
+          "pain": "最优实验结果无法复现，因为训练时未锁定数据快照哈希、代码工作区存在未提交改动或超参散落在手工记录中。",
+          "trigger": "为本次实验的数据文件、配置文件、Git 提交状态与随机种子生成加密溯源账本。"
+        },
+        "ja": {
+          "title": "実験プロヴェナンス台帳（来歴管理）",
+          "short": "データセットのSHA-256ハッシュ・Gitコミット状態・乱数シード・設定を実行ごとに記録",
+          "pain": "学習データやコードの未コミット変更、ハイパーパラメータの記録漏れにより、最良モデルの再現や監査対応ができなくなる。",
+          "trigger": "この実験のデータファイル・設定・Git状態・乱数シードの暗号学的プロヴェナンス台帳を生成してください。"
+        },
+        "ko": {
+          "title": "실험 프로비넌스(출처) 원장",
+          "short": "실험별 데이터셋 SHA-256 해시, Git 커밋·더티 상태, 난수 시드, 하이퍼파라미터를 기록",
+          "pain": "학습 데이터 스냅샷 해시와 Git 작업 트리 상태, 설정값을 기록하지 않아 최고 성능 모델을 재현하거나 감사할 수 없음.",
+          "trigger": "이번 실험에 사용된 데이터 파일, 설정, Git 상태, 시드에 대한 프로비넌스 원장을 생성해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/experiment-provenance-ledger/scripts/capture_provenance.py",
+        "data-science-agent-skills/experiment-provenance-ledger/scripts/checklist_score.py",
+        "data-science-agent-skills/experiment-provenance-ledger/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "feature-store-readiness",
+      "display_name": "Feature Store Readiness",
+      "short_description": "Decide when a feature store is worth it",
+      "stage": "Stage 5: Ops & Storytelling",
+      "path": "data-science-agent-skills/feature-store-readiness",
+      "skill_md": "data-science-agent-skills/feature-store-readiness/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/feature-store-readiness/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Feature Store Readiness",
+          "short": "Audit online-offline feature parity, point-in-time joins, and serving TTL freshness",
+          "pain": "Batch training SQL and real-time serving code compute the same feature differently, causing silent training-serving skew.",
+          "trigger": "Check offline training and online serving feature extracts for entity-level parity and skew."
+        },
+        "zh-CN": {
+          "title": "特征平台就绪度与在线离线一致性",
+          "short": "审计离线训练与在线服务特征的逐实体一致性（Train-Serve Skew）、时间点关联与 TTL 时效",
+          "pain": "离线批处理 SQL 与线上实时服务代码对同一特征的计算口径或窗口存在细微差异，造成隐蔽的线上预测偏移。",
+          "trigger": "比对离线训练特征与在线服务特征抽样表，排查训练-服务不一致性（Skew）与时效滞后。"
+        },
+        "ja": {
+          "title": "特徴量ストア準備度＆オンライン／オフライン整合性",
+          "short": "学習用バッチ特徴量と推論用オンライン特徴量の一致性（Train-Serve Skew）・時点結合・TTLを監査",
+          "pain": "オフラインSQLとオンライン推論コードで特徴量の計算ロジックが微妙に異なり、本番推論時に精度が劣化する。",
+          "trigger": "オフライン学習用とオンライン推論用の特徴量CSVを突合し、エンティティ単位のスキューを検査してください。"
+        },
+        "ko": {
+          "title": "피처 스토어 준비도 및 온라인·오프라인 정합성",
+          "short": "오프라인 학습 피처와 온라인 서빙 피처 간 정합성(Train-Serve Skew), 시점 정합 조인, TTL을 감사",
+          "pain": "배치 학습 SQL과 실시간 서빙 코드의 피처 계산 로직이 미묘하게 달라 운영 환경에서 조용한 예측 왜곡이 발생함.",
+          "trigger": "오프라인 학습 피처와 온라인 서빙 피처 추출본을 비교해 엔티티 단위 스큐(Skew)를 점검해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/feature-store-readiness/scripts/checklist_score.py",
+        "data-science-agent-skills/feature-store-readiness/scripts/online_offline_skew_check.py",
+        "data-science-agent-skills/feature-store-readiness/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "leakage-adversary",
+      "display_name": "Leakage Adversary",
+      "short_description": "Attack ML pipelines for leakage",
+      "stage": "Stage 2: Validity & Leakage",
+      "path": "data-science-agent-skills/leakage-adversary",
+      "skill_md": "data-science-agent-skills/leakage-adversary/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/leakage-adversary/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Leakage Adversary",
+          "short": "Red-team ML datasets and pipelines for target, temporal, group, and preprocessing leakage",
+          "pain": "Models post near-perfect offline validation scores and collapse in production because future or outcome information leaked.",
+          "trigger": "Red-team this train/validation split and feature set for entity overlap and temporal target leakage."
+        },
+        "zh-CN": {
+          "title": "数据泄漏红队审计",
+          "short": "对机器学习数据集与特征管道开展标签泄漏、时间穿越与实体重叠红队排查",
+          "pain": "模型离线验证指标虚高，上线后却断崖式下跌，根源在于未来信息、全局统计量或同一实体跨集泄漏。",
+          "trigger": "对训练集与验证集做泄漏红队审计，排查实体交叉、时间穿越和目标泄漏特征。"
+        },
+        "ja": {
+          "title": "リーケージ・アドバーサリ（データ漏洩レッドチーム）",
+          "short": "目的変数・時系列・グループ・前処理のデータリーケージを敵対的視点で徹底検証",
+          "pain": "未来情報やターゲット由来の特徴量が学習に混入し、オフライン精度だけが高く本番で破綻する。",
+          "trigger": "学習・検証分割と特徴量パイプラインに対して、エンティティ重複や時系列リークの監査を実行してください。"
+        },
+        "ko": {
+          "title": "데이터 누수(Leakage) 레드팀",
+          "short": "타깃·시계열·그룹·전처리 데이터 누수를 적대적(Red-team) 관점에서 탐지 및 차단",
+          "pain": "미래 시점 정보나 타깃 파생 변수가 학습에 유입되어 오프라인 검증 성능만 높고 운영 환경에서 폭락함.",
+          "trigger": "학습·검증 데이터 분할과 피처 파이프라인에서 개체 중복 및 시계열 타깃 누수를 점검해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/leakage-adversary/scripts/checklist_score.py",
+        "data-science-agent-skills/leakage-adversary/scripts/quick_validate_skill.py",
+        "data-science-agent-skills/leakage-adversary/scripts/split_leakage_probe.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "messy-data-cleanroom",
+      "display_name": "Messy Data Cleanroom",
+      "short_description": "Design reversible data cleaning plans",
+      "stage": "Stage 1: Framing & Triage",
+      "path": "data-science-agent-skills/messy-data-cleanroom",
+      "skill_md": "data-science-agent-skills/messy-data-cleanroom/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/messy-data-cleanroom/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Messy Data Cleanroom",
+          "short": "Design reversible, auditable cleaning and quarantine rules without mutating raw data",
+          "pain": "Ad-hoc notebook drops and silent coercions erase edge-case signals and make data cleaning impossible to reproduce.",
+          "trigger": "Design a reversible cleanroom pipeline with quarantine tables and row-count reconciliation."
+        },
+        "zh-CN": {
+          "title": "脏数据净室治理",
+          "short": "在不篡改原始数据的前提下设计可逆、可审计的清洗与隔离规则",
+          "pain": "脚本中随手丢弃异常行或静默强制转型，抹杀了关键边缘信号并导致清洗过程无法复现。",
+          "trigger": "为这批脏数据设计可逆的净室清洗规则、异常隔离表与行数勾稽校验。"
+        },
+        "ja": {
+          "title": "メッシーデータ・クリーンルーム",
+          "short": "生データを破壊せず、可逆かつ監査可能なクレンジング・隔離ルールを設計",
+          "pain": "場当たり的なレコード削除や暗黙の型変換により、重要な異常シグナルが消え、前処理の再現性が失われる。",
+          "trigger": "生データを保持したまま、隔離テーブルと件数突合を備えた可逆なクレンジング手順を設計してください。"
+        },
+        "ko": {
+          "title": "메시 데이터 클린룸",
+          "short": "원본 데이터를 훼손하지 않고 가역적·감사가능한 정제 및 격리(Quarantine) 규칙 설계",
+          "pain": "임의의 행 삭제나 암묵적 형변환으로 인해 중요한 이상 징후가 사라지고 전처리 재현성이 깨짐.",
+          "trigger": "원본 데이터를 보존하면서 격리 테이블과 행 수 대사(Reconciliation)를 포함한 정제 파이프라인을 설계해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/messy-data-cleanroom/scripts/checklist_score.py",
+        "data-science-agent-skills/messy-data-cleanroom/scripts/profile_table.py",
+        "data-science-agent-skills/messy-data-cleanroom/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "metric-design-review-board",
+      "display_name": "Metric Design Review Board",
+      "short_description": "Align metrics with real decisions",
+      "stage": "Stage 4: Eval & Governance",
+      "path": "data-science-agent-skills/metric-design-review-board",
+      "skill_md": "data-science-agent-skills/metric-design-review-board/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/metric-design-review-board/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Metric Design Review Board",
+          "short": "Stress-test primary metrics, denominators, time windows, and anti-gaming guardrails",
+          "pain": "Optimizing a single ratio or click metric without guardrails invites Goodhart's law gaming and harms user experience.",
+          "trigger": "Run a metric design review on our primary KPI and propose anti-gaming guardrail metrics."
+        },
+        "zh-CN": {
+          "title": "指标设计评审委员会",
+          "short": "对核心北极星指标的分母口径、时间窗口、护栏指标与古德哈特（Goodhart）作弊路径开展压力测试",
+          "pain": "单一比例指标或点击率指标缺乏护栏约束，导致算法或业务通过改变分母、牺牲长效留存来刷高短期指标。",
+          "trigger": "评审这套实验与业务指标体系，核查分母漂移风险、时间窗口与反作弊护栏指标。"
+        },
+        "ja": {
+          "title": "指標設計レビューボード",
+          "short": "主要KPIの分母定義・集計期間・ガードレール指標・Goodhartの法則によるハック耐性を審査",
+          "pain": "ガードレール指標なしに単一の比率や短期指標を最適化し、分母の歪みやユーザー体験の悪化を招く。",
+          "trigger": "主要KPIとガードレール指標の設計を審査し、指標ハック（ゲーミング）の抜け道を洗い出してください。"
+        },
+        "ko": {
+          "title": "지표 설계 리뷰 보드",
+          "short": "핵심 KPI의 분모 정의, 집계 윈도우, 가드레일 지표, 굿하트 법칙(게이밍) 취약점을 심사",
+          "pain": "가드레일 없이 단일 비율이나 단기 클릭 지표만 최적화하다가 분모 왜곡과 장기 사용자 경험 훼손을 초래함.",
+          "trigger": "핵심 성과지표(KPI)의 분모·윈도우 정의를 검토하고 지표 게이밍을 막을 가드레일 지표를 설계해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/metric-design-review-board/scripts/checklist_score.py",
+        "data-science-agent-skills/metric-design-review-board/scripts/metric_guardrail_check.py",
+        "data-science-agent-skills/metric-design-review-board/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "missingness-mechanism-investigator",
+      "display_name": "Missingness Mechanism Investigator",
+      "short_description": "Diagnose missing data before imputation",
+      "stage": "Stage 2: Validity & Leakage",
+      "path": "data-science-agent-skills/missingness-mechanism-investigator",
+      "skill_md": "data-science-agent-skills/missingness-mechanism-investigator/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/missingness-mechanism-investigator/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Missingness Mechanism Investigator",
+          "short": "Diagnose MCAR, MAR, and MNAR missingness and block naive imputation traps",
+          "pain": "Mean-imputing or dropping missing rows when absence itself carries clinical, financial, or behavioral signal biases the model.",
+          "trigger": "Diagnose whether missing values in our core features are MCAR, MAR, or MNAR before imputing."
+        },
+        "zh-CN": {
+          "title": "缺失机制诊断（MCAR / MAR / MNAR）",
+          "short": "诊断完全随机、随机与非随机缺失机制，防范盲目均值插补或删行偏倚",
+          "pain": "当字段缺失本身隐含业务或风险信号（MNAR）时，简单删行或均值填充会引入严重选择偏倚。",
+          "trigger": "在插补缺失值之前，诊断核心特征属于 MCAR、MAR 还是 MNAR，并给出稳健处理方案。"
+        },
+        "ja": {
+          "title": "欠測メカニズム調査（MCAR / MAR / MNAR）",
+          "short": "欠測がMCAR・MAR・MNARのいずれかを診断し、安易な平均値補完や行削除によるバイアスを防止",
+          "pain": "欠測そのものに業務上の意味（MNAR）があるにもかかわらず、単純な行削除や平均値補完を行ってモデルを歪める。",
+          "trigger": "欠損値補完を行う前に、主要カラムの欠測メカニズム（MCAR/MAR/MNAR）を診断してください。"
+        },
+        "ko": {
+          "title": "결측 메커니즘 조사기 (MCAR / MAR / MNAR)",
+          "short": "결측치의 MCAR·MAR·MNAR 메커니즘을 진단하고 단순 평균 대체·행 삭제 편향을 방지",
+          "pain": "결측 자체에 비즈니스·행동 신호(MNAR)가 담겨 있는데도 단순 평균 대체나 행 삭제를 수행해 모델을 왜곡함.",
+          "trigger": "결측치를 대체하기 전에 핵심 변수의 결측 메커니즘이 MCAR, MAR, MNAR 중 무엇인지 진단해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/missingness-mechanism-investigator/scripts/checklist_score.py",
+        "data-science-agent-skills/missingness-mechanism-investigator/scripts/profile_table.py",
+        "data-science-agent-skills/missingness-mechanism-investigator/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "model-risk-compliance-memo",
+      "display_name": "Model Risk Compliance Memo",
+      "short_description": "Create governance-ready model risk memos",
+      "stage": "Stage 4: Eval & Governance",
+      "path": "data-science-agent-skills/model-risk-compliance-memo",
+      "skill_md": "data-science-agent-skills/model-risk-compliance-memo/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/model-risk-compliance-memo/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Model Risk Compliance Memo",
+          "short": "Document blast radius, human-in-the-loop override, fallback policy, and governance gates",
+          "pain": "High-impact models reach launch review without documented failure modes, appeal paths, or rollback owners.",
+          "trigger": "Draft a model risk and compliance gate memo with blast-radius classification and rollback controls."
+        },
+        "zh-CN": {
+          "title": "模型风险与合规备忘录",
+          "short": "界定模型爆炸半径、人工复核兜底机制、回滚责任人与合规上线门禁",
+          "pain": "高影响面的自动化决策模型在缺乏失败降级策略、人工接管通道与明确回滚责任人的情况下仓促上线。",
+          "trigger": "针对该模型编写风险分级与合规门禁备忘录，核查人工复核机制与回滚预案。"
+        },
+        "ja": {
+          "title": "モデルリスク・コンプライアンスメモ",
+          "short": "影響範囲（ブラスト半径）・人間による介入（HITL）・フォールバック・ロールバック責任者を審査",
+          "pain": "高リスクな自動判定モデルが、失敗時の縮退運転ルールや異議申し立て経路、ロールバック責任者なしにリリースされる。",
+          "trigger": "このモデルのリスク階層ゲートを審査し、影響範囲・人間によるオーバーライド・ロールバック体制を文書化してください。"
+        },
+        "ko": {
+          "title": "모델 리스크 및 컴플라이언스 메모",
+          "short": "모델 영향 범위(Blast Radius), 인간 개입(HITL) 통제, 폴백 정책, 롤백 책임자를 검증 및 문서화",
+          "pain": "고위험 자동 의사결정 모델이 장애 시 폴백 기준, 수동 제어권, 롤백 책임자 없이 배포 심사에 올라옴.",
+          "trigger": "이 모델의 리스크 등급 게이트를 점검하고 영향 범위, 수동 오버라이드, 롤백 통제 계획을 작성해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/model-risk-compliance-memo/scripts/checklist_score.py",
+        "data-science-agent-skills/model-risk-compliance-memo/scripts/quick_validate_skill.py",
+        "data-science-agent-skills/model-risk-compliance-memo/scripts/risk_tier_gate.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "notebook-repro-packager",
+      "display_name": "Notebook Repro Packager",
+      "short_description": "Make notebooks runnable elsewhere",
+      "stage": "Stage 3: Repro & Pipelines",
+      "path": "data-science-agent-skills/notebook-repro-packager",
+      "skill_md": "data-science-agent-skills/notebook-repro-packager/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/notebook-repro-packager/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Notebook Repro Packager",
+          "short": "Audit Jupyter notebooks for out-of-order cells, unseeded RNG, hardcoded paths, and lockfiles",
+          "pain": "Notebooks that 'worked on my machine' fail on clean reruns due to hidden cell state, missing seeds, and local paths.",
+          "trigger": "Audit this Jupyter notebook for reproducibility hazards and package it for a clean top-to-bottom run."
+        },
+        "zh-CN": {
+          "title": "Notebook 可复现性打包器",
+          "short": "审计 Jupyter Notebook 的乱序执行、未固定随机种子、硬编码绝对路径与依赖锁定",
+          "pain": "Notebook 依赖跨单元格隐式内存状态、本地硬编码路径或未锁定的包版本，换机重跑即报错或结果漂移。",
+          "trigger": "审计这份 Notebook 的乱序执行、随机种子与硬编码路径隐患，并生成可复现打包清单。"
+        },
+        "ja": {
+          "title": "Notebook再現性パッケージャー",
+          "short": "Jupyter Notebookのセル実行順序の乱れ・未固定シード・絶対パス・依存ロック漏れを監査",
+          "pain": "手元では動いたNotebookが、セルの順不同実行や固定されていない乱数シード、ローカル絶対パスのせいで再実行できない。",
+          "trigger": "このNotebookの実行順序・乱数シード・ハードコードされたパスを監査し、再現可能な形にパッケージ化してください。"
+        },
+        "ko": {
+          "title": "노트북 재현성 패키저",
+          "short": "Jupyter 노트북의 셀 역순 실행, 미고정 난수 시드, 절대 경로, 의존성 잠금 누락을 감사",
+          "pain": "숨겨진 셀 상태나 하드코딩된 로컬 경로, 고정되지 않은 시드 때문에 클린 환경에서 처음부터 다시 실행하면 실패함.",
+          "trigger": "이 Jupyter 노트북의 역순 실행, 난수 시드 누락, 절대 경로 문제를 감사하고 재현 가능하게 패키징해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/notebook-repro-packager/scripts/checklist_score.py",
+        "data-science-agent-skills/notebook-repro-packager/scripts/notebook_repro_audit.py",
+        "data-science-agent-skills/notebook-repro-packager/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "notebook-to-pipeline-surgeon",
+      "display_name": "Notebook To Pipeline Surgeon",
+      "short_description": "Refactor notebooks into maintainable pipelines",
+      "stage": "Stage 3: Repro & Pipelines",
+      "path": "data-science-agent-skills/notebook-to-pipeline-surgeon",
+      "skill_md": "data-science-agent-skills/notebook-to-pipeline-surgeon/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/notebook-to-pipeline-surgeon/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Notebook To Pipeline Surgeon",
+          "short": "Refactor exploratory notebooks into modular, testable, idempotent pipeline stages",
+          "pain": "Scheduling raw exploratory notebooks in production causes brittle failures, untestable side effects, and silent overwrites.",
+          "trigger": "Refactor this exploratory notebook into modular, idempotent pipeline stages with unit tests."
+        },
+        "zh-CN": {
+          "title": "Notebook 转生产管道重构师",
+          "short": "将探索性 Notebook 拆解重构为模块化、幂等、可单测的生产数据与训练管道",
+          "pain": "直接把包含探索性图表、硬编码配置与副作用的整本 Notebook 挂上生产调度，导致故障频发且无法回滚。",
+          "trigger": "将这份探索性 Notebook 重构为职责清晰、幂等且带契约测试的生产流水线模块。"
+        },
+        "ja": {
+          "title": "Notebook・トゥ・パイプライン・サージョン",
+          "short": "探索的Notebookをモジュール化・べき等・テスト可能な本番パイプラインへ外科的に再構築",
+          "pain": "探索用Notebookをそのまま定期バッチに乗せることで、副作用や途中失敗時のデータ破損、テスト不能な負債が生じる。",
+          "trigger": "この探索的Notebookを、べき等性と単体テストを備えたモジュール型パイプラインへ設計し直してください。"
+        },
+        "ko": {
+          "title": "노트북-파이프라인 리팩터링 서전",
+          "short": "탐색적 노트북을 모듈화·멱등성·단위 테스트를 갖춘 프로덕션 파이프라인으로 전환",
+          "pain": "탐색용 노트북을 그대로 운영 스케줄러에 올려 부작용, 부분 실패 시 데이터 오염, 테스트 불가능한 기술 부채가 발생함.",
+          "trigger": "이 탐색적 노트북을 멱등성과 계약 테스트를 갖춘 모듈형 프로덕션 파이프라인으로 리팩터링해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/notebook-to-pipeline-surgeon/scripts/checklist_score.py",
+        "data-science-agent-skills/notebook-to-pipeline-surgeon/scripts/notebook_repro_audit.py",
+        "data-science-agent-skills/notebook-to-pipeline-surgeon/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "oss-ds-supply-chain-auditor",
+      "display_name": "OSS Data Science Supply Chain Auditor",
+      "short_description": "Audit DS dependencies, models, data, and licenses",
+      "stage": "Stage 3: Repro & Pipelines",
+      "path": "data-science-agent-skills/oss-ds-supply-chain-auditor",
+      "skill_md": "data-science-agent-skills/oss-ds-supply-chain-auditor/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/oss-ds-supply-chain-auditor/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "OSS DS Supply Chain Auditor",
+          "short": "Audit Python/DS dependency manifests for unpinned packages, URL installs, and pickle risks",
+          "pain": "Unpinned requirements, direct GitHub URLs, and untrusted pickle/checkpoint loads expose ML pipelines to breakage and RCE.",
+          "trigger": "Audit our requirements.txt, pyproject.toml, and notebooks for supply-chain and serialization risks."
+        },
+        "zh-CN": {
+          "title": "开源数据科学供应链审计",
+          "short": "审计 Python 与数据科学依赖清单中的未锁定版本、裸 URL 安装及不安全反序列化风险",
+          "pain": "未锁定依赖版本、直接从 Git URL 安装包或加载不可信的 pickle 模型权重，极易引发线上构建崩溃与远程代码执行。",
+          "trigger": "审计项目中的依赖清单与 Notebook，排查未锁定依赖、裸 URL 引用及不安全模型加载风险。"
+        },
+        "ja": {
+          "title": "OSSデータサイエンス・サプライチェーン監査",
+          "short": "依存定義ファイルの未固定バージョン・直接URL参照・危険なpickle読み込みを監査",
+          "pain": "バージョン未固定のパッケージやGit URL直指定、信頼できないpickleファイルの読み込みが環境破損や脆弱性を招く。",
+          "trigger": "requirements.txtやpyproject.toml、Notebookの依存関係とモデル読み込みのサプライチェーンリスクを監査してください。"
+        },
+        "ko": {
+          "title": "오픈소스 DS 공급망 감사기",
+          "short": "Python·DS 의존성 매니페스트의 버전 미고정, 직접 URL 설치, 안전하지 않은 피클(Pickle) 로드를 감사",
+          "pain": "버전이 고정되지 않은 패키지, 직접 Git URL 설치, 신뢰할 수 없는 체크포인트 로드로 인해 빌드 깨짐과 보안 취약점이 발생함.",
+          "trigger": "requirements.txt, pyproject.toml, 노트북의 의존성 버전 고정 여부와 공급망 보안 리스크를 감사해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/oss-ds-supply-chain-auditor/scripts/checklist_score.py",
+        "data-science-agent-skills/oss-ds-supply-chain-auditor/scripts/dependency_surface.py",
+        "data-science-agent-skills/oss-ds-supply-chain-auditor/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "privacy-preserving-ds",
+      "display_name": "Privacy Preserving Data Science",
+      "short_description": "Choose safe analysis patterns for sensitive data",
+      "stage": "Stage 4: Eval & Governance",
+      "path": "data-science-agent-skills/privacy-preserving-ds",
+      "skill_md": "data-science-agent-skills/privacy-preserving-ds/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/privacy-preserving-ds/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Privacy Preserving DS",
+          "short": "Audit direct PII, quasi-identifiers, k-anonymity risks, and retention boundaries",
+          "pain": "Removing names or emails while keeping narrow zip-age-timestamp combinations leaves records re-identifiable.",
+          "trigger": "Audit this dataset and analytics workflow for PII exposure and quasi-identifier re-identification risk."
+        },
+        "zh-CN": {
+          "title": "隐私保护数据科学审计",
+          "short": "审计直接个人身份信息（PII）、准标识符重识别风险、最小化原则与数据留存边界",
+          "pain": "仅删去姓名与手机号，却保留了高精度的地理位置、时间戳与稀有属性组合，导致用户仍可被轻易重识别。",
+          "trigger": "对数据集开展隐私合规审计，排查直接 PII 字段、准标识符重识别风险与脱敏策略。"
+        },
+        "ja": {
+          "title": "プライバシー保護データサイエンス",
+          "short": "直接PII・準識別子による再識別リスク・データ最小化・保持期限ルールを監査",
+          "pain": "氏名やメールを削除しただけで、郵便番号・年齢・タイムスタンプの組み合わせから個人が再識別されるリスクが残る。",
+          "trigger": "このデータセットの直接PIIと準識別子による再識別リスクを監査し、匿名化・最小化対策を設計してください。"
+        },
+        "ko": {
+          "title": "프라이버시 보호 데이터 사이언스",
+          "short": "직접 개인정보(PII), 준식별자(Quasi-identifier) 재식별 위험, 최소 수집 및 보존 기한을 감사",
+          "pain": "이름·이메일만 제거하고 우편번호·연령·타임스탬프 조합을 그대로 두어 개인 재식별 위험이 남음.",
+          "trigger": "이 데이터셋과 분석 파이프라인에서 직접 PII 노출과 준식별자 재식별 리스크를 감사해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/privacy-preserving-ds/scripts/checklist_score.py",
+        "data-science-agent-skills/privacy-preserving-ds/scripts/profile_table.py",
+        "data-science-agent-skills/privacy-preserving-ds/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "production-ml-handoff",
+      "display_name": "Production ML Handoff",
+      "short_description": "Turn prototypes into engineering handoffs",
+      "stage": "Stage 5: Ops & Storytelling",
+      "path": "data-science-agent-skills/production-ml-handoff",
+      "skill_md": "data-science-agent-skills/production-ml-handoff/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/production-ml-handoff/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Production ML Handoff",
+          "short": "Verify model SHA-256, input/output contracts, p99 latency SLA, fallback, and rollback readiness",
+          "pain": "Data scientists hand over a notebook and weights file without input validation, latency profiling, or a rollback trigger.",
+          "trigger": "Run a production ML handoff audit on this model spec before platform engineering accepts deployment."
+        },
+        "zh-CN": {
+          "title": "机器学习生产交付门禁",
+          "short": "核验模型制品 SHA-256、输入输出契约、p99 延迟 SLA、降级基线与自动回滚触发器",
+          "pain": "算法团队仅移交一份模型权重与 Notebook，缺乏输入字段校验、p99 延迟压测、兜底策略与故障回滚阈值。",
+          "trigger": "在工程团队接手上线前，对该模型执行生产交付门禁审计，核验延迟 SLA 与回滚预案。"
+        },
+        "ja": {
+          "title": "本番MLハンドオフ（運用引き継ぎ監査）",
+          "short": "モデルSHA-256・入出力スキーマ・p99レイテンシSLA・フォールバック・ロールバック条件を検証",
+          "pain": "学習済み重みとNotebookだけが渡され、入力バリデーションやp99レイテンシ検証、ロールバック条件がないまま本番化される。",
+          "trigger": "MLエンジニアリングチームへの引き継ぎ前に、このモデルの本番ハンドオフ準備度を監査してください。"
+        },
+        "ko": {
+          "title": "프로덕션 ML 핸드오프",
+          "short": "모델 SHA-256 해시, 입출력 스키마, p99 지연시간 SLA, 폴백 베이스라인, 롤백 트리거를 검증",
+          "pain": "입출력 스키마 검증, p99 지연시간 측정, 장애 시 폴백·롤백 기준 없이 모델 가중치와 노트북만 운영팀에 넘김.",
+          "trigger": "플랫폼 엔지니어링 팀에 배포를 이관하기 전에 이 모델의 프로덕션 핸드오프 준비 상태를 감사해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/production-ml-handoff/scripts/checklist_score.py",
+        "data-science-agent-skills/production-ml-handoff/scripts/handoff_readiness_audit.py",
+        "data-science-agent-skills/production-ml-handoff/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "semantic-lineage-mapper",
+      "display_name": "Semantic Lineage Mapper",
+      "short_description": "Rebuild lineage from SQL, notebooks, and configs",
+      "stage": "Stage 1: Framing & Triage",
+      "path": "data-science-agent-skills/semantic-lineage-mapper",
+      "skill_md": "data-science-agent-skills/semantic-lineage-mapper/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/semantic-lineage-mapper/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Semantic Lineage Mapper",
+          "short": "Trace table, column, and metric definitions across SQL, notebooks, and pipelines",
+          "pain": "Identically named metrics and columns carry incompatible business logic across warehouse layers and dashboards.",
+          "trigger": "Map the upstream SQL and Python lineage for these columns and flag semantic definition drift."
+        },
+        "zh-CN": {
+          "title": "语义血缘与口径映射",
+          "short": "跨 SQL、Notebook 与数据管道追踪表、字段与指标的真实语义口径",
+          "pain": "同名指标或字段在数仓不同分层、训练脚本与 BI 报表中采用了相互冲突的过滤或聚合逻辑。",
+          "trigger": "追踪这些字段在 SQL 和 Python 脚本中的血缘链路，排查同名异义口径冲突。"
+        },
+        "ja": {
+          "title": "セマンティック系譜マッパー",
+          "short": "SQL・Notebook・パイプラインを横断してテーブル・列・指標の意味論的系譜を追跡",
+          "pain": "同じ名前の指標やカラムが、DWH層・学習スクリプト・BIダッシュボード間で異なる集計ロジックを持っている。",
+          "trigger": "SQLとPythonコードから対象カラムの系譜を抽出し、定義の食い違いを特定してください。"
+        },
+        "ko": {
+          "title": "시맨틱 리니지 매퍼",
+          "short": "SQL, 노트북, 파이프라인 전반에서 테이블·컬럼·지표의 의미론적 계보 추적",
+          "pain": "동일한 이름의 지표나 컬럼이 데이터 웨어하우스 계층과 대시보드마다 서로 다른 비즈니스 로직으로 계산됨.",
+          "trigger": "SQL과 Python 스크립트에서 이 컬럼들의 데이터 리니지를 추적하고 정의 불일치를 찾아 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/semantic-lineage-mapper/scripts/checklist_score.py",
+        "data-science-agent-skills/semantic-lineage-mapper/scripts/extract_lineage_tokens.py",
+        "data-science-agent-skills/semantic-lineage-mapper/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "small-data-power-planner",
+      "display_name": "Small Data Power Planner",
+      "short_description": "Avoid overfitting scarce data",
+      "stage": "Stage 2: Validity & Leakage",
+      "path": "data-science-agent-skills/small-data-power-planner",
+      "skill_md": "data-science-agent-skills/small-data-power-planner/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/small-data-power-planner/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Small Data Power Planner",
+          "short": "Calculate minimum detectable effect (MDE), sample power, and low-N overfitting bounds",
+          "pain": "Teams run underpowered A/B tests or fit high-dimensional models on tiny cohorts where noise dominates signal.",
+          "trigger": "Check statistical power, MDE, and events-per-variable limits for this small-sample study."
+        },
+        "zh-CN": {
+          "title": "小样本统计功效与容量规划",
+          "short": "计算最小可检测效应（MDE）、统计功效与小样本过拟合边界",
+          "pain": "在样本量严重不足的场景下强行开展 A/B 实验或拟合高维复杂模型，将随机噪声当成显著结论。",
+          "trigger": "核算当前样本量下的最小可检测效应（MDE）、统计功效以及每变量事件数（EPV）上限。"
+        },
+        "ja": {
+          "title": "小標本検出力・MDEプランナー",
+          "short": "最小検出可能効果（MDE）・統計的検出力・少数サンプルでの過学習境界を算出",
+          "pain": "検出力不足のA/Bテストや、イベント数に対して次元が高すぎるモデルを学習し、ノイズを有意差と誤認する。",
+          "trigger": "この小標本実験の統計的検出力、MDE、および変数あたりイベント数（EPV）の上限を計算してください。"
+        },
+        "ko": {
+          "title": "소표본 검정력·MDE 플래너",
+          "short": "최소감지효과(MDE), 통계적 검정력, 소표본 과적합 경계(EPV)를 산출",
+          "pain": "검정력이 부족한 A/B 테스트를 강행하거나 표본 대비 고차원 모델을 학습해 노이즈를 유의미한 신호로 오인함.",
+          "trigger": "이 소표본 실험의 통계적 검정력, 최소감지효과(MDE), 변수당 이벤트 수(EPV) 한계를 계산해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/small-data-power-planner/scripts/checklist_score.py",
+        "data-science-agent-skills/small-data-power-planner/scripts/power_sample_size.py",
+        "data-science-agent-skills/small-data-power-planner/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    },
+    {
+      "name": "stakeholder-insight-storyteller",
+      "display_name": "Stakeholder Insight Storyteller",
+      "short_description": "Convert analysis into decision-grade narrative",
+      "stage": "Stage 5: Ops & Storytelling",
+      "path": "data-science-agent-skills/stakeholder-insight-storyteller",
+      "skill_md": "data-science-agent-skills/stakeholder-insight-storyteller/SKILL.md",
+      "multilingual_guide": "data-science-agent-skills/stakeholder-insight-storyteller/references/multilingual-guide.md",
+      "supported_languages": [
+        "en",
+        "zh-CN",
+        "ja",
+        "ko"
+      ],
+      "i18n": {
+        "en": {
+          "title": "Stakeholder Insight Storyteller",
+          "short": "Turn validated technical evidence into an executive decision memo with uncertainty and caveats",
+          "pain": "Decision makers either receive a 40-chart dump with no clear ask or a slick narrative that hides uncertainty and observational limits.",
+          "pain_short": "Chart dumps without a decision ask, or slick narratives that hide uncertainty.",
+          "trigger": "Audit and structure this executive memo so the decision ask, uncertainty bounds, and caveats are explicit."
+        },
+        "zh-CN": {
+          "title": "业务干系人洞察叙事与决策备忘录",
+          "short": "将经核验的技术证据转化为结论先行、含置信区间与前提边界的高管决策备忘录",
+          "pain": "向业务决策层堆砌几十张技术图表却无明确决策诉求，或者为了故事流畅而隐瞒不确定性区间与非因果前提。",
+          "trigger": "审查并重构这份高管汇报备忘录，确保决策诉求、置信区间、局限性与证据链清晰对齐。"
+        },
+        "ja": {
+          "title": "ステークホルダー・インサイト・ストーリーテラー",
+          "short": "検証済みエビデンスを、意思決定の問い・不確実性区間・前提条件を明示したエグゼクティブメモへ変換",
+          "pain": "グラフを大量に並べるだけで意思決定の選択肢がなかったり、逆に分かりやすさを優先して不確実性や前提条件を隠してしまう。",
+          "trigger": "このエグゼクティブ向け提案メモを監査し、意思決定の選択肢・信頼区間・制約条件が明確になるよう構成してください。"
+        },
+        "ko": {
+          "title": "이해관계자 인사이트 스토리텔러",
+          "short": "검증된 분석 근거를 의사결정 요청, 불확실성 구간, 한계점이 명시된 임원용 의사결정 메모로 구조화",
+          "pain": "의사결정 요청 없이 차트만 나열하거나, 매끄러운 서사를 위해 신뢰구간과 관찰 데이터의 한계를 숨김.",
+          "trigger": "이 임원 보고용 메모에 의사결정 요청, 불확실성 범위, 전제 조건이 명확히 담기도록 감사하고 재구성해 줘."
+        }
+      },
+      "scripts": [
+        "data-science-agent-skills/stakeholder-insight-storyteller/scripts/checklist_score.py",
+        "data-science-agent-skills/stakeholder-insight-storyteller/scripts/memo_claim_evidence_check.py",
+        "data-science-agent-skills/stakeholder-insight-storyteller/scripts/quick_validate_skill.py"
+      ],
+      "decision_contract": [
+        "go",
+        "fix-first",
+        "stop",
+        "proceed-with-risk",
+        "needs-owner-review"
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "production-ml-handoff",
   "display_name": "Production ML Handoff",
-  "description": "Convert data science prototypes into engineering-ready ML handoffs with contracts, artifacts, SLOs, monitoring, and ownership.",
+  "description": "Package prototype ML models into production engineering handoff bundles with input/output schemas, latency budgets, fallback baselines, and rollback triggers. Use when transitioning a validated model from data science exploration to ML engineering ownership.",
   "primary_pain": "Engineering teams receive notebooks and model files without enough interface, operational, or rollback detail.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/handoff_readiness_audit.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Production ML Handoff",
+      "short": "Verify model SHA-256, input/output contracts, p99 latency SLA, fallback, and rollback readiness",
+      "pain": "Data scientists hand over a notebook and weights file without input validation, latency profiling, or a rollback trigger.",
+      "trigger": "Run a production ML handoff audit on this model spec before platform engineering accepts deployment."
+    },
+    "zh-CN": {
+      "title": "机器学习生产交付门禁",
+      "short": "核验模型制品 SHA-256、输入输出契约、p99 延迟 SLA、降级基线与自动回滚触发器",
+      "pain": "算法团队仅移交一份模型权重与 Notebook，缺乏输入字段校验、p99 延迟压测、兜底策略与故障回滚阈值。",
+      "trigger": "在工程团队接手上线前，对该模型执行生产交付门禁审计，核验延迟 SLA 与回滚预案。"
+    },
+    "ja": {
+      "title": "本番MLハンドオフ（運用引き継ぎ監査）",
+      "short": "モデルSHA-256・入出力スキーマ・p99レイテンシSLA・フォールバック・ロールバック条件を検証",
+      "pain": "学習済み重みとNotebookだけが渡され、入力バリデーションやp99レイテンシ検証、ロールバック条件がないまま本番化される。",
+      "trigger": "MLエンジニアリングチームへの引き継ぎ前に、このモデルの本番ハンドオフ準備度を監査してください。"
+    },
+    "ko": {
+      "title": "프로덕션 ML 핸드오프",
+      "short": "모델 SHA-256 해시, 입출력 스키마, p99 지연시간 SLA, 폴백 베이스라인, 롤백 트리거를 검증",
+      "pain": "입출력 스키마 검증, p99 지연시간 측정, 장애 시 폴백·롤백 기준 없이 모델 가중치와 노트북만 운영팀에 넘김.",
+      "trigger": "플랫폼 엔지니어링 팀에 배포를 이관하기 전에 이 모델의 프로덕션 핸드오프 준비 상태를 감사해 줘."
+    }
+  }
 }

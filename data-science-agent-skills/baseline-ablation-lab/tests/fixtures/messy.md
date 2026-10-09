@@ -1,12 +1,15 @@
-# Baseline Ablation Lab messy Fixture
+# Messy Fixture: `baseline-ablation-lab`
 
-Use $baseline-ablation-lab on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: no naive baseline.
+Prompt:
 
-Expected response traits:
+```text
+Use $baseline-ablation-lab on a messy project where task type, dataset summary are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: no naive baseline.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: no naive baseline
+```bash
+python scripts/ablation_delta_audit.py path/to/comparison.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `no naive baseline` in `Findings` and `Risks`).

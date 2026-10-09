@@ -1,16 +1,15 @@
-# Metric Design Review Board clean Fixture
+# Clean Fixture: `metric-design-review-board`
 
-Use $metric-design-review-board on this clean request: Review whether a chosen data science metric actually supports the decision, user outcome, risk, and cost tradeoff. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $metric-design-review-board on this clean request: Review whether a chosen data science metric actually supports the decision, user outcome, risk, and cost tradeoff. The project provides decision context, candidate metrics, stakeholders, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/metric_guardrail_check.py path/to/metric_spec.json
+```
+
+Expected decision: `go` (with documented assumptions and next action).

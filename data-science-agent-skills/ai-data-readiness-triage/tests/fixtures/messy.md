@@ -1,12 +1,15 @@
-# AI Data Readiness Triage messy Fixture
+# Messy Fixture: `ai-data-readiness-triage`
 
-Use $ai-data-readiness-triage on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: unknown owner.
+Prompt:
 
-Expected response traits:
+```text
+Use $ai-data-readiness-triage on a messy project where dataset paths or schemas, data owner are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: unknown owner.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: unknown owner
+```bash
+python scripts/profile_table.py path/to/dataset.csv --max-rows 10000
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `unknown owner` in `Findings` and `Risks`).

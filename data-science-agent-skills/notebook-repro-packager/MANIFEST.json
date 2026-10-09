@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "notebook-repro-packager",
   "display_name": "Notebook Repro Packager",
-  "description": "Package notebooks so another machine or teammate can reproduce their results with known data, environment, seeds, and order.",
+  "description": "Audit and package Jupyter notebooks for deterministic top-to-bottom execution across machines. Use when detecting out-of-order cell execution, hardcoded local paths, unseeded randomness, inline shell installs, or leaked secrets.",
   "primary_pain": "Notebooks break because execution order, hidden state, local paths, package versions, and data provenance are not captured.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/notebook_repro_audit.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Notebook Repro Packager",
+      "short": "Audit Jupyter notebooks for out-of-order cells, unseeded RNG, hardcoded paths, and lockfiles",
+      "pain": "Notebooks that 'worked on my machine' fail on clean reruns due to hidden cell state, missing seeds, and local paths.",
+      "trigger": "Audit this Jupyter notebook for reproducibility hazards and package it for a clean top-to-bottom run."
+    },
+    "zh-CN": {
+      "title": "Notebook 可复现性打包器",
+      "short": "审计 Jupyter Notebook 的乱序执行、未固定随机种子、硬编码绝对路径与依赖锁定",
+      "pain": "Notebook 依赖跨单元格隐式内存状态、本地硬编码路径或未锁定的包版本，换机重跑即报错或结果漂移。",
+      "trigger": "审计这份 Notebook 的乱序执行、随机种子与硬编码路径隐患，并生成可复现打包清单。"
+    },
+    "ja": {
+      "title": "Notebook再現性パッケージャー",
+      "short": "Jupyter Notebookのセル実行順序の乱れ・未固定シード・絶対パス・依存ロック漏れを監査",
+      "pain": "手元では動いたNotebookが、セルの順不同実行や固定されていない乱数シード、ローカル絶対パスのせいで再実行できない。",
+      "trigger": "このNotebookの実行順序・乱数シード・ハードコードされたパスを監査し、再現可能な形にパッケージ化してください。"
+    },
+    "ko": {
+      "title": "노트북 재현성 패키저",
+      "short": "Jupyter 노트북의 셀 역순 실행, 미고정 난수 시드, 절대 경로, 의존성 잠금 누락을 감사",
+      "pain": "숨겨진 셀 상태나 하드코딩된 로컬 경로, 고정되지 않은 시드 때문에 클린 환경에서 처음부터 다시 실행하면 실패함.",
+      "trigger": "이 Jupyter 노트북의 역순 실행, 난수 시드 누락, 절대 경로 문제를 감사하고 재현 가능하게 패키징해 줘."
+    }
+  }
 }

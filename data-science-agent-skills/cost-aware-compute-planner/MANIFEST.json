@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "cost-aware-compute-planner",
   "display_name": "Cost Aware Compute Planner",
-  "description": "Plan compute use so data science experiments, model training, and inference stay within budget and latency constraints.",
+  "description": "Estimate and gate GPU, cloud, and local compute budgets for data science experiments, training runs, and batch or online inference. Use when sizing 10% pilot stages, retry overhead, spot risk, and stop-loss thresholds before launching full-scale runs.",
   "primary_pain": "Teams burn budget on full-data experiments, oversized GPUs, idle notebooks, and unbounded inference before learning if the work matters.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/compute_budget_estimator.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Cost Aware Compute Planner",
+      "short": "Estimate retry-adjusted GPU/cloud spend and enforce 10% pilot gates before full runs",
+      "pain": "Teams burn cloud GPU budgets on full-dataset sweeps before verifying pipeline stability on a 10% pilot sample.",
+      "trigger": "Estimate retry-adjusted compute cost for this training sweep and set staged budget guardrails."
+    },
+    "zh-CN": {
+      "title": "成本感知算力规划师",
+      "short": "测算含重试期望的 GPU/云算力成本，并在全量训练前强制执行 10% 小样本先导门禁",
+      "pain": "在尚未通过小样本验证代码稳定性与收益前，直接启动全量数据与大规模 GPU 超参搜索，导致算力预算迅速烧穿。",
+      "trigger": "测算这批训练任务的期望算力成本（含失败重试），并制定 10% 先导验证与预算熔断规则。"
+    },
+    "ja": {
+      "title": "コスト意識型コンピュートプランナー",
+      "short": "再試行期待値を織り込んだGPU・クラウド費用を見積もり、全量実行前に10%パイロット検証を徹底",
+      "pain": "パイプラインの安定性を小規模サンプルで確認する前にフルデータでGPUクラスタを回し、予算を浪費する。",
+      "trigger": "失敗再試行を考慮した学習コストを見積もり、10%パイロット検証ゲートと予算上限ルールを設計してください。"
+    },
+    "ko": {
+      "title": "비용 인지형 컴퓨팅 플래너",
+      "short": "재시도 기댓값이 반영된 GPU·클라우드 비용을 산출하고 전체 학습 전 10% 파일럿 게이트를 적용",
+      "pain": "10% 소규모 샘플로 파이프라인 안정성을 검증하기도 전에 전체 데이터셋과 대형 GPU 클러스터를 돌려 예산을 소진함.",
+      "trigger": "실패 재시도율을 반영한 총 컴퓨팅 비용을 추정하고 10% 파일럿 게이트와 예산 가드레일을 설정해 줘."
+    }
+  }
 }

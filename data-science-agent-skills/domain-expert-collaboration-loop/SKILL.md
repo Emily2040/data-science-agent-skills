@@ -1,6 +1,6 @@
 ---
 name: domain-expert-collaboration-loop
-description: Structure collaboration between data scientists, AI agents, and domain experts when domain judgment is required. Use when an agent needs a judgment-heavy data science workflow for structure sme review for agent-assisted ds, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Structure subject-matter expert (SME) annotation, rubric calibration, and edge-case adjudication for data science workflows. Use when measuring inter-rater agreement (Cohen's kappa), resolving label ambiguity, and encoding domain constraints.
 ---
 
 # Domain Expert Collaboration Loop
@@ -9,20 +9,20 @@ description: Structure collaboration between data scientists, AI agents, and dom
 
 Structure collaboration between data scientists, AI agents, and domain experts when domain judgment is required.
 
-Current pain point: Agents and analysts can produce plausible work that misses domain constraints, tacit knowledge, and operational reality.
+Primary failure mode prevented: agents and analysts can produce plausible work that misses domain constraints, tacit knowledge, and operational reality.
 
-Why this skill exists: A disciplined SME loop captures assumptions, challenge questions, evidence, review decisions, and signoff.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`analysis or model plan, domain experts, known constraints, critical assumptions`) must be audited for red flags such as `SME asked to rubber-stamp`, `domain constraints undocumented`, `agent inference treated as fact`, `feedback not linked to changes`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/sme_label_agreement.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`SME asked to rubber-stamp`, `domain constraints undocumented`, `agent inference treated as fact`, `feedback not linked to changes`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,19 +30,16 @@ Why this skill exists: A disciplined SME loop captures assumptions, challenge qu
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `SME interview guide`, `assumption ledger`, `challenge-question list`, `evidence log`, `signoff and open-risk record`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- analysis or model plan
-- domain experts
-- known constraints
-- critical assumptions
-- review deadline
-- decision owner
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/sme_label_agreement.py path/to/sme_labels.csv --rater-a sme_a --rater-b sme_b
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -52,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Update analysis plan or model design based on review.
 5. Return an assumption ledger and signoff record.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- SME asked to rubber-stamp
-- domain constraints undocumented
-- agent inference treated as fact
-- feedback not linked to changes
-- signoff missing
+- **English**: Domain Expert Collaboration Loop — Measure inter-annotator agreement (Cohen's kappa) and resolve SME label taxonomy disputes.
+- **简体中文**: 领域专家协同与标注仲裁环 — 量化领域专家标注一致性（Cohen's Kappa），制定边界样本仲裁准则与标签口径说明（参见 `references/multilingual-guide.md`）。
+- **日本語**: ドメインエキスパート協働ループ — 専門家のアノテーション一致度（Cohenのκ係数）を計測し、境界事例の裁定基準を整備（`references/multilingual-guide.md` を参照）。
+- **한국어**: 도메인 전문가(SME) 협업 루프 — 전문가 간 라벨 일치도(Cohen's Kappa)를 측정하고 경계 사례에 대한 라벨 조정 루브릭 수립 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

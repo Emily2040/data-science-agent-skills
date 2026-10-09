@@ -1,6 +1,6 @@
 ---
 name: evaluation-reality-check
-description: Design evaluation strategies that match task type, deployment setting, time, groups, and decision risk. Use when an agent needs a judgment-heavy data science workflow for design trustworthy model evaluation, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Audit offline model evaluations for temporal split fidelity, subgroup slice disparity, calibration error, and metric-to-business alignment. Use when stress-testing benchmark numbers before approving deployment or executive reporting.
 ---
 
 # Evaluation Reality Check
@@ -9,20 +9,20 @@ description: Design evaluation strategies that match task type, deployment setti
 
 Design evaluation strategies that match task type, deployment setting, time, groups, and decision risk.
 
-Current pain point: Offline evaluation often overstates real-world performance because splits, metrics, and benchmarks do not match deployment.
+Primary failure mode prevented: offline evaluation often overstates real-world performance because splits, metrics, and benchmarks do not match deployment.
 
-Why this skill exists: Evaluation must simulate the future decision surface, not just produce a leaderboard score.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`task type, data generation process, deployment use, target and features`) must be audited for red flags such as `random split for temporal deployment`, `test set reused for tuning`, `no external validation for domain shift`, `single aggregate metric`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/slice_error_auditor.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`random split for temporal deployment`, `test set reused for tuning`, `no external validation for domain shift`, `single aggregate metric`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,19 +30,16 @@ Why this skill exists: Evaluation must simulate the future decision surface, not
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `evaluation protocol`, `split recommendation`, `failure-slice plan`, `uncertainty report`, `launch evidence checklist`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- task type
-- data generation process
-- deployment use
-- target and features
-- metric
-- risk level
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/slice_error_auditor.py path/to/predictions.csv --max-slice-gap 0.10
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -52,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Define confidence intervals, calibration, threshold testing, and failure slices.
 5. Return an evaluation protocol and minimum launch evidence.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- random split for temporal deployment
-- test set reused for tuning
-- no external validation for domain shift
-- single aggregate metric
-- label delay ignored
+- **English**: Evaluation Reality Check — Audit subgroup slice errors, probability calibration, and offline-to-business translation.
+- **简体中文**: 模型评估真实性核查 — 审计分群切片误差（Slice Error）、概率校准度（Brier）与离线指标到业务收益的映射（参见 `references/multilingual-guide.md`）。
+- **日本語**: モデル評価リアリティチェック — サブグループ別のスライス誤差・確率キャリブレーション・ビジネス価値への換算を監査（`references/multilingual-guide.md` を参照）。
+- **한국어**: 모델 평가 리얼리티 체크 — 세부 집단(Slice)별 오차 격차, 확률 보정(Calibration), 오프라인 지표의 비즈니스 전환 타당성 감사 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

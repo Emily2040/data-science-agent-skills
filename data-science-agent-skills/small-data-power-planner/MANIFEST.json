@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "small-data-power-planner",
   "display_name": "Small Data Power Planner",
-  "description": "Help teams decide what can be learned responsibly from small, imbalanced, expensive, or scarce datasets.",
+  "description": "Calculate minimum detectable effect (MDE), sample-size requirements, and events-per-variable ratios for small or rare-event datasets. Use when preventing underpowered experiments and overfitted models on scarce data.",
   "primary_pain": "Small datasets are forced through high-capacity methods, producing unstable conclusions and overconfident narratives.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/power_sample_size.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Small Data Power Planner",
+      "short": "Calculate minimum detectable effect (MDE), sample power, and low-N overfitting bounds",
+      "pain": "Teams run underpowered A/B tests or fit high-dimensional models on tiny cohorts where noise dominates signal.",
+      "trigger": "Check statistical power, MDE, and events-per-variable limits for this small-sample study."
+    },
+    "zh-CN": {
+      "title": "小样本统计功效与容量规划",
+      "short": "计算最小可检测效应（MDE）、统计功效与小样本过拟合边界",
+      "pain": "在样本量严重不足的场景下强行开展 A/B 实验或拟合高维复杂模型，将随机噪声当成显著结论。",
+      "trigger": "核算当前样本量下的最小可检测效应（MDE）、统计功效以及每变量事件数（EPV）上限。"
+    },
+    "ja": {
+      "title": "小標本検出力・MDEプランナー",
+      "short": "最小検出可能効果（MDE）・統計的検出力・少数サンプルでの過学習境界を算出",
+      "pain": "検出力不足のA/Bテストや、イベント数に対して次元が高すぎるモデルを学習し、ノイズを有意差と誤認する。",
+      "trigger": "この小標本実験の統計的検出力、MDE、および変数あたりイベント数（EPV）の上限を計算してください。"
+    },
+    "ko": {
+      "title": "소표본 검정력·MDE 플래너",
+      "short": "최소감지효과(MDE), 통계적 검정력, 소표본 과적합 경계(EPV)를 산출",
+      "pain": "검정력이 부족한 A/B 테스트를 강행하거나 표본 대비 고차원 모델을 학습해 노이즈를 유의미한 신호로 오인함.",
+      "trigger": "이 소표본 실험의 통계적 검정력, 최소감지효과(MDE), 변수당 이벤트 수(EPV) 한계를 계산해 줘."
+    }
+  }
 }

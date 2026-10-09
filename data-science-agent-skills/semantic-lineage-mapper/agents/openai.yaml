@@ -1,10 +1,4 @@
 interface:
   display_name: "Semantic Lineage Mapper"
   short_description: "Rebuild lineage from SQL, notebooks, and configs"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#38BDF8"
-  default_prompt: "Use $semantic-lineage-mapper to rebuild lineage from sql, notebooks, and configs for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $semantic-lineage-mapper to reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs Inspect local artifacts and run scripts/extract_lineage_tokens.py first."

@@ -1,16 +1,15 @@
-# Experiment Provenance Ledger clean Fixture
+# Clean Fixture: `experiment-provenance-ledger`
 
-Use $experiment-provenance-ledger on this clean request: Preserve experiment provenance across code, data, environment, parameters, metrics, artifacts, and human decisions. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $experiment-provenance-ledger on this clean request: Preserve experiment provenance across code, data, environment, parameters, metrics, artifacts, and human decisions. The project provides repo path, dataset identifiers, environment files, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/capture_provenance.py path/to/train.csv path/to/config.yaml --seed 42
+```
+
+Expected decision: `go` (with documented assumptions and next action).

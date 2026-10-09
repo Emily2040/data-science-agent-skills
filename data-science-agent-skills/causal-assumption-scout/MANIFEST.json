@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "causal-assumption-scout",
   "display_name": "Causal Assumption Scout",
-  "description": "Clarify when a data science request needs causal reasoning, what assumptions are required, and what evidence is missing.",
+  "description": "Audit whether a data science claim requires causal identification rather than predictive correlation. Use when mapping treatments, outcomes, confounders, colliders, post-treatment controls, and quasi-experimental designs before claiming impact.",
   "primary_pain": "Teams overclaim causal impact from observational models, dashboards, or correlations.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/confounder_backdoor_check.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Causal Assumption Scout",
+      "short": "Audit causal claims for confounding, collider bias, post-treatment controls, and identification",
+      "pain": "Teams present observational correlations or predictive feature importance as causal policy levers.",
+      "trigger": "Audit whether our observational data and covariate set can support this causal impact claim."
+    },
+    "zh-CN": {
+      "title": "因果假设与识别侦察",
+      "short": "审查因果推断诉求中的混杂偏倚、对撞因子、干预后控制变量与可识别性假设",
+      "pain": "直接将观测数据相关性或预测模型特征重要性包装成因果增量结论，误导业务施策。",
+      "trigger": "审查这项因果归因诉求，检查是否存在未观测混杂、对撞偏倚或干预后变量控制。"
+    },
+    "ja": {
+      "title": "因果推論仮定スカウト",
+      "short": "交絡・合流点バイアス・処置後変数の統制・識別可能性を点検し因果主張の妥当性を審査",
+      "pain": "観察データの相関や予測モデルの特徴量重要度を、そのまま施策の因果効果として過剰主張してしまう。",
+      "trigger": "この観察データと共変量セットで因果効果を主張できるか、DAGとバックドア基準から検証してください。"
+    },
+    "ko": {
+      "title": "인과 추론 가정 스카우트",
+      "short": "교란변수·충돌변수(Collider)·처치 후 통제변수 및 식별 가능성을 점검하여 인과 주장 검증",
+      "pain": "관찰 데이터의 단순 상관관계나 예측 모델의 변수 중요도를 정책·캠페인의 인과적 효과로 과대 해석함.",
+      "trigger": "관찰 데이터와 공변량 구성이 이 인과적 효과 주장을 뒷받침할 수 있는지 교란·충돌 편향을 점검해 줘."
+    }
+  }
 }

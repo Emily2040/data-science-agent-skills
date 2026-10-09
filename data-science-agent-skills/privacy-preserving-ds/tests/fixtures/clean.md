@@ -1,16 +1,15 @@
-# Privacy Preserving Data Science clean Fixture
+# Clean Fixture: `privacy-preserving-ds`
 
-Use $privacy-preserving-ds on this clean request: Guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods. The project has owner, scope, sample files, and a decision deadline.
+Prompt:
 
-Expected response traits:
+```text
+Use $privacy-preserving-ds on this clean request: Guide data science work on sensitive data using minimization, local-first analysis, de-identification, synthetic data, or privacy-preserving methods. The project provides data schema or sample, sensitive fields, analysis goal, a named decision owner, and a clear action threshold.
+```
 
-- Problem
-- Inputs
-- Checks performed
-- Findings
-- Decision
-- Risks
-- Next actions
-- Artifacts
+Expected deterministic check:
 
-Must flag: accepted assumptions and next action
+```bash
+python scripts/profile_table.py path/to/sensitive_extract.csv --max-rows 10000
+```
+
+Expected decision: `go` (with documented assumptions and next action).

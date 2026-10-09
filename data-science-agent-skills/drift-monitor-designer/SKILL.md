@@ -1,6 +1,6 @@
 ---
 name: drift-monitor-designer
-description: Design drift monitoring for production models and data products across data, concept, performance, and operational signals. Use when an agent needs a judgment-heavy data science workflow for design data, concept, and performance drift monitors, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Design production feature, prediction, and label drift monitors with calibrated alert thresholds and named on-call owners. Use when comparing baseline vs current distributions for mean shift, variance explosion, missingness spikes, and delayed ground truth.
 ---
 
 # Drift Monitor Designer
@@ -9,20 +9,20 @@ description: Design drift monitoring for production models and data products acr
 
 Design drift monitoring for production models and data products across data, concept, performance, and operational signals.
 
-Current pain point: Models degrade silently because teams monitor uptime but not input, label, behavior, or outcome change.
+Primary failure mode prevented: models degrade silently because teams monitor uptime but not input, label, behavior, or outcome change.
 
-Why this skill exists: Monitoring must match label delay, business risk, retraining options, and alert ownership.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`model purpose, features, prediction logs, label availability`) must be audited for red flags such as `alerts with no owner`, `thresholds copied from defaults`, `label delay ignored`, `no baseline window`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/drift_probe.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`alerts with no owner`, `thresholds copied from defaults`, `label delay ignored`, `no baseline window`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,20 +30,16 @@ Why this skill exists: Monitoring must match label delay, business risk, retrain
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `monitor catalog`, `baseline definitions`, `threshold plan`, `alert ownership`, `drift response playbook`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- model purpose
-- features
-- prediction logs
-- label availability
-- risk tolerance
-- owners
-- retrain process
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/drift_probe.py path/to/baseline.csv path/to/current.csv
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -53,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Define retrain, rollback, investigation, or no-action playbooks.
 5. Return a monitor design and incident response path.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- alerts with no owner
-- thresholds copied from defaults
-- label delay ignored
-- no baseline window
-- retrain triggered without evaluation
+- **English**: Drift Monitor Designer — Detect mean shifts, variance explosions, constant-column breaks, NaNs, and missing-rate spikes.
+- **简体中文**: 数据与概念漂移监控设计 — 检测均值偏移、方差暴增、常量列突变、NaN 污染与缺失率飙升，设计分级告警动作（参见 `references/multilingual-guide.md`）。
+- **日本語**: ドリフトモニター設計 — 平均シフト・分散爆発・定数列の崩壊・NaN混入・欠損率急増を検知し実践的なアラートを設計（`references/multilingual-guide.md` を参照）。
+- **한국어**: 드리프트 모니터 디자이너 — 평균 이동, 분산 폭증, 상수 컬럼 깨짐, NaN 오염, 결측률 급증을 탐지하고 실행 가능한 알림 설계 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

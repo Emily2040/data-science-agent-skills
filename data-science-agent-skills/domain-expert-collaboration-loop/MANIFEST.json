@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "domain-expert-collaboration-loop",
   "display_name": "Domain Expert Collaboration Loop",
-  "description": "Structure collaboration between data scientists, AI agents, and domain experts when domain judgment is required.",
+  "description": "Structure subject-matter expert (SME) annotation, rubric calibration, and edge-case adjudication for data science workflows. Use when measuring inter-rater agreement (Cohen's kappa), resolving label ambiguity, and encoding domain constraints.",
   "primary_pain": "Agents and analysts can produce plausible work that misses domain constraints, tacit knowledge, and operational reality.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/quick_validate_skill.py",
+    "scripts/sme_label_agreement.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Domain Expert Collaboration Loop",
+      "short": "Measure inter-annotator agreement (Cohen's kappa) and resolve SME label taxonomy disputes",
+      "pain": "Models train on noisy labels because domain experts interpret edge cases differently without an adjudication rubric.",
+      "trigger": "Calculate SME inter-annotator agreement and design a label adjudication rubric for disputed rows."
+    },
+    "zh-CN": {
+      "title": "领域专家协同与标注仲裁环",
+      "short": "量化领域专家标注一致性（Cohen's Kappa），制定边界样本仲裁准则与标签口径说明",
+      "pain": "多位业务专家对疑难样本的判定标准不一，团队在未做一致性检验（Kappa）的情况下直接拿分歧标签训练模型。",
+      "trigger": "计算专家标注结果的 Cohen's Kappa 一致性系数，并梳理分歧样本的仲裁规则。"
+    },
+    "ja": {
+      "title": "ドメインエキスパート協働ループ",
+      "short": "専門家のアノテーション一致度（Cohenのκ係数）を計測し、境界事例の裁定基準を整備",
+      "pain": "複数のドメイン専門家間で判断基準が揃っていないまま不整合なラベルで学習し、モデルの天井が下がる。",
+      "trigger": "SMEアノテーションの一致率とCohenのκ係数を算出し、判断が割れた事例の裁定ルーブリックを作成してください。"
+    },
+    "ko": {
+      "title": "도메인 전문가(SME) 협업 루프",
+      "short": "전문가 간 라벨 일치도(Cohen's Kappa)를 측정하고 경계 사례에 대한 라벨 조정 루브릭 수립",
+      "pain": "현업 전문가마다 경계 사례 해석 기준이 다른데도 일치도 검증 없이 노이즈가 섞인 라벨로 모델을 학습함.",
+      "trigger": "도메인 전문가 라벨링의 일치율과 Cohen's Kappa를 계산하고 불일치 샘플 조정 기준을 설계해 줘."
+    }
+  }
 }

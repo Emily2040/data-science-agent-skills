@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "evaluation-reality-check",
   "display_name": "Evaluation Reality Check",
-  "description": "Design evaluation strategies that match task type, deployment setting, time, groups, and decision risk.",
+  "description": "Audit offline model evaluations for temporal split fidelity, subgroup slice disparity, calibration error, and metric-to-business alignment. Use when stress-testing benchmark numbers before approving deployment or executive reporting.",
   "primary_pain": "Offline evaluation often overstates real-world performance because splits, metrics, and benchmarks do not match deployment.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/quick_validate_skill.py",
+    "scripts/slice_error_auditor.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Evaluation Reality Check",
+      "short": "Audit subgroup slice errors, probability calibration, and offline-to-business translation",
+      "pain": "Aggregate AUC or accuracy hides severe degradation on critical customer slices, cold-start cohorts, or tail events.",
+      "trigger": "Audit these model predictions for subgroup slice accuracy gaps and probability calibration error."
+    },
+    "zh-CN": {
+      "title": "模型评估真实性核查",
+      "short": "审计分群切片误差（Slice Error）、概率校准度（Brier）与离线指标到业务收益的映射",
+      "pain": "全局平均 AUC 或准确率掩盖了核心客群、冷启动用户或高价值长尾切片上的严重性能塌陷与概率失准。",
+      "trigger": "对模型预测结果开展分群切片误差审计与概率校准检验，评估其真实业务可用性。"
+    },
+    "ja": {
+      "title": "モデル評価リアリティチェック",
+      "short": "サブグループ別のスライス誤差・確率キャリブレーション・ビジネス価値への換算を監査",
+      "pain": "全体の平均AUCや正解率だけでは、重要セグメントやコールドスタート層での重大な精度劣化を見落とす。",
+      "trigger": "予測結果のサブグループ間精度格差とBrierキャリブレーション誤差を監査してください。"
+    },
+    "ko": {
+      "title": "모델 평가 리얼리티 체크",
+      "short": "세부 집단(Slice)별 오차 격차, 확률 보정(Calibration), 오프라인 지표의 비즈니스 전환 타당성 감사",
+      "pain": "전체 평균 AUC나 정확도 뒤에 핵심 고객군, 콜드스타트 집단, 고위험 구간에서의 심각한 성능 저하가 가려짐.",
+      "trigger": "모델 예측값의 서브그룹 슬라이스별 정확도 격차와 확률 보정(Brier 점수) 오차를 감사해 줘."
+    }
+  }
 }

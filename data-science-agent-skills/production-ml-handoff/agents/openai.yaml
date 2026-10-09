@@ -1,10 +1,4 @@
 interface:
   display_name: "Production ML Handoff"
   short_description: "Turn prototypes into engineering handoffs"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#38BDF8"
-  default_prompt: "Use $production-ml-handoff to turn prototypes into engineering handoffs for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $production-ml-handoff to convert data science prototypes into engineering-ready ML handoffs with contracts, artifacts, SLOs, monitoring, and ownership Inspect local artifacts and run scripts/handoff_readiness_audit.py first."

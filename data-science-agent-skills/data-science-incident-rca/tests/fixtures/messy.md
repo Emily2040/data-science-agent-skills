@@ -1,12 +1,15 @@
-# Data Science Incident RCA messy Fixture
+# Messy Fixture: `data-science-incident-rca`
 
-Use $data-science-incident-rca on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: no timestamped evidence.
+Prompt:
 
-Expected response traits:
+```text
+Use $data-science-incident-rca on a messy project where incident symptom, time first observed are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: no timestamped evidence.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: no timestamped evidence
+```bash
+python scripts/incident_timeline_correlator.py path/to/incident_events.json
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `no timestamped evidence` in `Findings` and `Risks`).

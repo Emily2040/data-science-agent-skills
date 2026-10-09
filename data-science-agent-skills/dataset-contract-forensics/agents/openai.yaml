@@ -1,10 +1,4 @@
 interface:
   display_name: "Dataset Contract Forensics"
   short_description: "Infer contracts and tests from messy data"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#F59E0B"
-  default_prompt: "Use $dataset-contract-forensics to infer contracts and tests from messy data for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $dataset-contract-forensics to infer practical data contracts, schema expectations, and validation tests from messy real datasets Inspect local artifacts and run scripts/profile_table.py first."

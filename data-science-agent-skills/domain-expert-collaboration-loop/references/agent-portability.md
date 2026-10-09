@@ -1,42 +1,24 @@
-# Agent Portability
+# Agent Portability Guide: Domain Expert Collaboration Loop
 
-This skill must remain useful across hosted chat agents, coding agents, CLI agents, and custom multi-agent runtimes.
+This skill package is provider-neutral and structured so any agent runtime can load progressive context without vendor lock-in.
 
-| Agent or runtime | Adaptation rule |
+| Runtime / Host | How to load and execute `domain-expert-collaboration-loop` |
 | --- | --- |
-| OpenAI Codex | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| ChatGPT Agents | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Anthropic Claude | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Claude Code | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Google Gemini | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| GitHub Copilot | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Cursor | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Windsurf | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Goose | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| OpenCode | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| OpenHands | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Gravity | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| LangGraph | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| CrewAI | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| AutoGen | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| LlamaIndex | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| Semantic Kernel | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-| local LLM agents | Use `SKILL.md` as the role instruction; attach references only when needed; run local tests when filesystem access exists. |
-
-## Minimum Portable Contract
-
-- Load `SKILL.md` first.
-- Preserve the eight-section output contract.
-- Keep raw artifacts untouched.
-- Use local scripts only when the runtime can execute files safely.
-- Use `references/playbook.md` for deeper judgment rules.
-- Use `references/acceptance-tests.md` for forward tests.
-- Use `MANIFEST.json` to verify required files and image assets.
-
-## Runtime Levels
-
-1. Text-only agent: use `SKILL.md`, `README.md`, and references; skip scripts.
-2. Filesystem agent: inspect local artifacts and run `scripts/quick_validate_skill.py`.
-3. Coding agent: run helper scripts, patch generated artifacts, and add tests.
-4. Multi-agent runtime: route collection, critique, and final decision to separate agents, but keep this skill responsible for the final decision artifact.
-5. Enterprise runtime: enforce privacy, audit, logging, owner signoff, and retention rules before using external providers.
+| OpenAI Codex CLI | Place the skill folder in `~/.codex/skills/domain-expert-collaboration-loop/`; Codex reads `SKILL.md` frontmatter and `agents/openai.yaml` metadata, then runs `scripts/sme_label_agreement.py` and `scripts/checklist_score.py` locally. |
+| ChatGPT Agents | Upload or attach `SKILL.md` and `references/playbook.md` in the session workspace; use Code Interpreter to run `scripts/sme_label_agreement.py` on attached CSV/JSON artifacts. |
+| Anthropic Claude | Load `SKILL.md` as project knowledge or a skill prompt; attach `references/quality-rubric.md` when grading decision memos. |
+| Claude Code | Install under `.claude/skills/domain-expert-collaboration-loop/`; Claude Code triggers on the `SKILL.md` frontmatter description and invokes `python scripts/sme_label_agreement.py` via bash tool calls. |
+| Google Gemini | Provide `SKILL.md` in system instructions or `.gemini/skills/domain-expert-collaboration-loop/` and require the eight-section `Output Contract` in markdown output. |
+| GitHub Copilot | Reference `SKILL.md` and `references/playbook.md` via `#file` workspace context in Copilot Chat before reviewing data or pipeline PRs. |
+| Cursor | Add `domain-expert-collaboration-loop/SKILL.md` as a workspace rule or `@file` reference; run `python scripts/quick_validate_skill.py . --strict` in the integrated terminal. |
+| Windsurf | Pin `SKILL.md` in Cascade workspace context and invoke `scripts/sme_label_agreement.py` before accepting generated modeling or ETL code. |
+| Goose | Register the folder as a local Goose skill; Goose executes the stdlib Python scripts in `scripts/` to gather deterministic evidence first. |
+| OpenCode | Mount the skill directory in the project workspace and bind `scripts/sme_label_agreement.py` as a verification command. |
+| OpenHands | Run `scripts/sme_label_agreement.py` and `scripts/checklist_score.py` inside the sandboxed runtime before emitting the final eight-section decision memo. |
+| Gravity / Antigravity | Install into `.gemini/config/skills/domain-expert-collaboration-loop/` or workspace `.agent/skills/domain-expert-collaboration-loop/`; use `view_file` on `SKILL.md` and `run_command` for `scripts/sme_label_agreement.py`. |
+| LangGraph | Bind `MANIFEST.json` `required_sections` and `decision_contract` as a typed state schema; wrap `scripts/sme_label_agreement.py` as a deterministic tool node. |
+| CrewAI | Assign `SKILL.md` as the agent backstory/goal and `references/quality-rubric.md` as the task expected-output verification rubric. |
+| AutoGen | Configure a two-agent review loop where the executor runs `scripts/sme_label_agreement.py` and the critic scores the output against `references/quality-rubric.md`. |
+| LlamaIndex | Index `references/playbook.md` and `references/evidence-map.md` as queryable workflow context and enforce `MANIFEST.json` decision enums on synthesis. |
+| Semantic Kernel | Map `SKILL.md` into a semantic plugin prompt and expose `scripts/sme_label_agreement.py` plus `scripts/checklist_score.py` as native function tools. |
+| Local LLM agents | Keep prompt context tight by loading only `SKILL.md` (`<100` lines) first and delegating arithmetic or file profiling to `scripts/sme_label_agreement.py`. |

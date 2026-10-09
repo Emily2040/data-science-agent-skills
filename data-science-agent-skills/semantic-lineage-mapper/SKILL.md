@@ -1,6 +1,6 @@
 ---
 name: semantic-lineage-mapper
-description: Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs. Use when an agent needs a judgment-heavy data science workflow for rebuild lineage from sql, notebooks, and configs, including evidence review, local artifact inspection, risk classification, stakeholder-ready decisions, reproducibility, governance, or agent-to-agent handoff. Trigger for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents when this exact workflow is needed.
+description: Reconstruct end-to-end table, file, column, and metric lineage across SQL queries, Python scripts, notebooks, and BI configs. Use when tracing upstream sources and downstream blast radius before refactoring pipelines or deprecating fields.
 ---
 
 # Semantic Lineage Mapper
@@ -9,20 +9,20 @@ description: Reconstruct practical lineage across SQL, notebooks, scripts, dashb
 
 Reconstruct practical lineage across SQL, notebooks, scripts, dashboards, model artifacts, and pipeline configs.
 
-Current pain point: Teams cannot explain where a metric, feature, or model input came from after it breaks or is challenged.
+Primary failure mode prevented: teams cannot explain where a metric, feature, or model input came from after it breaks or is challenged.
 
-Why this skill exists: Lineage mapping combines static extraction with semantic owner questions so blind spots are visible instead of assumed away.
+## When To Use
+
+- The team needs a structured `go | fix-first | stop | proceed-with-risk | needs-owner-review` decision before committing engineering or modeling effort.
+- Local artifacts (`SQL files, notebooks, pipeline configs, dashboard definitions`) must be audited for red flags such as `dashboard-only metric logic`, `manual spreadsheet hop`, `feature generated outside pipeline`, `PII source unclear`.
+- Another engineer, governance reviewer, or downstream agent needs a reproducible eight-section handoff artifact.
 
 ## Operating Rules
 
-- Start by restating the decision this skill is supporting.
-- Inspect local artifacts first before asking for context.
-- Treat scripts as evidence collectors, not as substitutes for judgment.
-- Preserve raw data, notebooks, configs, and model artifacts unless the user explicitly asks for mutation.
-- Mark missing context as `unknown`, `not provided`, or `owner decision`; do not invent it.
-- Classify each blocker as `stop`, `fix-first`, `monitor`, `accepted risk`, or `owner decision`.
-- Use the output contract exactly unless the user asks for a different format.
-- Keep final recommendations auditable: every important claim needs evidence, assumption, or caveat.
+- Inspect local artifacts and run deterministic scripts in `scripts/` before asking the user for context that is already on disk.
+- Separate executed checks (`scripts/extract_lineage_tokens.py`, `scripts/checklist_score.py`) from expert judgment so reviewers can verify every claim.
+- Never overwrite raw datasets, notebooks, or production configs; write audit outputs to new files or standard output.
+- Refuse adversarial requests to rubber-stamp a `go` decision when red flags (`dashboard-only metric logic`, `manual spreadsheet hop`, `feature generated outside pipeline`, `PII source unclear`) remain unresolved.
 
 ## What This Skill Must Do
 
@@ -30,18 +30,16 @@ Why this skill exists: Lineage mapping combines static extraction with semantic 
 - Inspect local artifacts first: data extracts, schemas, notebooks, SQL, pipeline configs, model reports, tickets, and prior decisions.
 - Separate mechanical checks from expert judgment so another reviewer can reproduce what was checked and what was inferred.
 - Classify findings as stop, fix-first, monitor, accepted risk, or owner decision instead of producing generic advice.
-- Preserve raw evidence and never silently mutate data, notebooks, model artifacts, or production configs.
-- Return a decision artifact that can be handed to a data scientist, ML engineer, governance reviewer, or stakeholder without hidden context.
+- Produce the concrete artifacts expected by downstream consumers: `lineage graph outline`, `risk nodes`, `owner questions`, `unknown dependency list`, `audit narrative`.
 
-## Required Inputs
+## Deterministic Script Usage
 
-- SQL files
-- notebooks
-- pipeline configs
-- dashboard definitions
-- model feature lists
+Run the bundled stdlib script before drafting your final recommendation:
 
-If an input is missing, inspect available files first. Ask only for information that cannot be recovered from the workspace and would change the recommendation.
+```bash
+python scripts/extract_lineage_tokens.py sql/ pipelines/ notebooks/
+python scripts/checklist_score.py path/to/checklist.json --strict
+```
 
 ## Workflow
 
@@ -51,43 +49,36 @@ If an input is missing, inspect available files first. Ask only for information 
 4. Identify high-risk nodes: ownerless, PII, stale, reused, or weakly documented.
 5. Return a lineage map, risk register, and confirmation checklist.
 
-## Red Flags
+## Multilingual Native Execution (English / 简体中文 / 日本語 / 한국어)
 
-- dashboard-only metric logic
-- manual spreadsheet hop
-- feature generated outside pipeline
-- PII source unclear
-- ownerless table
+- **English**: Semantic Lineage Mapper — Trace table, column, and metric definitions across SQL, notebooks, and pipelines.
+- **简体中文**: 语义血缘与口径映射 — 跨 SQL、Notebook 与数据管道追踪表、字段与指标的真实语义口径（参见 `references/multilingual-guide.md`）。
+- **日本語**: セマンティック系譜マッパー — SQL・Notebook・パイプラインを横断してテーブル・列・指標の意味論的系譜を追跡（`references/multilingual-guide.md` を参照）。
+- **한국어**: 시맨틱 리니지 매퍼 — SQL, 노트북, 파이프라인 전반에서 테이블·컬럼·지표의 의미론적 계보 추적 (`references/multilingual-guide.md` 참조).
 
-When a red flag appears, slow down and surface it in `Risks`. A red flag does not always mean stop, but it must change the recommendation or the confidence level.
+## Progressive References
 
-## Resources
+- Read `references/multilingual-guide.md` when the user prompts in Simplified Chinese (简体中文), Japanese (日本語), or Korean (한국어), or requests a bilingual/multilingual decision memo.
 
-- Read `references/playbook.md` for the skill-specific checklist, scoring rubric, and failure modes.
-- Read `references/acceptance-tests.md` before forward-testing clean, messy, and adversarial requests.
-- Read `references/agent-portability.md` when adapting this skill to Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, or local agents.
-- Read `references/quality-rubric.md` when reviewing whether the output meets senior data-science standards.
-- Use `scripts/quick_validate_skill.py . --strict` before publishing or installing the skill.
-
-Use only the specific reference file needed for the task; keep context small.
+- Read `references/playbook.md` for detailed step-by-step execution rules and escalation criteria.
+- Read `references/quality-rubric.md` to score the output and verify that dataset red flags are separated from agent failure conditions.
+- Read `references/acceptance-tests.md` and `references/benchmark-plan.md` when forward-testing clean, messy, and adversarial cases.
+- Read `references/provider-interop.md` and `references/agent-portability.md` when adapting across cloud providers or agent hosts.
 
 ## Output Contract
 
-Return these sections unless the user requests another format:
+Always return these exact eight sections in order:
 
-- `Problem`: the decision, artifact, model, data source, or workflow being handled.
-- `Inputs`: files, data, stakeholder context, assumptions, and missing context used.
-- `Checks performed`: concrete inspections, scripts, and reasoning checks.
-- `Findings`: prioritized observations with evidence.
-- `Decision`: go, fix-first, stop, proceed-with-risk, or needs-owner-review.
-- `Risks`: unresolved blockers, caveats, and owner decisions.
-- `Next actions`: smallest useful follow-up steps.
-- `Artifacts`: generated files, specs, reports, scripts, or links.
+1. `Problem`
+2. `Inputs`
+3. `Checks performed`
+4. `Findings`
+5. `Decision` (`go` | `fix-first` | `stop` | `proceed-with-risk` | `needs-owner-review`)
+6. `Risks`
+7. `Next actions`
+8. `Artifacts`
 
 ## Final Checks
 
-- Did the response answer the actual decision, not just analyze data?
-- Did it preserve evidence and avoid silent mutation?
-- Did it name unknowns and owner decisions?
-- Did it include at least one concrete next action?
-- Did it avoid overclaiming causality, readiness, compliance, or production safety?
+- Verify that every factual finding cites the exact file, column, metric, or script output that produced it.
+- Run `python scripts/quick_validate_skill.py . --strict` after modifying any file in this skill package.

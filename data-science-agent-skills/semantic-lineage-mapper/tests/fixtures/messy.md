@@ -1,12 +1,15 @@
-# Semantic Lineage Mapper messy Fixture
+# Messy Fixture: `semantic-lineage-mapper`
 
-Use $semantic-lineage-mapper on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: dashboard-only metric logic.
+Prompt:
 
-Expected response traits:
+```text
+Use $semantic-lineage-mapper on a messy project where SQL files, notebooks are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: dashboard-only metric logic.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: dashboard-only metric logic
+```bash
+python scripts/extract_lineage_tokens.py sql/ pipelines/ notebooks/
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `dashboard-only metric logic` in `Findings` and `Risks`).

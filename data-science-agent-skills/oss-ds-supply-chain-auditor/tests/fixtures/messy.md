@@ -1,12 +1,15 @@
-# OSS Data Science Supply Chain Auditor messy Fixture
+# Messy Fixture: `oss-ds-supply-chain-auditor`
 
-Use $oss-ds-supply-chain-auditor on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: pip install from unpinned URL.
+Prompt:
 
-Expected response traits:
+```text
+Use $oss-ds-supply-chain-auditor on a messy project where repo path, environment files are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: pip install from unpinned URL.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: pip install from unpinned URL
+```bash
+python scripts/dependency_surface.py .
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `pip install from unpinned URL` in `Findings` and `Risks`).

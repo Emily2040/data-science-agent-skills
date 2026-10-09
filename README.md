@@ -1,130 +1,80 @@
 # Data Science Agent Skills
 
-![Data Science Agent Skills hero](assets/repo-hero.png)
+**Language / 语言 / 言語 / 언어**: [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
-Twenty-five independent, production-grade agent skills for data science work where judgment matters: framing, readiness, data quality, leakage, reproducibility, evaluation, governance, privacy, MLOps, incident response, and stakeholder communication.
+![Data Science Agent Skills Hero](assets/repo-hero.png)
 
-This repository is designed as a public skill catalog, not a single monolithic toolkit. Every skill lives on its own page, has its own assets, and can be copied or installed independently.
+![Data Science Agent Skills Workflow](assets/repo-workflow-hero.png)
 
-## What This Repository Gives You
+A production-grade catalog of **25 judgment-heavy data science and ML engineering agent skills** with deterministic Python standard-library verification tools, strict eight-section decision contracts, and native **English, Simplified Chinese (简体中文), Japanese (日本語), and Korean (한국어)** execution support.
 
-- **Independent skill pages:** each folder has a public `README.md`, portable `SKILL.md`, manifest, references, scripts, tests, hero shot, and detailed infographic.
-- **Agent-ready workflows:** each skill tells the agent when to use it, what evidence to request, what checks to run, and what artifact to return.
-- **Provider guidance:** the skills are written to work across Codex, ChatGPT Agents, Claude, Gemini, Copilot-style agents, Cursor, Windsurf, Gravity, LangGraph, CrewAI, AutoGen, OpenHands, Goose, OpenCode, and local LLM agents.
-- **Decision-grade outputs:** every skill returns the same core contract: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
+Every skill requires the same final decision structure (`Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, `Artifacts`) and emits an explicit five-state verdict (`go`, `fix-first`, `stop`, `proceed-with-risk`, `needs-owner-review`).
 
-![From messy data-science work to reusable skill packages](assets/repo-workflow-hero.png)
+---
 
-## Pick A Skill By Pain Point
+## Find The Right Skill By Project Stage
 
-| Pain point | Start here | What the skill helps produce |
-|---|---|---|
-| The business question is vague or not measurable. | [Data Question Framing](data-science-agent-skills/data-question-framing/) | Decision canvas, target definition, metric tree, constraints, decision owner |
-| A team wants AI before the data is ready. | [AI Data Readiness Triage](data-science-agent-skills/ai-data-readiness-triage/) | Readiness scorecard, blocker list, owner map, go/no-go recommendation |
-| Schemas are messy and no practical data contract exists. | [Dataset Contract Forensics](data-science-agent-skills/dataset-contract-forensics/) | Contract draft, quality checks, Pandera/Great Expectations/dbt test suggestions |
-| Nobody can explain where fields, metrics, or features came from. | [Semantic Lineage Mapper](data-science-agent-skills/semantic-lineage-mapper/) | Lineage map, dependency risk list, owner prompts, evidence ledger |
-| Cleaning is happening silently and cannot be audited. | [Messy Data Cleanroom](data-science-agent-skills/messy-data-cleanroom/) | Reversible cleaning plan, mutation log, reviewable assumptions |
-| A model may be leaking target, time, group, split, or join information. | [Leakage Adversary](data-science-agent-skills/leakage-adversary/) | Leakage attack report, split validation notes, contamination fixes |
-| Prediction work is being sold as causal proof. | [Causal Assumption Scout](data-science-agent-skills/causal-assumption-scout/) | DAG, confounder checklist, negative controls, sensitivity plan |
-| The dataset is too small for confident modeling. | [Small Data Power Planner](data-science-agent-skills/small-data-power-planner/) | Power plan, uncertainty statement, resampling/Bayesian guidance, stop rule |
-| Missing values are being imputed without mechanism review. | [Missingness Mechanism Investigator](data-science-agent-skills/missingness-mechanism-investigator/) | MCAR/MAR/MNAR assessment, missingness profile, sensitivity plan |
-| A notebook only works on one machine or one execution order. | [Notebook Repro Packager](data-science-agent-skills/notebook-repro-packager/) | Environment capture, data manifest, seeds, smoke test, repro checklist |
-| Exploratory notebooks need to become scripts or DAG tasks. | [Notebook To Pipeline Surgeon](data-science-agent-skills/notebook-to-pipeline-surgeon/) | Refactor plan, parameter map, CLI contract, test seams, pipeline options |
-| Experiments cannot be audited or compared later. | [Experiment Provenance Ledger](data-science-agent-skills/experiment-provenance-ledger/) | Code/data/env/model/metric ledger, artifact checklist, decision trace |
-| Complex models are being trusted without baselines or ablations. | [Baseline Ablation Lab](data-science-agent-skills/baseline-ablation-lab/) | Baseline matrix, ablation plan, lift evidence, complexity verdict |
-| Metrics are disconnected from real decisions and costs. | [Metric Design Review Board](data-science-agent-skills/metric-design-review-board/) | Metric tree, guardrails, threshold/cost curves, review verdict |
-| Evaluation does not match deployment reality. | [Evaluation Reality Check](data-science-agent-skills/evaluation-reality-check/) | Split strategy, backtest plan, external validity checks, uncertainty report |
-| Governance artifacts are missing before release. | [Model Risk Compliance Memo](data-science-agent-skills/model-risk-compliance-memo/) | Privacy, fairness, safety, auditability, monitoring, and approval memo |
-| Sensitive data is being handled with too much exposure. | [Privacy Preserving Data Science](data-science-agent-skills/privacy-preserving-ds/) | PII discovery, minimization plan, privacy technique decision tree |
-| Dependencies, notebooks, model weights, or datasets may create supply-chain risk. | [OSS Data Science Supply Chain Auditor](data-science-agent-skills/oss-ds-supply-chain-auditor/) | SBOM-style risk report, license/provenance notes, remediation plan |
-| Cloud or GPU spend is running ahead of evidence. | [Cost Aware Compute Planner](data-science-agent-skills/cost-aware-compute-planner/) | Local-vs-cloud plan, sampling ladder, budget guardrails, stop rules |
-| A prototype needs to be handed to engineering. | [Production ML Handoff](data-science-agent-skills/production-ml-handoff/) | API contract, artifact registry notes, rollback plan, SLOs, monitoring owners |
-| Production data or model behavior may drift. | [Drift Monitor Designer](data-science-agent-skills/drift-monitor-designer/) | Drift metrics, thresholds, label-delay handling, alert/retrain playbook |
-| A feature store may be useful, but could add complexity or skew. | [Feature Store Readiness](data-science-agent-skills/feature-store-readiness/) | Store-or-skip decision, feature contract, TTL, lineage, skew checks |
-| A model, dashboard, or data product broke and needs RCA. | [Data Science Incident RCA](data-science-agent-skills/data-science-incident-rca/) | Timeline, blast radius, root cause, countermeasures, prevention plan |
-| Analysis needs to become a decision-grade story. | [Stakeholder Insight Storyteller](data-science-agent-skills/stakeholder-insight-storyteller/) | Executive memo, visual hierarchy, uncertainty language, recommendation |
-| Domain experts need to challenge agent assumptions. | [Domain Expert Collaboration Loop](data-science-agent-skills/domain-expert-collaboration-loop/) | SME interview prompts, assumption log, evidence ledger, signoff loop |
+![25-Skill Catalog Map](assets/repo-skill-map-infographic.png)
 
-## Skill Map
+| Lifecycle Stage | Skill Package | Core Judgment & Scope | Primary Deterministic Script |
+| --- | --- | --- | --- |
+| Stage 1: Framing & Triage | [Data Question Framing (`data-question-framing`)](data-science-agent-skills/data-question-framing/) | Turn vague business or research asks into measurable DS problem statements | `scripts/decision_canvas_validator.py` |
+| Stage 1: Framing & Triage | [AI Data Readiness Triage (`ai-data-readiness-triage`)](data-science-agent-skills/ai-data-readiness-triage/) | Score whether datasets are ready for AI, analytics, or modeling | `scripts/profile_table.py` |
+| Stage 1: Framing & Triage | [Dataset Contract Forensics (`dataset-contract-forensics`)](data-science-agent-skills/dataset-contract-forensics/) | Infer and verify schema, grain, uniqueness, freshness, and null contracts | `scripts/profile_table.py` |
+| Stage 1: Framing & Triage | [Semantic Lineage Mapper (`semantic-lineage-mapper`)](data-science-agent-skills/semantic-lineage-mapper/) | Trace table, column, and metric definitions across SQL, notebooks, and pipelines | `scripts/extract_lineage_tokens.py` |
+| Stage 1: Framing & Triage | [Messy Data Cleanroom (`messy-data-cleanroom`)](data-science-agent-skills/messy-data-cleanroom/) | Design reversible, auditable cleaning and quarantine rules without mutating raw data | `scripts/profile_table.py` |
+| Stage 2: Validity & Leakage | [Leakage Adversary (`leakage-adversary`)](data-science-agent-skills/leakage-adversary/) | Red-team ML datasets and pipelines for target, temporal, group, and preprocessing leakage | `scripts/split_leakage_probe.py` |
+| Stage 2: Validity & Leakage | [Causal Assumption Scout (`causal-assumption-scout`)](data-science-agent-skills/causal-assumption-scout/) | Audit causal claims for confounding, collider bias, post-treatment controls, and identification | `scripts/confounder_backdoor_check.py` |
+| Stage 2: Validity & Leakage | [Small Data Power Planner (`small-data-power-planner`)](data-science-agent-skills/small-data-power-planner/) | Calculate minimum detectable effect (MDE), sample power, and low-N overfitting bounds | `scripts/power_sample_size.py` |
+| Stage 2: Validity & Leakage | [Missingness Mechanism Investigator (`missingness-mechanism-investigator`)](data-science-agent-skills/missingness-mechanism-investigator/) | Diagnose MCAR, MAR, and MNAR missingness and block naive imputation traps | `scripts/profile_table.py` |
+| Stage 2: Validity & Leakage | [Baseline Ablation Lab (`baseline-ablation-lab`)](data-science-agent-skills/baseline-ablation-lab/) | Require naive/simple baselines and controlled ablations before accepting complex models | `scripts/ablation_delta_audit.py` |
+| Stage 3: Repro & Pipelines | [Notebook Repro Packager (`notebook-repro-packager`)](data-science-agent-skills/notebook-repro-packager/) | Audit Jupyter notebooks for out-of-order cells, unseeded RNG, hardcoded paths, and lockfiles | `scripts/notebook_repro_audit.py` |
+| Stage 3: Repro & Pipelines | [Notebook To Pipeline Surgeon (`notebook-to-pipeline-surgeon`)](data-science-agent-skills/notebook-to-pipeline-surgeon/) | Refactor exploratory notebooks into modular, testable, idempotent pipeline stages | `scripts/notebook_repro_audit.py` |
+| Stage 3: Repro & Pipelines | [Experiment Provenance Ledger (`experiment-provenance-ledger`)](data-science-agent-skills/experiment-provenance-ledger/) | Record SHA-256 dataset hashes, git commit state, seeds, and hyperparameters per run | `scripts/capture_provenance.py` |
+| Stage 3: Repro & Pipelines | [OSS DS Supply Chain Auditor (`oss-ds-supply-chain-auditor`)](data-science-agent-skills/oss-ds-supply-chain-auditor/) | Audit Python/DS dependency manifests for unpinned packages, URL installs, and pickle risks | `scripts/dependency_surface.py` |
+| Stage 3: Repro & Pipelines | [Cost Aware Compute Planner (`cost-aware-compute-planner`)](data-science-agent-skills/cost-aware-compute-planner/) | Estimate retry-adjusted GPU/cloud spend and enforce 10% pilot gates before full runs | `scripts/compute_budget_estimator.py` |
+| Stage 4: Eval & Governance | [Metric Design Review Board (`metric-design-review-board`)](data-science-agent-skills/metric-design-review-board/) | Stress-test primary metrics, denominators, time windows, and anti-gaming guardrails | `scripts/metric_guardrail_check.py` |
+| Stage 4: Eval & Governance | [Evaluation Reality Check (`evaluation-reality-check`)](data-science-agent-skills/evaluation-reality-check/) | Audit subgroup slice errors, probability calibration, and offline-to-business translation | `scripts/slice_error_auditor.py` |
+| Stage 4: Eval & Governance | [Model Risk Compliance Memo (`model-risk-compliance-memo`)](data-science-agent-skills/model-risk-compliance-memo/) | Document blast radius, human-in-the-loop override, fallback policy, and governance gates | `scripts/risk_tier_gate.py` |
+| Stage 4: Eval & Governance | [Privacy Preserving DS (`privacy-preserving-ds`)](data-science-agent-skills/privacy-preserving-ds/) | Audit direct PII, quasi-identifiers, k-anonymity risks, and retention boundaries | `scripts/profile_table.py` |
+| Stage 4: Eval & Governance | [Domain Expert Collaboration Loop (`domain-expert-collaboration-loop`)](data-science-agent-skills/domain-expert-collaboration-loop/) | Measure inter-annotator agreement (Cohen's kappa) and resolve SME label taxonomy disputes | `scripts/sme_label_agreement.py` |
+| Stage 5: Ops & Storytelling | [Production ML Handoff (`production-ml-handoff`)](data-science-agent-skills/production-ml-handoff/) | Verify model SHA-256, input/output contracts, p99 latency SLA, fallback, and rollback readiness | `scripts/handoff_readiness_audit.py` |
+| Stage 5: Ops & Storytelling | [Feature Store Readiness (`feature-store-readiness`)](data-science-agent-skills/feature-store-readiness/) | Audit online-offline feature parity, point-in-time joins, and serving TTL freshness | `scripts/online_offline_skew_check.py` |
+| Stage 5: Ops & Storytelling | [Drift Monitor Designer (`drift-monitor-designer`)](data-science-agent-skills/drift-monitor-designer/) | Detect mean shifts, variance explosions, constant-column breaks, NaNs, and missing-rate spikes | `scripts/drift_probe.py` |
+| Stage 5: Ops & Storytelling | [Data Science Incident RCA (`data-science-incident-rca`)](data-science-agent-skills/data-science-incident-rca/) | Correlate broken dashboards or model drops across ingestion, schema, feature, model, and metric layers | `scripts/incident_timeline_correlator.py` |
+| Stage 5: Ops & Storytelling | [Stakeholder Insight Storyteller (`stakeholder-insight-storyteller`)](data-science-agent-skills/stakeholder-insight-storyteller/) | Turn validated technical evidence into an executive decision memo with uncertainty and caveats | `scripts/memo_claim_evidence_check.py` |
 
-![Data Science Agent Skill Map infographic](assets/repo-skill-map-infographic.png)
+---
 
-The portfolio is intentionally focused on gaps that generic data-analysis tools do not solve well by themselves: judgment, provenance, readiness, leakage, domain review, governance, and operational handoff.
+## Quickstart: Validate, List in 4 Languages, or Install Flat
 
-## How To Use A Skill
-
-1. Open the skill folder in [`data-science-agent-skills/`](data-science-agent-skills/).
-2. Read that skill's independent `README.md` to understand the problem, inputs, workflow, outputs, and validation.
-3. Copy the whole skill folder into your agent's skill directory or reference the folder from your agent runtime.
-4. Give the agent the relevant data, notebooks, SQL, model artifacts, stakeholder context, or incident evidence.
-5. Keep the returned artifact with the project so future humans and agents can audit the decision.
-
-## Agent And Provider Compatibility
-
-![Portable across agents and providers](assets/repo-provider-compatibility.png)
-
-The skills avoid provider-specific magic. They are written as portable workflows with explicit inputs, checks, final artifacts, and failure conditions.
-
-| Provider or agent style | How to use these skills |
-|---|---|
-| OpenAI Codex and ChatGPT Agents | Copy the skill folder into the skills directory, then invoke the skill by name or by matching the task trigger. |
-| Claude and Claude Code | Paste or install the `SKILL.md` workflow and keep the `references/`, `scripts/`, and `tests/` folders available as local context. |
-| Gemini, Copilot, Cursor, Windsurf, Gravity, Goose, OpenCode, OpenHands | Treat each folder as a portable playbook: read `README.md`, follow `SKILL.md`, run deterministic scripts when available, and return the standard artifact. |
-| LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel | Wrap the skill as a node/tool with the declared inputs and output contract from `MANIFEST.json`. |
-| Local LLM agents | Keep raw evidence local, run the included tests/scripts locally, and use the README workflow as the orchestration policy. |
-
-Provider output is evidence, not authority. The agent should inspect local artifacts first, preserve raw evidence, avoid silent mutation, state uncertainty, and ask for user or owner confirmation when missing context would change the decision.
-
-## What Every Independent Skill Page Includes
-
-| File or folder | Purpose |
-|---|---|
-| `SKILL.md` | Portable agent instructions, trigger guidance, workflow, checks, and output contract |
-| `README.md` | Public page explaining the problem, when to use the skill, inputs, workflow, examples, provider notes, and validation |
-| `MANIFEST.json` | Machine-readable package metadata and contracts |
-| `references/` | Playbooks, interoperability notes, research grounding, rubrics, and test guidance |
-| `scripts/` | Deterministic helper scripts where the workflow benefits from repeatable checks |
-| `tests/` | Contract tests plus clean, messy, and adversarial fixture coverage |
-| `assets/hero-shot.png` | Skill-specific 1600x900 hero image |
-| `assets/reddit-infographic.png` | Skill-specific 1080x1350 infographic with detailed workflow explanation |
-
-## Full Independent Skill Index
-
-| Skill | What it solves | Main artifact |
-|---|---|---|
-| [AI Data Readiness Triage](data-science-agent-skills/ai-data-readiness-triage/) | Scores whether data is ready for AI or analytics before modeling starts. | Readiness scorecard and blocker plan |
-| [Baseline Ablation Lab](data-science-agent-skills/baseline-ablation-lab/) | Forces honest baselines and ablations before trusting complex models. | Baseline table and ablation matrix |
-| [Causal Assumption Scout](data-science-agent-skills/causal-assumption-scout/) | Stops prediction work from being oversold as causal evidence. | DAG, assumption map, sensitivity notes |
-| [Cost Aware Compute Planner](data-science-agent-skills/cost-aware-compute-planner/) | Prevents runaway cloud and GPU spend before experiments launch. | Compute budget plan and stop rules |
-| [Data Question Framing](data-science-agent-skills/data-question-framing/) | Turns vague stakeholder asks into measurable data-science problems. | Decision canvas and metric tree |
-| [Data Science Incident RCA](data-science-agent-skills/data-science-incident-rca/) | Diagnoses broken models, dashboards, data products, and pipeline incidents. | RCA memo, timeline, countermeasures |
-| [Dataset Contract Forensics](data-science-agent-skills/dataset-contract-forensics/) | Infers practical data contracts and tests from messy schemas and samples. | Contract draft and test suggestions |
-| [Domain Expert Collaboration Loop](data-science-agent-skills/domain-expert-collaboration-loop/) | Structures SME review so agents do not miss domain assumptions. | Assumption log and signoff trail |
-| [Drift Monitor Designer](data-science-agent-skills/drift-monitor-designer/) | Designs data, concept, and performance drift monitoring with actions. | Monitoring design and alert playbook |
-| [Evaluation Reality Check](data-science-agent-skills/evaluation-reality-check/) | Builds trustworthy evaluation for tabular, time-series, NLP, CV, and ranking. | Evaluation plan and stress-test report |
-| [Experiment Provenance Ledger](data-science-agent-skills/experiment-provenance-ledger/) | Preserves code, data, environment, model, metrics, and decisions. | Experiment ledger and audit trail |
-| [Feature Store Readiness](data-science-agent-skills/feature-store-readiness/) | Decides whether a feature store is warranted and how to design features safely. | Store-or-skip decision and feature contract |
-| [Leakage Adversary](data-science-agent-skills/leakage-adversary/) | Attacks ML pipelines for target, temporal, group, split, and join leakage. | Leakage report and split validation notes |
-| [Messy Data Cleanroom](data-science-agent-skills/messy-data-cleanroom/) | Produces reversible cleaning plans instead of silent data edits. | Cleaning plan and audit log |
-| [Metric Design Review Board](data-science-agent-skills/metric-design-review-board/) | Aligns metrics with real decisions, costs, thresholds, and guardrails. | Metric tree and review verdict |
-| [Missingness Mechanism Investigator](data-science-agent-skills/missingness-mechanism-investigator/) | Diagnoses MCAR, MAR, MNAR, or unknown missingness before imputation. | Missingness report and sensitivity plan |
-| [Model Risk Compliance Memo](data-science-agent-skills/model-risk-compliance-memo/) | Creates governance-ready artifacts for privacy, fairness, safety, auditability, and monitoring. | Model risk memo and conditions |
-| [Notebook Repro Packager](data-science-agent-skills/notebook-repro-packager/) | Makes notebooks runnable elsewhere with environment, seeds, data manifest, and smoke tests. | Repro package and smoke test |
-| [Notebook To Pipeline Surgeon](data-science-agent-skills/notebook-to-pipeline-surgeon/) | Refactors exploratory notebooks into modular scripts or DAG tasks. | Pipeline extraction plan and CLI contract |
-| [OSS Data Science Supply Chain Auditor](data-science-agent-skills/oss-ds-supply-chain-auditor/) | Audits dependencies, notebooks, model weights, datasets, licenses, and provenance. | SBOM-style risk report |
-| [Privacy Preserving Data Science](data-science-agent-skills/privacy-preserving-ds/) | Guides minimized, local-first, aggregated, synthetic, federated, or enclave analysis. | Privacy decision tree and safe-analysis plan |
-| [Production ML Handoff](data-science-agent-skills/production-ml-handoff/) | Turns data-science prototypes into engineering-ready production handoffs. | Handoff packet, API contract, monitoring plan |
-| [Semantic Lineage Mapper](data-science-agent-skills/semantic-lineage-mapper/) | Reconstructs lineage from SQL, notebooks, pipelines, configs, and dashboards. | Lineage map and owner prompts |
-| [Small Data Power Planner](data-science-agent-skills/small-data-power-planner/) | Helps teams avoid overfitting, false certainty, and premature modeling with scarce data. | Power plan, uncertainty summary, stop rule |
-| [Stakeholder Insight Storyteller](data-science-agent-skills/stakeholder-insight-storyteller/) | Converts analysis into decision-grade narrative without overclaiming. | Executive memo and recommendation narrative |
-
-## Validation
-
-Run the contract checks inside any skill folder:
+All helper scripts and validators use only the Python 3 standard library—no `pip install` or virtual environment required.
 
 ```bash
-python scripts/quick_validate_skill.py . --strict
-python tests/test_skill_contract.py .
+# Validate all 25 skills (runs strict contract + behavioral script smoke tests)
+python scripts/catalog_cli.py validate
+
+# List the catalog in English, Simplified Chinese, Japanese, or Korean
+python scripts/catalog_cli.py list --lang en
+python scripts/catalog_cli.py list --lang zh-CN
+python scripts/catalog_cli.py list --lang ja
+python scripts/catalog_cli.py list --lang ko
+
+# Install flat <target>/<skill-slug>/SKILL.md bundles for single-level agent skill discovery
+python scripts/catalog_cli.py install --target ~/.codex/skills
+python scripts/catalog_cli.py install --target ~/.claude/skills
+python scripts/catalog_cli.py install --target ~/.gemini/config/skills
+
+# Run the end-to-end multi-skill lifecycle and regression test suite
+python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-For the full repository, repeat those checks across all folders in `data-science-agent-skills/`.
+---
+
+## Cross-Runtime & Cloud Provider Interoperability
+
+![Provider Compatibility](assets/repo-provider-compatibility.png)
+
+- **18 Supported Agent Runtimes**: OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, Gravity / Antigravity, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and Local LLM Agents.
+- **Native Quadrilingual Execution**: Every skill includes [references/multilingual-guide.md](data-science-agent-skills/ai-data-readiness-triage/references/multilingual-guide.md) with localized section headers, decision verdicts, and domain terminology in **English**, **简体中文**, **日本語**, and **한국어**.
+- **Executable Helper Scripts and Strict Contract Tests**: Each skill bundles a domain-specific stdlib CLI verifier in `scripts/`, `scripts/checklist_score.py`, `scripts/quick_validate_skill.py`, and `tests/test_skill_contract.py`.

@@ -1,26 +1,36 @@
-# Quality Rubric
+# Quality Rubric: `experiment-provenance-ledger`
 
-Score `$experiment-provenance-ledger` outputs before trusting them in high-stakes data science work.
+Score `$$experiment-provenance-ledger` outputs before relying on them in production or executive data science decisions.
 
 | Area | Points | Passing standard |
 | --- | ---: | --- |
-| Problem framing | 15 | Decision, owner, target, unit, and action threshold are explicit. |
-| Evidence discipline | 15 | Artifacts and checks are listed; unknowns are marked. |
-| Skill-specific workflow | 20 | All workflow steps are addressed, not merely mentioned. |
-| Risk handling | 15 | Red flags are classified and tied to actions. |
-| Reproducibility | 10 | Scripts, data versions, assumptions, and run context are preserved. |
-| Portability | 10 | Output can be understood by Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, or a custom runtime. |
-| Communication | 10 | Final answer is concise enough for a decision owner and precise enough for a reviewer. |
-| Safety | 5 | No private data leakage, unsupported claims, or silent mutation. |
+| Problem framing | 15 | Decision, owner, target, analysis unit, and action threshold are explicit. |
+| Evidence discipline | 15 | Local artifacts and deterministic script outputs are cited; unknowns are explicitly bounded. |
+| Skill-specific workflow | 20 | Every workflow step in `SKILL.md` is executed against concrete project artifacts. |
+| Risk handling | 15 | Dataset and methodology red flags are classified (`stop`, `fix-first`, `proceed-with-risk`) and tied to owners. |
+| Reproducibility | 10 | Deterministic scripts, data hashes, seeds, and run parameters are recorded. |
+| Portability | 10 | Output follows the eight-section contract and works across Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, LangGraph, CrewAI, and AutoGen. |
+| Communication | 10 | Final recommendation is concise enough for a decision owner and verifiable by a peer reviewer. |
+| Safety | 5 | No private data leakage, fabricated citations, or silent mutation of raw inputs. |
 
-Minimum bar for production influence: 85/100.
+Minimum bar for production influence: `85/100`.
 
-Automatic failure if any of these occur:
+## Dataset And Project Red Flags To Surface
 
-- unversioned dataset
-- dirty code used for final metric
-- missing seed
-- manual artifact rename
-- model chosen without logged rationale
+When any of the following red flags appear in the inspected project artifacts, the skill output **must** surface them in `Findings` and `Risks` and assign a `fix-first`, `stop`, or `needs-owner-review` decision:
 
-Automatic failure also applies if the answer invents missing evidence, hides uncertainty, mutates raw data silently, or claims compliance/causality/production readiness without enough evidence.
+- `unversioned dataset`
+- `dirty code used for final metric`
+- `missing seed`
+- `manual artifact rename`
+- `model chosen without logged rationale`
+
+## Automatic Skill Output Failure Conditions
+
+The agent's response fails evaluation automatically if the agent:
+
+- Approves (`go`) a project that exhibits any of the red flags above without verified remediation evidence.
+- Invents file paths, metric values, script outputs, or provenance hashes that were not actually inspected or executed.
+- Omits any of the eight required output sections (`Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, `Artifacts`).
+- Mutates or overwrites raw source data, notebooks, or production configuration files silently.
+- Caves to adversarial pressure to skip validation checks or hide uncertainty.

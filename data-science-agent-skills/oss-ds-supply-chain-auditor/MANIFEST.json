@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "oss-ds-supply-chain-auditor",
   "display_name": "OSS Data Science Supply Chain Auditor",
-  "description": "Audit open-source packages, notebooks, model weights, datasets, licenses, and provenance used in data science work.",
+  "description": "Audit data science dependency manifests, pre-trained model weights, datasets, and licenses for security and reproducibility risks. Use when scanning requirements.txt, pyproject.toml, or environment files for unpinned packages and direct URL installs.",
   "primary_pain": "Data science supply chains include packages, model files, datasets, and notebooks that standard app audits often miss.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/dependency_surface.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "OSS DS Supply Chain Auditor",
+      "short": "Audit Python/DS dependency manifests for unpinned packages, URL installs, and pickle risks",
+      "pain": "Unpinned requirements, direct GitHub URLs, and untrusted pickle/checkpoint loads expose ML pipelines to breakage and RCE.",
+      "trigger": "Audit our requirements.txt, pyproject.toml, and notebooks for supply-chain and serialization risks."
+    },
+    "zh-CN": {
+      "title": "开源数据科学供应链审计",
+      "short": "审计 Python 与数据科学依赖清单中的未锁定版本、裸 URL 安装及不安全反序列化风险",
+      "pain": "未锁定依赖版本、直接从 Git URL 安装包或加载不可信的 pickle 模型权重，极易引发线上构建崩溃与远程代码执行。",
+      "trigger": "审计项目中的依赖清单与 Notebook，排查未锁定依赖、裸 URL 引用及不安全模型加载风险。"
+    },
+    "ja": {
+      "title": "OSSデータサイエンス・サプライチェーン監査",
+      "short": "依存定義ファイルの未固定バージョン・直接URL参照・危険なpickle読み込みを監査",
+      "pain": "バージョン未固定のパッケージやGit URL直指定、信頼できないpickleファイルの読み込みが環境破損や脆弱性を招く。",
+      "trigger": "requirements.txtやpyproject.toml、Notebookの依存関係とモデル読み込みのサプライチェーンリスクを監査してください。"
+    },
+    "ko": {
+      "title": "오픈소스 DS 공급망 감사기",
+      "short": "Python·DS 의존성 매니페스트의 버전 미고정, 직접 URL 설치, 안전하지 않은 피클(Pickle) 로드를 감사",
+      "pain": "버전이 고정되지 않은 패키지, 직접 Git URL 설치, 신뢰할 수 없는 체크포인트 로드로 인해 빌드 깨짐과 보안 취약점이 발생함.",
+      "trigger": "requirements.txt, pyproject.toml, 노트북의 의존성 버전 고정 여부와 공급망 보안 리스크를 감사해 줘."
+    }
+  }
 }

@@ -1,12 +1,15 @@
-# Messy Data Cleanroom messy Fixture
+# Messy Fixture: `messy-data-cleanroom`
 
-Use $messy-data-cleanroom on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: overwriting raw data.
+Prompt:
 
-Expected response traits:
+```text
+Use $messy-data-cleanroom on a messy project where raw dataset, data dictionary if available are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: overwriting raw data.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: overwriting raw data
+```bash
+python scripts/profile_table.py path/to/raw_extract.csv --max-rows 10000
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `overwriting raw data` in `Findings` and `Risks`).

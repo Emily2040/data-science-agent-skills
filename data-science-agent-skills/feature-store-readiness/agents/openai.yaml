@@ -1,10 +1,4 @@
 interface:
   display_name: "Feature Store Readiness"
   short_description: "Decide when a feature store is worth it"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#8B5CF6"
-  default_prompt: "Use $feature-store-readiness to decide when a feature store is worth it for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $feature-store-readiness to decide whether a feature store is needed and design features to avoid training-serving skew, staleness, and reuse confusion Inspect local artifacts and run scripts/online_offline_skew_check.py first."

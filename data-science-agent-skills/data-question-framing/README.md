@@ -1,34 +1,30 @@
 # Data Question Framing
 
-![Data Question Framing hero shot](assets/hero-shot.png)
+![Data Question Framing Hero Shot](assets/hero-shot.png)
 
-![Data Question Framing Reddit infographic](assets/reddit-infographic.png)
+![Data Question Framing Infographic](assets/reddit-infographic.png)
 
 ## Executive Summary
 
-`data-question-framing` is a portable, independent data-science agent skill for: Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements.
+**Data Question Framing** is a portable, provider-neutral data science agent skill designed to turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements.
 
-It solves a real operating problem: Teams waste cycles modeling the wrong target, optimizing vanity metrics, or answering questions that no owner can act on. A framing skill closes the gap before analysis starts: outcome, unit, target, metric, constraints, and decision owner are made explicit.
+> **Core pain solved:** Teams waste cycles modeling the wrong target, optimizing vanity metrics, or answering questions that no owner can act on.
 
-The design target is the level expected by senior data scientists, staff ML engineers, and governance reviewers: explicit evidence, reproducible checks, decision-grade output, clear owner questions, and enough structure for another agent to run the same workflow without hidden context.
+> **Proof callout:** Stops wrong-target analysis before data work starts.
 
 ## Research-Informed Design Standard
 
-This skill was redesigned against patterns from high-quality public data-science and agent-skill repositories:
+This skill follows reproducible data science and portable agent-skill standards:
 
-- Cookiecutter Data Science: predictable folders, immutable raw evidence, project docs, tests, and dependency discipline.
-- Kedro: modular, reproducible, maintainable pipeline thinking.
-- MLflow: lifecycle tracking, evaluations, registry/deployment awareness, and broad integration posture.
-- Anthropic-style skills: portable folder with `SKILL.md`, scripts, references, and resources.
-- Reproducible-research guidance: documentation, dependency management, version control, testing, collaboration, and transparency.
+- **Cookiecutter Data Science**: immutable raw data, clear artifact layout, and repeatable command entrypoints.
+- **Kedro**: explicit input/output data contracts and modular workflow boundaries.
+- **MLflow**: traceable parameters, metrics, provenance hashes, and governance-ready evaluation records.
+- **Anthropic & Open Agent Skills**: concise `SKILL.md` frontmatter, progressive disclosure via `references/`, and deterministic local scripts in `scripts/`.
+- **CfRR Reproducible Research**: deterministic verification, explicit uncertainty, and zero hidden state.
 
 ## Problem It Solves
 
-Turn ambiguous business, product, policy, or research asks into decision-ready data science problem statements.
-
-- Primary pain: Teams waste cycles modeling the wrong target, optimizing vanity metrics, or answering questions that no owner can act on.
-- Why generic tools are not enough: generic notebooks, profilers, dashboards, and MLOps tools inspect pieces of the problem; this skill forces the agent to connect evidence, assumptions, owner decisions, risk, and next action.
-- What the skill adds: A framing skill closes the gap before analysis starts: outcome, unit, target, metric, constraints, and decision owner are made explicit.
+Teams waste cycles modeling the wrong target, optimizing vanity metrics, or answering questions that no owner can act on. Without a structured gate, teams routinely discover `no decision owner` or `target unavailable at decision time` only after engineering effort or executive credibility has already been spent.
 
 ## What This Skill Should Do
 
@@ -46,8 +42,6 @@ Turn ambiguous business, product, policy, or research asks into decision-ready d
 - known data sources or constraints
 - deadline and decision owner
 
-If an input is missing, the agent should inspect local files, schemas, notebooks, SQL, configs, reports, tickets, model artifacts, or metadata first. It should ask the user only when missing context would materially change the decision.
-
 ## Operating Workflow
 
 1. Extract the decision, action, and user or entity affected.
@@ -64,23 +58,14 @@ If an input is missing, the agent should inspect local files, schemas, notebooks
 - scope boundaries
 - next evidence needed
 
-Every final answer should include:
-
-- `Problem`
-- `Inputs`
-- `Checks performed`
-- `Findings`
-- `Decision`
-- `Risks`
-- `Next actions`
-- `Artifacts`
+All outputs are delivered inside the eight-section decision contract: `Problem`, `Inputs`, `Checks performed`, `Findings`, `Decision`, `Risks`, `Next actions`, and `Artifacts`.
 
 ## Concrete Use Cases
 
-- Project intake: decide whether to proceed, fix prerequisites, or stop before time is wasted.
-- Review gate: challenge a result when evidence is weak, assumptions are hidden, or a red flag appears.
-- Handoff: create an artifact an engineer, analyst, governance reviewer, or another agent can continue from.
-- Incident prevention: catch the workflow failure before it becomes a bad model, broken dashboard, or misleading executive claim.
+- **Pre-commit readiness gate**: Run `scripts/decision_canvas_validator.py` on `raw stakeholder request` to produce a `decision canvas` before approving engineering scope.
+- **Adversarial review**: Challenge a proposed `go` recommendation when `no decision owner` or `target unavailable at decision time` is suspected in `available decision or business context`.
+- **Cross-team handoff**: Generate `metric tree` and `next evidence needed` so ML engineers, governance reviewers, or downstream agents can act without re-running discovery.
+- **Regression audit**: Score completed review checklists with `scripts/checklist_score.py --strict` inside CI to prevent unverified artifacts from shipping.
 
 ## Red Flags
 
@@ -89,52 +74,51 @@ Every final answer should include:
 - metric can improve while user outcome worsens
 - causal claim hidden inside prediction wording
 
-When one appears, the agent must surface it, classify its severity, and tie it to a next action or owner decision.
-
 ## Agent And Provider Portability
 
-This skill is designed for OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Agent Runtimes**: OpenAI Codex, ChatGPT Agents, Anthropic Claude, Claude Code, Google Gemini, GitHub Copilot, Cursor, Windsurf, Goose, OpenCode, OpenHands, Gravity, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, and local LLM agents.
+- **Data & ML Providers**: Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, Airflow, Prefect, MLflow, DVC, Weights & Biases, SageMaker, Vertex AI, Azure ML, Great Expectations, Pandera, Evidently, Kedro, and local CSV/Parquet/JSON files.
 
-Use `SKILL.md` as the primary instruction. Use `references/agent-portability.md` for provider-specific adaptation and `MANIFEST.json` for machine-readable package expectations.
-
-## Data Platforms
-
-Use exported metadata, schemas, samples, logs, lineage files, model cards, metric reports, experiment records, or incident notes from Snowflake, BigQuery, Databricks, Postgres, dbt, Dagster, MLflow, DVC, W&B, SageMaker, Vertex AI, Azure ML, local files, or equivalent systems.
-
-Provider output is evidence, not authority. Do not upload private data to external services unless the user explicitly approves that environment.
+See [references/agent-portability.md](references/agent-portability.md) and [references/provider-interop.md](references/provider-interop.md) for host-specific integration instructions.
 
 ## Included Files
 
-- `SKILL.md`: trigger metadata and core execution workflow.
-- `README.md`: this independent GitHub skill page.
-- `MANIFEST.json`: machine-readable contract for portability checks.
-- `AGENTS.md`: local agent instructions for editing or validating this skill folder.
-- `agents/openai.yaml`: OpenAI-facing metadata and invocation defaults.
-- `references/playbook.md`: operational checklist and failure modes.
-- `references/acceptance-tests.md`: clean, messy, and adversarial forward tests.
-- `references/provider-interop.md`: provider and data-platform guidance.
-- `references/agent-portability.md`: Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Gravity, and multi-agent adaptation.
-- `references/quality-rubric.md`: senior-review scoring rubric.
-- `references/benchmark-plan.md`: expanded test plan.
-- `references/research-grounding.md`: source-informed design rationale.
-- `tests/test_skill_contract.py`: portable stdlib contract tests.
-- `tests/fixtures/`: clean, messy, and adversarial prompt fixtures.
-- `scripts/`: deterministic helper scripts where useful.
-- `assets/hero-shot.png`: 1600x900 hero image.
-- `assets/reddit-infographic.png`: 1080x1350 Reddit-ready infographic.
+- `SKILL.md`
+- `README.md`
+- `MANIFEST.json`
+- `AGENTS.md`
+- `agents/openai.yaml`
+- `scripts/decision_canvas_validator.py`
+- `scripts/checklist_score.py`
+- `scripts/quick_validate_skill.py`
+- `references/multilingual-guide.md`: Native English, Simplified Chinese (简体中文), Japanese (日本語), and Korean (한국어) execution guide.
+- `references/playbook.md`
+- `references/acceptance-tests.md`
+- `references/provider-interop.md`
+- `references/agent-portability.md`
+- `references/quality-rubric.md`
+- `references/benchmark-plan.md`
+- `references/research-grounding.md`
+- `references/evidence-map.md`
+- `references/infographic-spec.md`
+- `tests/test_skill_contract.py`
+- `tests/fixtures/clean.md`
+- `tests/fixtures/messy.md`
+- `tests/fixtures/adversarial.md`
+- `assets/hero-shot.png`
+- `assets/reddit-infographic.png`
 
 ## Validation
 
-Run these from inside the skill folder:
+Run the deterministic smoke and contract suite from inside this skill directory:
 
 ```bash
+python scripts/decision_canvas_validator.py path/to/decision_canvas.json
 python scripts/quick_validate_skill.py . --strict
 python tests/test_skill_contract.py .
 ```
 
-Then run at least one clean, messy, and adversarial forward test from `tests/fixtures/`.
+## Visual Assets
 
-## GitHub PR Visual Links
-
-- Hero shot: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-data-question-framing/data-science-agent-skills/data-question-framing/assets/hero-shot.png
-- Reddit infographic: https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/add-data-science-skill-data-question-framing/data-science-agent-skills/data-question-framing/assets/reddit-infographic.png
+- Hero shot (`1600x900`): [assets/hero-shot.png](assets/hero-shot.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/data-question-framing/assets/hero-shot.png`)
+- Reddit infographic (`1080x1350`): [assets/reddit-infographic.png](assets/reddit-infographic.png) (`https://raw.githubusercontent.com/Emily2040/data-science-agent-skills/main/data-science-agent-skills/data-question-framing/assets/reddit-infographic.png`)

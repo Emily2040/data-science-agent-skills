@@ -1,10 +1,4 @@
 interface:
   display_name: "Missingness Mechanism Investigator"
   short_description: "Diagnose missing data before imputation"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/reddit-infographic.png"
-  brand_color: "#2F80ED"
-  default_prompt: "Use $missingness-mechanism-investigator to diagnose missing data before imputation for this data science workflow."
-
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $missingness-mechanism-investigator to diagnose missing-data mechanisms and design imputation, exclusion, or sensitivity plans Inspect local artifacts and run scripts/profile_table.py first."

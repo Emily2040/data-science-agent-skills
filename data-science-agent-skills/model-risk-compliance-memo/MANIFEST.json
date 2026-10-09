@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "model-risk-compliance-memo",
   "display_name": "Model Risk Compliance Memo",
-  "description": "Create concise model risk and compliance memos for review, audit, launch, or executive approval.",
+  "description": "Produce governance-ready model risk assessments covering blast radius, affected populations, fairness slices, fallback policies, and rollback owners. Use when preparing high-impact ML or AI systems for compliance, legal, or release gate review.",
   "primary_pain": "Data science teams often lack a crisp artifact that explains model purpose, risk, evidence, limits, and controls.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/quick_validate_skill.py",
+    "scripts/risk_tier_gate.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Model Risk Compliance Memo",
+      "short": "Document blast radius, human-in-the-loop override, fallback policy, and governance gates",
+      "pain": "High-impact models reach launch review without documented failure modes, appeal paths, or rollback owners.",
+      "trigger": "Draft a model risk and compliance gate memo with blast-radius classification and rollback controls."
+    },
+    "zh-CN": {
+      "title": "模型风险与合规备忘录",
+      "short": "界定模型爆炸半径、人工复核兜底机制、回滚责任人与合规上线门禁",
+      "pain": "高影响面的自动化决策模型在缺乏失败降级策略、人工接管通道与明确回滚责任人的情况下仓促上线。",
+      "trigger": "针对该模型编写风险分级与合规门禁备忘录，核查人工复核机制与回滚预案。"
+    },
+    "ja": {
+      "title": "モデルリスク・コンプライアンスメモ",
+      "short": "影響範囲（ブラスト半径）・人間による介入（HITL）・フォールバック・ロールバック責任者を審査",
+      "pain": "高リスクな自動判定モデルが、失敗時の縮退運転ルールや異議申し立て経路、ロールバック責任者なしにリリースされる。",
+      "trigger": "このモデルのリスク階層ゲートを審査し、影響範囲・人間によるオーバーライド・ロールバック体制を文書化してください。"
+    },
+    "ko": {
+      "title": "모델 리스크 및 컴플라이언스 메모",
+      "short": "모델 영향 범위(Blast Radius), 인간 개입(HITL) 통제, 폴백 정책, 롤백 책임자를 검증 및 문서화",
+      "pain": "고위험 자동 의사결정 모델이 장애 시 폴백 기준, 수동 제어권, 롤백 책임자 없이 배포 심사에 올라옴.",
+      "trigger": "이 모델의 리스크 등급 게이트를 점검하고 영향 범위, 수동 오버라이드, 롤백 통제 계획을 작성해 줘."
+    }
+  }
 }

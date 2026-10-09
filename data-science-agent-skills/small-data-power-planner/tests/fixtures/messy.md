@@ -1,12 +1,15 @@
-# Small Data Power Planner messy Fixture
+# Messy Fixture: `small-data-power-planner`
 
-Use $small-data-power-planner on a messy project with partial files, unclear owner, inconsistent notes, and one red flag: more features than observations.
+Prompt:
 
-Expected response traits:
+```text
+Use $small-data-power-planner on a messy project where sample size, outcome rate are incomplete, ownership is ambiguous, and local inspection reveals a critical red flag: more features than observations.
+```
 
-- missing context
-- risk classification
-- owner question
-- fix-first or proceed-with-risk
+Expected deterministic check:
 
-Must flag: more features than observations
+```bash
+python scripts/power_sample_size.py --n-per-arm 120 --baseline-std 1.0 --features 6 --events 90
+```
+
+Expected decision: `fix-first` or `needs-owner-review` (must surface `more features than observations` in `Findings` and `Risks`).

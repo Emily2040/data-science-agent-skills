@@ -2,7 +2,7 @@
   "schema_version": "2026-05-world-class-ds-skill",
   "name": "drift-monitor-designer",
   "display_name": "Drift Monitor Designer",
-  "description": "Design drift monitoring for production models and data products across data, concept, performance, and operational signals.",
+  "description": "Design production feature, prediction, and label drift monitors with calibrated alert thresholds and named on-call owners. Use when comparing baseline vs current distributions for mean shift, variance explosion, missingness spikes, and delayed ground truth.",
   "primary_pain": "Models degrade silently because teams monitor uptime but not input, label, behavior, or outcome change.",
   "decision_contract": [
     "go",
@@ -42,19 +42,30 @@
     "local LLM agents"
   ],
   "required_files": [
-    "SKILL.md",
-    "README.md",
+    "AGENTS.md",
     "MANIFEST.json",
+    "README.md",
+    "SKILL.md",
     "agents/openai.yaml",
-    "references/playbook.md",
-    "references/acceptance-tests.md",
-    "references/provider-interop.md",
-    "references/agent-portability.md",
-    "references/quality-rubric.md",
-    "references/benchmark-plan.md",
-    "tests/test_skill_contract.py",
     "assets/hero-shot.png",
-    "assets/reddit-infographic.png"
+    "assets/reddit-infographic.png",
+    "references/acceptance-tests.md",
+    "references/agent-portability.md",
+    "references/benchmark-plan.md",
+    "references/evidence-map.md",
+    "references/infographic-spec.md",
+    "references/multilingual-guide.md",
+    "references/playbook.md",
+    "references/provider-interop.md",
+    "references/quality-rubric.md",
+    "references/research-grounding.md",
+    "scripts/checklist_score.py",
+    "scripts/drift_probe.py",
+    "scripts/quick_validate_skill.py",
+    "tests/fixtures/adversarial.md",
+    "tests/fixtures/clean.md",
+    "tests/fixtures/messy.md",
+    "tests/test_skill_contract.py"
   ],
   "image_contract": {
     "hero-shot.png": {
@@ -72,5 +83,37 @@
     "clean",
     "messy",
     "adversarial"
-  ]
+  ],
+  "supported_languages": [
+    "en",
+    "zh-CN",
+    "ja",
+    "ko"
+  ],
+  "i18n": {
+    "en": {
+      "title": "Drift Monitor Designer",
+      "short": "Detect mean shifts, variance explosions, constant-column breaks, NaNs, and missing-rate spikes",
+      "pain": "Uncalibrated drift alerts either flood on-call engineers with false alarms or miss variance explosions and NaN corruption.",
+      "trigger": "Compare baseline and current production feature distributions and design actionable drift alerts."
+    },
+    "zh-CN": {
+      "title": "数据与概念漂移监控设计",
+      "short": "检测均值偏移、方差暴增、常量列突变、NaN 污染与缺失率飙升，设计分级告警动作",
+      "pain": "监控只看均值不看方差与缺失率，或者阈值未校准导致告警风暴，掩盖了真正的上游字段损坏与分布漂移。",
+      "trigger": "对比基线与当前线上特征分布，排查均值、方差、常量列与缺失率漂移并设计告警门限。"
+    },
+    "ja": {
+      "title": "ドリフトモニター設計",
+      "short": "平均シフト・分散爆発・定数列の崩壊・NaN混入・欠損率急増を検知し実践的なアラートを設計",
+      "pain": "平均値だけを見て分散爆発やNaN汚染を見逃したり、閾値が未調整でオオカミ少年アラートを連発してしまう。",
+      "trigger": "ベースラインと現在の特徴量分布を比較し、平均・分散・欠損率ドリフトの監視ルールを設計してください。"
+    },
+    "ko": {
+      "title": "드리프트 모니터 디자이너",
+      "short": "평균 이동, 분산 폭증, 상수 컬럼 깨짐, NaN 오염, 결측률 급증을 탐지하고 실행 가능한 알림 설계",
+      "pain": "평균만 보다가 분산 폭증이나 NaN 오염을 놓치거나, 임계값 미조정으로 온콜 알림 피로도만 높임.",
+      "trigger": "베이스라인과 현재 운영 피처 분포를 비교해 평균·분산·결측률 드리프트를 진단하고 알림 기준을 설계해 줘."
+    }
+  }
 }
